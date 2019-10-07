@@ -7,3 +7,29 @@ and open the template in the editor.
     Created on : Sep 22, 2019, 12:01:03 AM
     Author     : PC
 */
+body,html {
+    height: 100%;
+    width: 100%;
+}
+body {
+    background-image: url("../img/main-bg2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.welcome-text {
+    color: #ffffff;
+    font-size: 4em;;
+}
+a.btn-explore{
+    text-decoration: none;
+    transition: 0.2s ease-in-out;
+}
+.btn-explore:hover {
+    background-color: #ffffff;
+    border: 1px solid lightblue
+}
+.container {
+    height: 100%;
+    flex-direction: column;
+}
