@@ -12,8 +12,7 @@
         <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/index.css" type="text/css" />
-        <script type="text/javascript" src="js/index.js"></script>
-        <title>JSP Page</title>
+        <title>Music is Magic</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
