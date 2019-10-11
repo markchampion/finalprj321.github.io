@@ -21,12 +21,11 @@ public class Song {
     private String downLink;
     private String avatar;
     private String lyrics;
-    private int commentID;
-
+ 
     public Song() {
     }
 
-    public Song(int ID, String name, String author, String signer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics, int commentID) {
+    public Song(int ID, String name, String author, String signer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.ID = ID;
         this.name = name;
         this.author = author;
@@ -38,8 +37,9 @@ public class Song {
         this.downLink = downLink;
         this.avatar = avatar;
         this.lyrics = lyrics;
-        this.commentID = commentID;
     }
+
+   
 
     public int getID() {
         return ID;
@@ -128,16 +128,4 @@ public class Song {
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
     }
-
-    public int getCommentID() {
-        return commentID;
-    }
-
-    public void setCommentID(int commentID) {
-        this.commentID = commentID;
-    }
-    
-    
-    
-    
 }

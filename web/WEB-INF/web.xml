@@ -4,9 +4,17 @@
         <servlet-name>AuthorizeServlet</servlet-name>
         <servlet-class>com.mark.controller.AuthorizeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadSongServlet</servlet-name>
+        <servlet-class>com.mark.controller.LoadSongServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
         <url-pattern>/signin.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadSongServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

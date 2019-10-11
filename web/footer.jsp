@@ -14,11 +14,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="mt-5 pt-5 pb-5 footer">
+        <div class="mt-5 pt-2 pb-2 footer mb-0">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5 col-xs-12 about-company">
-                        <h2>About Us</h2>
+                        <h4>About Us</h4>
                         <p class="pr-5 text-white-50">This is a project made of SE1320's team <br/> Supervisor: DAO TRONG DUY </p>
                         <p><a href="#"><i class="fa fa-facebook-square mr-1"></i></a><a href="#"><i class="fa fa-linkedin-square"></i></a></p>
                     </div>

@@ -75,7 +75,7 @@ div.search-form, .search-text{
     background-color: rgba(205, 236, 255,.5);
 }
 ul.main-nav-bar {
-    width: 50%;
+    width: 40%;
     padding: 0px;
     margin: 0px;
     list-style-type: none;
@@ -94,14 +94,15 @@ li.item {
     align-items: center;
     justify-content: center;
     height: 100%;
-    width: 8em;
+    width: 6em;
     transition: 0.25s ease-in-out;
 }
 li.item:hover {
     background-color: rgba(100, 87, 130,.4);
     color: #f1f2eb;
 }
-.item a {
+li.item a {
+    font-size: 14px;
     color: #ffffff;
     font-weight: bold;
     text-decoration: none;

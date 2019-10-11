@@ -32,7 +32,7 @@ public class UserDAO {
                 String email = rs.getString("email");
                 String role = rs.getString("role");
                 String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("createddate"));
-                boolean isActivated = rs.getInt("isactivated") == 1 ? true : false;
+                boolean isActivated = rs.getInt("isactivated") == 1;
                 String avatar = rs.getString("avatar");
                 return new User(ID, username, pass, firstName, lastName, address, phone, email, role, createdDate, isActivated, avatar);
             }

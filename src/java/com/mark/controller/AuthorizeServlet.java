@@ -40,7 +40,7 @@ public class AuthorizeServlet extends HttpServlet {
             if (action.equals("login")) {
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
-                User user = new User();
+                User user;
                 if (username != null && password != null) {
                     user = new UserDAO().verifyLogin(username, password);
                     if (user != null) {

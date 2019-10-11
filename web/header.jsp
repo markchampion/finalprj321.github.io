@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/header.css" type="text/css" />
-        <script type="text/javascript" src="header.js"></script>
+        <!--<script type="text/javascript" src="header.js"></script>-->
     </head>
     <body>
 
@@ -23,14 +23,17 @@
                 <div class="site-tag-name">
                     <h3>Tripple Mark mp3</h3>
                 </div>
-                <ul class="main-nav-bar">   
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+               <ul class="main-nav-bar">   
                     <li class="item"><a href="index.jsp">HOME</a></li>
                     <li class="item"><a href="#">TOP CHART</a></li>
                     <li class="item"><a href="#">STYLE</a></li>
                     <li class="item"><a href="#">SINGERS</a></li>
                     <li class="item"><a href="#">PERSONAL</a></li>
                 </ul>
-                <div class="search-form align-self-center">
+                <div class="search-form align-self-center mr-3">
                     <form class="d-flex align-items-center">
                         <input class="search-text bw0 br2 pl-1 pr-1" type="text" name="search-text" />
                         <button class="btn-search-icon search-form-icon br3" type="submit" value="submit"></button>
@@ -64,23 +67,24 @@
                             </ul>
                         </div>
                     </c:if>
-                    </div>
-                </nav>
-            </div>
-            <script>
-                var drop = document.getElementById("icon-go-down");
-                var drop_up = document.getElementById("icon-go-up");
-                drop.addEventListener('click', (e) => {
-                    document.getElementById("drop-down-login").classList.toggle('drop-hide');
-                    drop_up.classList.toggle('drop-hide');
-                    drop.classList.toggle('drop-hide');
-                });
-                drop_up.addEventListener('click', (e) => {
-                    document.getElementById("drop-down-login").classList.toggle('drop-hide');
-                    drop_up.classList.toggle('drop-hide');
-                    drop.classList.toggle('drop-hide');
-                });
-            </script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        </body>
-    </html>
+                </div>
+            </nav>
+        </div>
+        <script>
+//            var drop = document.getElementById("icon-go-down");
+//            var drop_up = document.getElementById("icon-go-up");
+//            drop.addEventListener('click', () => {
+//                document.getElementById("drop-down-login").classList.toggle('drop-hide');
+//                drop_up.classList.toggle('drop-hide');
+//                drop.classList.toggle('drop-hide');
+//                console.log('clocked');
+//            });
+//            drop_up.addEventListener('click', () => {
+//                document.getElementById("drop-down-login").classList.toggle('drop-hide');
+//                drop_up.classList.toggle('drop-hide');
+//                drop.classList.toggle('drop-hide');
+//            });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </body>
+</html>
