@@ -19,34 +19,49 @@
     <body>
 
         <div class="site-header d-flex">
-            <nav class="main-menu-bar">
-                <div class="site-tag-name">
-                    <h3>Tripple Mark mp3</h3>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-               <ul class="main-nav-bar">   
-                    <li class="item"><a href="index.jsp">HOME</a></li>
-                    <li class="item"><a href="#">TOP CHART</a></li>
-                    <li class="item"><a href="#">STYLE</a></li>
-                    <li class="item"><a href="#">SINGERS</a></li>
-                    <li class="item"><a href="#">PERSONAL</a></li>
-                </ul>
-                <div class="search-form align-self-center mr-3">
-                    <form class="d-flex align-items-center">
-                        <input class="search-text bw0 br2 pl-1 pr-1" type="text" name="search-text" />
-                        <button class="btn-search-icon search-form-icon br3" type="submit" value="submit"></button>
-                    </form>
-                </div>
-                <div class="login-system d-flex align-items-center">
-                    <c:if test="${sessionScope.logStatus == null}" >
+            <div class="container">
+                <nav class="main-menu-bar navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <!--<div class="login-system d-flex align-items-center">
+                    <%--<c:if test="${sessionScope.logStatus == null}" >--%>
                         <a href="login.jsp" class="d-flex align-items-center">
                             <img src="img/usericon.png" width="32" height="32" class=" mr-3"/>
                             <p class="m-0 login-text"> Login </p>
                         </a>
-                    </c:if>
-                    <c:if test="${sessionScope.logStatus != null}" >
+                    <%--</c:if>--%>
+                    <%--<c:if test="${sessionScope.logStatus != null}" >--%>
                         <a href="#" class="d-flex align-items-center">
                             <img src="img/usericon.png" width="48" height="48" class=" mr-3"/>
                             <div>
@@ -60,15 +75,17 @@
                             <ul class="drop-down-login-option m-0">
                                 <li class="drop-down-options p-3"><a href="">Personal information</a></li>
                                 <li class="drop-down-options p-3">
-                                    <c:url var="logout" value="signin.do">
-                                        <c:param name="action" value="logout" />
-                                    </c:url>
-                                    <a href="${logout}">Logout</a></li>
-                            </ul>
-                        </div>
-                    </c:if>
-                </div>
-            </nav>
+                    <%--<c:url var="logout" value="signin.do">--%>
+                    <%--<c:param name="action" value="logout" />--%>
+                    <%--</c:url>--%>
+                    <a href="${logout}">Logout</a></li>
+            </ul>
+        </div>
+                    <%--</c:if>--%>
+                        
+                </div>-->
+                </nav>
+            </div>
         </div>
         <script>
 //            var drop = document.getElementById("icon-go-down");

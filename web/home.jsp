@@ -17,7 +17,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="header.jsp" %>
+        <%@include file="newHeader.jsp" %>
         <div class="container d-flex flex-shrink">
             <div class="singer-card">
                 <img src="img/up-512.png" width="256" height="256"/>

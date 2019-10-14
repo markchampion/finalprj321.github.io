@@ -1,4 +1,7 @@
+package com.mark.drive;
 
+
+import java.*;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -35,7 +38,7 @@ public class DriveQuickstart {
      * these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "../resources/credentials.json";
 
     /**
      * Creates an authorized Credential object.
@@ -61,8 +64,12 @@ public class DriveQuickstart {
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
-    
-    public File uploadMp3(Drive service, String fileName, java.io.File filePath) throws IOException {
+
+   public static File uploadMp3(String fileName, java.io.File filePath) throws IOException, GeneralSecurityException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
         File fileMetadata = new File();
         fileMetadata.setName(fileName);
         FileContent fileContent = new FileContent("audio/MP3", filePath);
@@ -80,7 +87,17 @@ public class DriveQuickstart {
                 .build();
         // Print the names and IDs for up to 10 files.
         //UPLOAD
-       FileList result = service.files().list()
+//        File fileMetadata = new File();
+//        fileMetadata.setName("mysong.mp3");
+//        java.io.File filePath = new java.io.File("C:\\Users\\PC\\Documents\\NetBeansProjects\\PRJ321_FINAL_PROJECT\\web\\media\\Het-Thuong-Can-Nho-Duc-Phuc.mp3");
+//        FileContent mediaContent = new FileContent("audio/MP3", filePath);
+//        File file = service.files().create(fileMetadata, mediaContent)
+//                .setFields("id")
+//                .execute();
+//        
+//        System.out.println("File ID: " + file.getId());
+        //GET FILE
+        FileList result = service.files().list()
                 .setPageSize(10)
                 .setFields("nextPageToken, files(id, name)")
                 .execute();
