@@ -25,6 +25,19 @@ public class Song {
     public Song() {
     }
 
+    public Song(String name, String author, String signer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
+        this.name = name;
+        this.author = author;
+        this.signer = signer;
+        this.genre = genre;
+        this.uploaderID = uploaderID;
+        this.uploadedDate = uploadedDate;
+        this.viewCount = viewCount;
+        this.downLink = downLink;
+        this.avatar = avatar;
+        this.lyrics = lyrics;
+    }
+
     public Song(int ID, String name, String author, String signer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.ID = ID;
         this.name = name;
@@ -39,7 +52,7 @@ public class Song {
         this.lyrics = lyrics;
     }
 
-   
+    
 
     public int getID() {
         return ID;

@@ -13,7 +13,7 @@ and open the template in the editor.
 html, body {
     height: 100%;
 }
-.container {
+div.container {
     align-self: center;
     min-width: 400px;
     min-height: 500px;

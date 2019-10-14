@@ -8,6 +8,8 @@ package com.mark.dao;
 import com.mark.context.DBContext;
 import com.mark.model.Song;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -18,15 +20,14 @@ import java.util.List;
  * @author PC
  */
 public class SongDAO {
-    
-    
+
     //SELECT SONGS
     public List<Song> select() {
         List<Song> list = new LinkedList<>();
         String sql = "select * from song";
         try (Connection conn = new DBContext().getConnection();
-                ResultSet rs = conn.prepareStatement(sql).executeQuery()){
-            while(rs.next()) {
+                ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
+            while (rs.next()) {
                 int ID = rs.getInt("id");
                 String name = rs.getString("name");
                 String author = rs.getString("author");
@@ -44,5 +45,28 @@ public class SongDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    //INSERT SONG
+    public void insert(Song s) {
+        String sql = "insert into song ( [name], author, singer, genre, UploaderId,UploadedDate, Viewcount, Downlink, Avatar, Lyrics) values \n"
+                + "(?,?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, s.getName());
+            ps.setString(2, s.getAuthor());
+            ps.setString(3, s.getSigner());
+            ps.setString(4, s.getGenre());
+            ps.setInt(5, s.getUploaderID());
+            ps.setDate(6, new Date(new java.util.Date().getTime()));
+            ps.setInt(7, 0);//VIEWCOUNT
+            ps.setString(8, s.getDownLink());
+            ps.setString(9, s.getAvatar());
+            ps.setString(10, s.getLyrics());
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

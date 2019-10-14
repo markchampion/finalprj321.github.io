@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:if test="${sessionScope.logStatus != null}" >
-    <jsp:forward page="index.jsp" />
+    <c:redirect url="index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="header.jsp" %>
+        <%@include file="newHeader.jsp" %>
         <div class="container">
             <nav>
                 <div class="signin">
@@ -43,7 +43,7 @@
                         </div>
                         <input type="password" class="form-control" placeholder="Your Password" name="password" required>
                     </div>
-                    <c:if test="${sessionScope.status == false}" >
+                    <c:if test="${param.status == false}" >
                         <p>User name or password is not correct!</p>
                     </c:if>
                     <input type="hidden" name="action" value="login" />

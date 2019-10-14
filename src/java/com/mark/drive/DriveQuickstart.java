@@ -1,6 +1,5 @@
 package com.mark.drive;
 
-
 import java.*;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -65,18 +64,44 @@ public class DriveQuickstart {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-   public static File uploadMp3(String fileName, java.io.File filePath) throws IOException, GeneralSecurityException {
+    /**
+     * Insert a new permission.
+     *
+     * @param fileName
+     * @param filePath
+     * @return The inserted permission if successful, {@code null} otherwise.
+     * @throws java.io.IOException
+     * @throws java.security.GeneralSecurityException
+     */
+    public static File uploadMp3(String fileName, java.io.File filePath) throws IOException, GeneralSecurityException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        // First retrieve the permission from the API.
+        File fileMetadata = new File();
+        fileMetadata.setName(fileName);
+        FileContent fileContent = new FileContent("audio/MP3", filePath);
+        File file = service.files().create(fileMetadata, fileContent)
+                .setFields("webContentLink")
+                .execute();
+        return file;
+
+    }
+
+    public static File uploadImage(String fileName, java.io.File filePath) throws Exception {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         File fileMetadata = new File();
         fileMetadata.setName(fileName);
-        FileContent fileContent = new FileContent("audio/MP3", filePath);
+        FileContent fileContent = new FileContent("image/jpeg", filePath);
         File file = service.files().create(fileMetadata, fileContent)
                 .setFields("id")
                 .execute();
         return file;
+
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
@@ -99,7 +124,7 @@ public class DriveQuickstart {
         //GET FILE
         FileList result = service.files().list()
                 .setPageSize(10)
-                .setFields("nextPageToken, files(id, name)")
+                .setFields("nextPageToken, files(id, name, webContentLink)")
                 .execute();
         List<File> files = result.getFiles();
         if (files == null || files.isEmpty()) {
@@ -107,7 +132,7 @@ public class DriveQuickstart {
         } else {
             System.out.println("Files:");
             for (File file : files) {
-                System.out.printf("%s (%s)\n", file.getName(), file.getId());
+                System.out.printf("%s (%s)\n", file.getId(), file.getWebContentLink());
             }
         }
         //WORKED

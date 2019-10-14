@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -46,6 +47,8 @@ public class LoadSongServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String action = request.getParameter("action");
@@ -54,26 +57,42 @@ public class LoadSongServlet extends HttpServlet {
                 request.setAttribute("songs", songs);
                 request.getRequestDispatcher("home.jsp").forward(request, response);
             } else if (action != null && action.equals("Add Song")) {
-//                String name = request.getParameter("name");
-//                String author = request.getParameter("author");
-//                String singer = request.getParameter("singer");
-//                String genre = request.getParameter("genre");
-//                int userid = Integer.parseInt(request.getParameter("userid"));
-//                Date d = new Date();
-//                int viewCount = Integer.parseInt(request.getParameter("viewCount"));
-//                String downLink = request.getParameter("downlink");
-//                String avatar = request.getParameter("avatar");
-//                String lyrics = request.getParameter("lyrics");
-//              
-                Part filePart = request.getPart("fileattach");
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                InputStream fileContent = filePart.getInputStream();
-                java.io.File filePath = new File("fileName"+".mp3");
-                FileOutputStream fos = new FileOutputStream(filePath);
-                IOUtils.copy(fileContent, fos);
+                String name = request.getParameter("name");
+                String author = request.getParameter("author");
+                String singer = request.getParameter("singer");
+                String genre = request.getParameter("genre");
+                int userid = Integer.parseInt(request.getParameter("userid"));
+                String lyrics = request.getParameter("lyrics");
+                Part fileMp3 = request.getPart("fileattach");
+                Part fileAvatar = request.getPart("fileavatar");
+
+                String fileNameMp3 = Paths.get(fileMp3.getSubmittedFileName()).getFileName().toString();
+                InputStream fileContentMp3 = fileMp3.getInputStream();
+                java.io.File filePath = new File("fileName" + ".mp3");
+                FileOutputStream fosMp3 = new FileOutputStream(filePath);
+                IOUtils.copy(fileContentMp3, fosMp3);
+
+                String fileNameAvatar = Paths.get(fileAvatar.getSubmittedFileName()).getFileName().toString();
                 try {
-                    DriveQuickstart.uploadMp3(fileName, filePath);
-                } catch (GeneralSecurityException ex) {
+                    com.google.api.services.drive.model.File linkMp3 = DriveQuickstart.uploadMp3(fileNameMp3, filePath);
+                    com.google.api.services.drive.model.File linkAvatar = null;
+                    if (fileNameAvatar != null) {
+                        InputStream fileContentAvatar = fileAvatar.getInputStream();
+                        java.io.File filePathAvatar = new File("fileName" + ".jpg");
+                        FileOutputStream fosAvatar = new FileOutputStream(filePathAvatar);
+                        IOUtils.copy(fileContentAvatar, fosAvatar);
+                        linkAvatar = DriveQuickstart.uploadImage(fileNameAvatar, filePathAvatar);
+                    }
+                    System.out.println("link: " + linkMp3.getWebContentLink());
+                    Song s = new Song(name, author, singer, genre, userid,
+                            new SimpleDateFormat("dd-MM-yyyy").format(new Date()), 
+                            0,
+                            linkMp3.getWebContentLink(), linkAvatar != null ? linkAvatar.getId() : "", lyrics);
+                    new SongDAO().insert(s);
+                    List<Song> songs = new SongDAO().select();
+                    request.setAttribute("songs", songs);
+                    request.getRequestDispatcher("home.jsp").forward(request, response);
+                } catch (Exception ex) {
                     Logger.getLogger(LoadSongServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

@@ -13,28 +13,28 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="header.jsp" %>
+        <%@include file="newHeader.jsp" %>
         <div class="container-fluid bg-light-blue" style="height: 50px">          
         </div>
         <div class="container d-flex">
             <div class="info-tab-column">
                 <div class="info-sub-tab d-flex border p-2">
-                    <span>
+                    <a href="infosetting.jsp"><span>
                         <img src="img/usericon.png" width="48" height="48" />
                         Personal information
-                    </span>
+                        </span></a>
                 </div>
                 <div class="info-sub-tab d-flex border-left border-bottom p-2">
-                    <span>
+                     <a href="info-security.jsp"> <span>
                         <img src="img/passicon.png" width="48" height="48" />
                         Security
-                    </span>
+                        </span></a>
                 </div>
                 <div class="info-sub-tab d-flex border p-2">
-                    <span>
+                    <a href="info-uploaded.jsp"><span>
                         <img src="img/usericon.png" width="48" height="48" />
                         Song uploaded
-                    </span>
+                        </span></a>
                 </div>
             </div>
             <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">

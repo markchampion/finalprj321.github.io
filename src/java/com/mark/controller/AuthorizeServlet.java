@@ -37,7 +37,7 @@ public class AuthorizeServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String action = request.getParameter("action");
             HttpSession session = request.getSession(true);
-            if (action.equals("login")) {
+            if (action != null && action.equals("login")) {
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 User user;
@@ -47,17 +47,17 @@ public class AuthorizeServlet extends HttpServlet {
                         if (session.getAttribute("logStatus") == null) {
                             session.setAttribute("logStatus", user);
                         }
-                        response.sendRedirect("login.jsp");
+                        response.sendRedirect("login.jsp?status='true'");
                         return;
                     } else {
-                        session.setAttribute("status", false);
-                        response.sendRedirect("login.jsp");
+                        session.setAttribute("logStatus", null);
+                        response.sendRedirect("login.jsp?status='false'");
                         return;
                     }
                 }
                 session.setAttribute("logStatus", null);
-                response.sendRedirect("login.jsp");
-            } else if(action.equals("logout")) {
+                response.sendRedirect("login.jsp?status='false'");
+            } else if(action != null && action.equals("logout")) {
                 session.setAttribute("logStatus", null);
                 response.sendRedirect("index.jsp");
             }
