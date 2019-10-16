@@ -17,7 +17,10 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.api-client:google-api-client:1.23.0'
+	compile (group: 'com.google.api-client', name: 'google-api-client-appengine', version: '1.23.0') {
+    exclude group:'javax.servlet'
+    }
+	compile 'com.google.guava:guava:28.1-jre'
     compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev173-1.25.0'
 }

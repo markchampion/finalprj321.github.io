@@ -5,15 +5,19 @@
         <servlet-class>com.mark.controller.AuthorizeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoadSongServlet</servlet-name>
-        <servlet-class>com.mark.controller.LoadSongServlet</servlet-class>
+        <servlet-name>LoadingSongServlet</servlet-name>
+        <servlet-class>com.mark.controller.LoadingSongServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
         <url-pattern>/signin.do</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
     <servlet-mapping>
-        <servlet-name>LoadSongServlet</servlet-name>
+        <servlet-name>LoadingSongServlet</servlet-name>
         <url-pattern>/list</url-pattern>
     </servlet-mapping>
     <session-config>

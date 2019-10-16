@@ -17,7 +17,6 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.Permission;
-import com.google.api.services.drive.model.PermissionList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,12 +78,16 @@ public class DriveQuickstart {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         // First retrieve the permission from the API.
+        Permission permission = new Permission()
+                .setType("anyone")
+                .setRole("writer");
         File fileMetadata = new File();
         fileMetadata.setName(fileName);
         FileContent fileContent = new FileContent("audio/MP3", filePath);
         File file = service.files().create(fileMetadata, fileContent)
-                .setFields("webContentLink")
+                .setFields("id")
                 .execute();
+        service.permissions().create(file.getId(), permission).execute();
         return file;
 
     }
@@ -104,6 +107,24 @@ public class DriveQuickstart {
 
     }
 
+    public static void hihihi() throws IOException, GeneralSecurityException{
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        Permission permission = new Permission()
+                .setType("anyone")
+                .setRole("writer");
+        File fileMetadata = new File();
+        fileMetadata.setName("mysong.mp3");
+        java.io.File filePath = new java.io.File("C:\\Users\\PC\\Documents\\NetBeansProjects\\PRJ321_FINAL_PROJECT\\web\\media\\Het-Thuong-Can-Nho-Duc-Phuc.mp3");
+        FileContent mediaContent = new FileContent("audio/MP3", filePath);
+        File file = service.files().create(fileMetadata, mediaContent)
+                .setFields("id")
+                .execute();
+        System.out.println(service.permissions().create(file.getId(), permission).execute() == null);
+        System.out.println("File ID: " + file.getId());
+    }
     public static void main(String... args) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -112,27 +133,23 @@ public class DriveQuickstart {
                 .build();
         // Print the names and IDs for up to 10 files.
         //UPLOAD
-//        File fileMetadata = new File();
-//        fileMetadata.setName("mysong.mp3");
-//        java.io.File filePath = new java.io.File("C:\\Users\\PC\\Documents\\NetBeansProjects\\PRJ321_FINAL_PROJECT\\web\\media\\Het-Thuong-Can-Nho-Duc-Phuc.mp3");
-//        FileContent mediaContent = new FileContent("audio/MP3", filePath);
-//        File file = service.files().create(fileMetadata, mediaContent)
-//                .setFields("id")
-//                .execute();
-//        
-//        System.out.println("File ID: " + file.getId());
+//        hihihi();
         //GET FILE
         FileList result = service.files().list()
                 .setPageSize(10)
-                .setFields("nextPageToken, files(id, name, webContentLink)")
+                .setFields("nextPageToken, files(id, name, webContentLink, webViewLink)")
                 .execute();
+        Permission permission = new Permission()
+                .setType("anyone")
+                .setRole("writer");
         List<File> files = result.getFiles();
         if (files == null || files.isEmpty()) {
             System.out.println("No files found.");
         } else {
             System.out.println("Files:");
             for (File file : files) {
-                System.out.printf("%s (%s)\n", file.getId(), file.getWebContentLink());
+                    System.out.println(service.permissions().create(file.getId(), permission).execute() == null);
+                System.out.printf("%s (%s)\n", file.getName(), file.getWebContentLink());
             }
         }
         //WORKED
