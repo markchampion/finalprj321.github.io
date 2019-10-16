@@ -20,7 +20,7 @@
         <%@include file="newHeader.jsp" %>
         <div class="container-fluid bg-light-blue" style="height: 50px">          
         </div>
-        <div class="container d-flex">
+        <div class="container d-flex col-lg-6 bg-light">
             <div class="info-tab-column">
                 <div class="info-sub-tab d-flex border p-2">
                     <a href="infosetting.jsp"><span>

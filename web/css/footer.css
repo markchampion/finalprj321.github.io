@@ -7,8 +7,13 @@ and open the template in the editor.
     Created on : Oct 7, 2019, 6:12:15 PM
     Author     : PC
 */
-
+doby {
+    
+}
 .footer{
+    position: relative;
+    width: 100%;
+    bottom: 0%;
   background-color: rgba(4, 6, 66,.3);
   color:white;
   .links{
