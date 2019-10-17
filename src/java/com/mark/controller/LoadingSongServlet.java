@@ -22,17 +22,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author PC
  */
 @MultipartConfig
-public class LoadingSongServlet extends HttpServlet {
+public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +39,7 @@ public class LoadingSongServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -62,8 +58,8 @@ public class LoadingSongServlet extends HttpServlet {
                 String genre = request.getParameter("genre");
                 int userid = Integer.parseInt(request.getParameter("userid"));
                 String lyrics = request.getParameter("lyrics");
-                Part fileMp3 = request.getPart("fileattach");
-                Part fileAvatar = request.getPart("fileavatar");
+                javax.servlet.http.Part fileMp3 = request.getPart("fileattach");
+                javax.servlet.http.Part fileAvatar = request.getPart("fileavatar");
 
                 String fileNameMp3 = Paths.get(fileMp3.getSubmittedFileName()).getFileName().toString();
                 InputStream fileContentMp3 = fileMp3.getInputStream();
@@ -73,8 +69,7 @@ public class LoadingSongServlet extends HttpServlet {
 
                 String fileNameAvatar = Paths.get(fileAvatar.getSubmittedFileName()).getFileName().toString();
                 try {
-                    com.mark.drive.DriveQuickstart.hihihi();
-                    com.google.api.services.drive.model.File linkMp3 = null ;
+                    com.google.api.services.drive.model.File linkMp3 = DriveQuickstart.uploadMp3(fileNameMp3, filePath);
                     com.google.api.services.drive.model.File linkAvatar = null;
                     if (fileNameAvatar != null) {
                         InputStream fileContentAvatar = fileAvatar.getInputStream();
@@ -109,7 +104,7 @@ public class LoadingSongServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -123,7 +118,7 @@ public class LoadingSongServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

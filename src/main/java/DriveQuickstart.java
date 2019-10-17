@@ -32,7 +32,7 @@ public class DriveQuickstart {
      * these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "resources/credentials.json";
 
     /**
      * Creates an authorized Credential object.
