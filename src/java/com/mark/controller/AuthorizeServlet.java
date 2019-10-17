@@ -44,21 +44,16 @@ public class AuthorizeServlet extends HttpServlet {
                 if (username != null && password != null) {
                     user = new UserDAO().verifyLogin(username, password);
                     if (user != null) {
-                        if (session.getAttribute("logStatus") == null) {
-                            session.setAttribute("logStatus", user);
-                        }
-                        response.sendRedirect("login.jsp?status='true'");
+                        session.setAttribute("logStatus", user);
+                        response.sendRedirect("login.jsp");
                         return;
-                    } else {
-                        session.setAttribute("logStatus", null);
-                        response.sendRedirect("login.jsp?status='false'");
-                        return;
-                    }
+                    } 
                 }
-                session.setAttribute("logStatus", null);
-                response.sendRedirect("login.jsp?status='false'");
+                session.setAttribute("error", "Username or Password incorrect!!!");
+                response.sendRedirect("login.jsp");
             } else if(action != null && action.equals("logout")) {
-                session.setAttribute("logStatus", null);
+                session.removeAttribute("logStatus");
+                session.removeAttribute("error");
                 response.sendRedirect("index.jsp");
             }
         }

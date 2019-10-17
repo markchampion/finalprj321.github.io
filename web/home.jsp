@@ -48,7 +48,17 @@
                 </div>
             </div>
             <div class="inside-1-2 bg-light-blue">
-
+                <h4>Hot Music</h4>
+                <div class="vertical-song-card bg-light d-flex border-dark border-bottom ">
+                    <div class="card-order pt-2 pl-3 pr-3"><span>1</span></div>
+                    <a class="img-title pr-3" href="">
+                        <img src="img/usericon.png" width="42" height="42" />
+                    </a>
+                    <div class="singer-title">
+                        <p class="song-name m-0">Song name</p>
+                        <span class="singer-name">Singer</span>
+                    </div>
+                </div>
             </div>
             <div class="inside-2-1 bg-light-blue" >
                 <h3 class="text-white">What's new today</h3>
@@ -72,10 +82,10 @@
                 </div>
             </div>
             <div class="inside-2-2 bg-primary">
-                
+
             </div>
             <div class="inside-3-1 bg-light">
-                
+
             </div>
             <div class="song-list pt-5 pl-4 pr-4 m-auto">
                 <c:forEach var="s" items="${songs}">

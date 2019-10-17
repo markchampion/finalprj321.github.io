@@ -14,28 +14,7 @@ html, body {
     height: 100%;
 }
 div.container {
-    align-self: center;
-    min-width: 400px;
-    min-height: 500px;
+    height: 75%;
 }
-.show {
-    visibility: visible;
-    
-}.hide-form{
-    display: none;
-    background-color: red;
-}
-.signin, .signup {
-    width: 50%;
-    min-height: 100px;
-    margin: 0px;
-    padding: 0;
-    text-align: center;
-}
-.signup {
-    float: right;
-}
-.signin {
-    float: left;
-    margin-left: auto;
-}
+
+

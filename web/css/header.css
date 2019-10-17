@@ -16,11 +16,14 @@ nav.main-menu-bar {
     justify-content: center;
 
 }
+
 div.site-header {
     background-color: rgba(4, 6, 66,.3);
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
-    font-family: Mansalva;
     position: relative;
+}
+nav.container {
+    font-family: 'Indie Flower', cursive  !important;
 }
 div.site-tag-name {
     color: #ffffff;

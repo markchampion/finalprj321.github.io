@@ -39,7 +39,7 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     <div class="nav-item dropdown pl-3">
-                        <c:if test="${sessionScope.logStatus != null}" >
+                        <c:if test="${not empty sessionScope.logStatus}" >
                             <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ${sessionScope.logStatus.username}
                             </a>
@@ -50,7 +50,7 @@
                                 <!--<a class="dropdown-item text-dark" href="#">Something else here</a>-->
                             </div>
                         </c:if>
-                        <c:if test="${sessionScope.logStatus == null}">
+                        <c:if test="${empty sessionScope.logStatus}">
                             <a href="login.jsp"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>
                         </c:if>
                     </div>

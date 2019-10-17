@@ -78,11 +78,10 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
                         IOUtils.copy(fileContentAvatar, fosAvatar);
                         linkAvatar = DriveQuickstart.uploadImage(fileNameAvatar, filePathAvatar);
                     }
-                    System.out.println("link: " + linkMp3.getWebContentLink());
                     Song s = new Song(name, author, singer, genre, userid,
                             new SimpleDateFormat("dd-MM-yyyy").format(new Date()), 
                             0,
-                            linkMp3.getWebContentLink(), linkAvatar != null ? linkAvatar.getId() : "", lyrics);
+                            linkMp3.getId(), linkAvatar != null ? linkAvatar.getId() : "", lyrics);
                     new SongDAO().insert(s);
                     List<Song> songs = new SongDAO().select();
                     request.setAttribute("songs", songs);
