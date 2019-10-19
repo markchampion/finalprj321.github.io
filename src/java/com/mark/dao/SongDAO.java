@@ -24,7 +24,8 @@ public class SongDAO {
     //SELECT SONGS
     public List<Song> select() {
         List<Song> list = new LinkedList<>();
-        String sql = "select * from song";
+        String sql = "select * from Song, Artist, Writer \n" +
+        "where song.ArtistID = Artist.ID and song.WriterID = Writer.ID";
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
             while (rs.next()) {
@@ -39,7 +40,6 @@ public class SongDAO {
                 String avatar = rs.getString("avatar");
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String lyrics = rs.getString("lyrics");
-                list.add(new Song(ID, name, author, singer, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,22 +49,22 @@ public class SongDAO {
 
     //INSERT SONG
     public void insert(Song s) {
-        String sql = "insert into song ( [name], author, singer, genre, UploaderId,UploadedDate, Viewcount, Downlink, Avatar, Lyrics) values \n"
+        String sql = "insert into song ( [name], writerid, albumid, artistid, genre, UploaderId,UploadedDate, Viewcount, Downlink, Avatar, Lyrics) values \n"
                 + "(?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = new DBContext().getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, s.getName());
-            ps.setString(2, s.getAuthor());
-            ps.setString(3, s.getSigner());
-            ps.setString(4, s.getGenre());
-            ps.setInt(5, s.getUploaderID());
-            ps.setDate(6, new Date(new java.util.Date().getTime()));
-            ps.setInt(7, 0);//VIEWCOUNT
-            ps.setString(8, s.getDownLink());
-            ps.setString(9, s.getAvatar());
-            ps.setString(10, s.getLyrics());
+            ps.setString(2, s.getWriterID());
+            ps.setString(3, s.getAlbumID());
+            ps.setString(4, s.getArtistID());
+            ps.setString(5, s.getGenre());
+            ps.setInt(6, s.getUploaderID());
+            ps.setDate(7, new Date(new java.util.Date().getTime()));
+            ps.setInt(8, 0);//VIEWCOUNT
+            ps.setString(9, s.getDownLink());
+            ps.setString(10, s.getAvatar());
+            ps.setString(11, s.getLyrics());
             ps.executeUpdate();
-            
         } catch (Exception e) {
             e.printStackTrace();
         }

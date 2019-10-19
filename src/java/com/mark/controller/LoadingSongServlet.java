@@ -51,45 +51,7 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
                 List<Song> songs = new SongDAO().select();
                 request.setAttribute("songs", songs);
                 request.getRequestDispatcher("home.jsp").forward(request, response);
-            } else if (action != null && action.equals("Add Song")) {
-                String name = request.getParameter("name");
-                String author = request.getParameter("author");
-                String singer = request.getParameter("singer");
-                String genre = request.getParameter("genre");
-                int userid = Integer.parseInt(request.getParameter("userid"));
-                String lyrics = request.getParameter("lyrics");
-                javax.servlet.http.Part fileMp3 = request.getPart("fileattach");
-                javax.servlet.http.Part fileAvatar = request.getPart("fileavatar");
-
-                String fileNameMp3 = Paths.get(fileMp3.getSubmittedFileName()).getFileName().toString();
-                InputStream fileContentMp3 = fileMp3.getInputStream();
-                java.io.File filePath = new File("fileName" + ".mp3");
-                FileOutputStream fosMp3 = new FileOutputStream(filePath);
-                IOUtils.copy(fileContentMp3, fosMp3);
-
-                String fileNameAvatar = Paths.get(fileAvatar.getSubmittedFileName()).getFileName().toString();
-                try {
-                    com.google.api.services.drive.model.File linkMp3 = DriveQuickstart.uploadMp3(fileNameMp3, filePath);
-                    com.google.api.services.drive.model.File linkAvatar = null;
-                    if (fileNameAvatar != null) {
-                        InputStream fileContentAvatar = fileAvatar.getInputStream();
-                        java.io.File filePathAvatar = new File("fileName" + ".jpg");
-                        FileOutputStream fosAvatar = new FileOutputStream(filePathAvatar);
-                        IOUtils.copy(fileContentAvatar, fosAvatar);
-                        linkAvatar = DriveQuickstart.uploadImage(fileNameAvatar, filePathAvatar);
-                    }
-                    Song s = new Song(name, author, singer, genre, userid,
-                            new SimpleDateFormat("dd-MM-yyyy").format(new Date()), 
-                            0,
-                            linkMp3.getId(), linkAvatar != null ? linkAvatar.getId() : "", lyrics);
-                    new SongDAO().insert(s);
-                    List<Song> songs = new SongDAO().select();
-                    request.setAttribute("songs", songs);
-                    request.getRequestDispatcher("home.jsp").forward(request, response);
-                } catch (Exception ex) {
-                    Logger.getLogger(LoadingSongServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            } 
         }
     }
 

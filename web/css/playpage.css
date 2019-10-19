@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 18, 2019, 9:42:48 AM
+    Author     : PC
+*/
+html,body {
+    width: 100%;
+    height: 100%;
+}
+#pButton {
+    height:60px;
+    width: 60px;
+    border: none;
+    background-size: 70% 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    float:left;
+    outline:none;
+}
+.play {
+    background: url(https://visualpharm.com/assets/54/Play-595b40b65ba036ed117d4529.svg);
+}
+.pause {
+    background: url(https://visualpharm.com/assets/891/Stop-595b40b65ba036ed117d45cc.svg);
+}

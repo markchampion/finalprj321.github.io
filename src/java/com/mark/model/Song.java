@@ -12,8 +12,9 @@ package com.mark.model;
 public class Song {
     private int ID;
     private String name;
-    private String author;
-    private String signer;
+    private String writerID;
+    private String albumID;
+    private String artistID;
     private String genre;
     private int uploaderID;
     private String uploadedDate;
@@ -25,24 +26,12 @@ public class Song {
     public Song() {
     }
 
-    public Song(String name, String author, String signer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
-        this.name = name;
-        this.author = author;
-        this.signer = signer;
-        this.genre = genre;
-        this.uploaderID = uploaderID;
-        this.uploadedDate = uploadedDate;
-        this.viewCount = viewCount;
-        this.downLink = downLink;
-        this.avatar = avatar;
-        this.lyrics = lyrics;
-    }
-
-    public Song(int ID, String name, String author, String signer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
+    public Song(int ID, String name, String writerID, String albumID, String artistID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.ID = ID;
         this.name = name;
-        this.author = author;
-        this.signer = signer;
+        this.writerID = writerID;
+        this.albumID = albumID;
+        this.artistID = artistID;
         this.genre = genre;
         this.uploaderID = uploaderID;
         this.uploadedDate = uploadedDate;
@@ -51,8 +40,6 @@ public class Song {
         this.avatar = avatar;
         this.lyrics = lyrics;
     }
-
-    
 
     public int getID() {
         return ID;
@@ -70,20 +57,28 @@ public class Song {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getWriterID() {
+        return writerID;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setWriterID(String writerID) {
+        this.writerID = writerID;
     }
 
-    public String getSigner() {
-        return signer;
+    public String getAlbumID() {
+        return albumID;
     }
 
-    public void setSigner(String signer) {
-        this.signer = signer;
+    public void setAlbumID(String albumID) {
+        this.albumID = albumID;
+    }
+
+    public String getArtistID() {
+        return artistID;
+    }
+
+    public void setArtistID(String artistID) {
+        this.artistID = artistID;
     }
 
     public String getGenre() {
@@ -141,4 +136,7 @@ public class Song {
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
     }
+    
+    
+    
 }

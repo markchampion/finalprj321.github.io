@@ -8,6 +8,10 @@
         <servlet-name>LoadingSongServlet</servlet-name>
         <servlet-class>com.mark.controller.LoadingSongServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadSongServlet</servlet-name>
+        <servlet-class>com.mark.controller.UploadSongServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
         <url-pattern>/signin.do</url-pattern>
@@ -19,6 +23,10 @@
     <servlet-mapping>
         <servlet-name>LoadingSongServlet</servlet-name>
         <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadSongServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
