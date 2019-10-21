@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
+<jsp:useBean id="songs" class="com.mark.dao.SongDAO" scope="application" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,16 +51,18 @@
             </div>
             <div class="inside-1-2 bg-light-blue">
                 <h4>Hot Music</h4>
-                <div class="vertical-song-card bg-light d-flex border-dark border-bottom ">
-                    <div class="card-order pt-2 pl-3 pr-3"><span>1</span></div>
-                    <a class="img-title pr-3" href="">
-                        <img src="img/usericon.png" width="42" height="42" />
-                    </a>
-                    <div class="singer-title">
-                        <p class="song-name m-0">Song name</p>
-                        <span class="singer-name">Singer</span>
+                <c:forEach var="s" items="${songs}">
+                    <div class="vertical-song-card bg-light d-flex border-dark border-bottom">
+                        <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>
+                        <a class="img-title pr-3" href="play?id=${s.ID}">
+                            <img src="${s.avatar}" width="42" height="42" />
+                        </a>
+                        <div class="singer-title">
+                            <p class="song-name m-0">${s.name}</p>
+                            <span class="singer-name"><t:ArtistTag songID="${s.ID}" /></span>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
             </div>
             <div class="inside-2-1 bg-light-blue" >
                 <h3 class="text-white">What's new today</h3>
@@ -67,7 +71,7 @@
                         <img class="p-1"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg"/>  
                         <span class="pb-1 pl-1">Click to view</span>
                     </a>
-                    <a>
+                    <a> 
                         <img class="p-1"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg"/>  
                         <span class="pb-1 pl-1">Click to view</span>
                     </a>
@@ -86,21 +90,7 @@
             </div>
             <div class="inside-3-1 bg-light">
 
-            </div>
-            <div class="song-list pt-5 pl-4 pr-4 m-auto">
-                <c:forEach var="s" items="${songs}">
-                    <div class="song-card d-flex bg-light-blue">
-                        <div><img src="img/up-512.png" width="92" height="92"/></div>
-                        <div class="song-card-info" >
-                            <p><bold>${s.name}</bold></p>
-                            <p>${s.signer}</p>
-                        </div>
-                        <audio controls>
-                            <source src="${s.downLink}" type="audio/mp3" />
-                        </audio>
-                    </div>
-                </c:forEach>
-            </div>
+            </div>         
         </div>
         <%--<%@include file="footer.jsp" %>--%>
         <jsp:include page="footer.jsp" />

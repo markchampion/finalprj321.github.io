@@ -5,16 +5,11 @@
  */
 package com.mark.tag;
 
-import com.mark.context.DBContext;
 import com.mark.dao.ArtistDAO;
-import com.mark.model.Artist;
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
@@ -22,9 +17,9 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author PC
  */
-public class ComboBox extends SimpleTagSupport {
+public class ArtistTag extends SimpleTagSupport {
 
-    private String name;
+    private int songID;
 
     /**
      * Called by the container to invoke this tag. The implementation of this
@@ -34,7 +29,7 @@ public class ComboBox extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException {
         JspWriter out = getJspContext().getOut();
-
+        
         try {
             // TODO: insert code to write html before writing the body content.
             // e.g.:
@@ -42,39 +37,28 @@ public class ComboBox extends SimpleTagSupport {
             // out.println("<strong>" + attribute_1 + "</strong>");
             // out.println("    <blockquote>");
 
-            JspFragment f = getJspBody();
-
-            PageContext pc = (PageContext) getJspContext();
-            HttpServletRequest request = (HttpServletRequest) pc.getRequest();
-            if (name.equals("artist")) {
-                List<Artist> lst = new LinkedList<>();
-                request.setAttribute("artists", lst);
-                lst = new ArtistDAO().getArtists();
-                out.println("<select name='"+name+"'>");
-                for (Artist artist : lst) {
-                    request.setAttribute("val", artist.getName());
-                    if (f != null) {
-                        f.invoke(out);
-                    }
-                }
-                out.println("</select>");
-                
-            }
-            if (f != null) {
+            List<com.mark.model.Artist> list = new LinkedList<>();
+            list = new ArtistDAO().getArtistList(songID);
+            System.out.println(list.size());
+            for (com.mark.model.Artist artist : list) {
+                out.println(artist.getName()+" ");
+                JspFragment f = getJspBody();
+                if (f != null) {
                     f.invoke(out);
                 }
-
+            }
+            
             // TODO: insert code to write html after writing the body content.
             // e.g.:
             //
             // out.println("    </blockquote>");
         } catch (java.io.IOException ex) {
-            throw new JspException("Error in ComboBox tag", ex);
+            throw new JspException("Error in ArtistTag tag", ex);
         }
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSongID(int SongID) {
+        this.songID = SongID;
     }
-
+    
 }

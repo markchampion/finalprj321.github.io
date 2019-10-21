@@ -21,7 +21,7 @@
         <div class="container d-flex align-items-center justify-content-center">
             <p class="welcome-text">The Magic Of Music</p>
 
-            <a href="home.jsp" class="btn-explore bw1 bg-light-blue p-3">Explore Now</a>
+            <a href="list" class="btn-explore bw1 bg-light-blue p-3">Explore Now</a>
 
             <audio controls>
                 <source src="https://docs.google.com/uc?export=download&id=1qrHUVdfBp5YpQ2lbIPuWeo-n6_ZhUgwC" type="audio/mpeg">

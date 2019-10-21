@@ -10,11 +10,11 @@ package com.mark.model;
  * @author PC
  */
 public class Song {
+
     private int ID;
     private String name;
     private String writerID;
     private String albumID;
-    private String artistID;
     private String genre;
     private int uploaderID;
     private String uploadedDate;
@@ -22,16 +22,15 @@ public class Song {
     private String downLink;
     private String avatar;
     private String lyrics;
- 
+
     public Song() {
     }
 
-    public Song(int ID, String name, String writerID, String albumID, String artistID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
+    public Song(int ID, String name, String writerID, String albumID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.ID = ID;
         this.name = name;
         this.writerID = writerID;
         this.albumID = albumID;
-        this.artistID = artistID;
         this.genre = genre;
         this.uploaderID = uploaderID;
         this.uploadedDate = uploadedDate;
@@ -71,14 +70,6 @@ public class Song {
 
     public void setAlbumID(String albumID) {
         this.albumID = albumID;
-    }
-
-    public String getArtistID() {
-        return artistID;
-    }
-
-    public void setArtistID(String artistID) {
-        this.artistID = artistID;
     }
 
     public String getGenre() {
@@ -136,7 +127,5 @@ public class Song {
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
     }
-    
-    
-    
+
 }

@@ -28,10 +28,29 @@ public class ArtistDAO {
                     String id = rs.getString("id");
                     String name = rs.getString("fullname");
                     String birth = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("birthdate"));
-                    String classify = rs.getString("classify");
                     String address = rs.getString("address");
                     String des = rs.getString("description");
-                    list.add(new Artist(id, name, birth, address, classify, des));
+                    list.add(new Artist(id, name, birth, address, des));
+                }
+                return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public List<Artist> getArtistList(int songID) {
+        String sql = "select * from artist, artistlist where artist.id = artistlist.artistid and artistlist.songid = " + songID;
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery();){
+                List<Artist> list = new LinkedList<>();
+                while(rs.next()) {
+                    String id = rs.getString("id");
+                    String name = rs.getString("fullname");
+                    String birth = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("birthdate"));
+                    String address = rs.getString("address");
+                    String des = rs.getString("description");
+                    list.add(new Artist(id, name, birth, address, des));
                 }
                 return list;
         } catch (Exception e) {

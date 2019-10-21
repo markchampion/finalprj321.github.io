@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="songs" class="com.mark.dao.SongDAO" scope="application" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,12 +40,18 @@
             </div>
             <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
                 <h4>Uploaded Songs</h4>
-                <table>
-                    <tr><td>Username: </td><td>....</td><td><a href="">Update</a></tr>
-                    <tr><td>Email: </td><td>....</td>   <td><a href="">Update</a></tr>
-                    <tr><td>Phone: </td><td>....</td>   <td><a href="">Update</a></tr>
-                    <tr><td>Password </td><td>....</td> <td><a href="">Update</a></tr>
-                </table>
+                <c:forEach var="s" items="${songs.songs}">
+                    <div class="vertical-song-card bg-light d-flex border-dark border-bottom">
+                        <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>
+                        <a class="img-title pr-3" href="play?id=${s.ID}">
+                            <img src="${s.avatar}" width="42" height="42" />
+                        </a>
+                        <div class="singer-title">
+                            <p class="song-name m-0">${s.name}</p>
+                            <span class="singer-name"><t:ArtistTag songID="${s.ID}" /></span>
+                        </div>
+                    </div>
+                </c:forEach>
                 <a href="info-addsong.jsp"><button>Add Song</button></a>
             </div>
         </div>

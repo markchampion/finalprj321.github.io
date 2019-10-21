@@ -14,15 +14,13 @@ public class Artist {
     private String name;
     private String birthDate;
     private String address;
-    private String classify;
     private String description;
 
-    public Artist(String ID, String name, String birthDate, String address, String classify, String description) {
+    public Artist(String ID, String name, String birthDate, String address, String description) {
         this.ID = ID;
         this.name = name;
         this.birthDate = birthDate;
         this.address = address;
-        this.classify = classify;
         this.description = description;
     }
 
@@ -60,14 +58,6 @@ public class Artist {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getClassify() {
-        return classify;
-    }
-
-    public void setClassify(String classify) {
-        this.classify = classify;
     }
 
     public String getDescription() {

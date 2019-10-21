@@ -29,7 +29,7 @@ public class WriterDAO {
                     String birth = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("birthdate"));
                     String address = rs.getString("address");
                     String des = rs.getString("description");
-                    list.add(new Writer(id, name, birth, des));
+                    list.add(new Writer(id, name, address, birth, des));
                 }
                 return list;
         } catch (Exception e) {

@@ -9,7 +9,7 @@
 <jsp:useBean id="artist" class="com.mark.dao.ArtistDAO" />
 <jsp:useBean id="writer" class="com.mark.dao.WriterDAO" />
 <c:if test="${sessionScope.logStatus == null}">
-    <c:redirect url="home.jsp" />
+    <c:redirect url="list" />
 </c:if>
 <!DOCTYPE html>
 <html>
