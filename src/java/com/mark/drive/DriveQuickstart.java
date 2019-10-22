@@ -97,12 +97,16 @@ public class DriveQuickstart {
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
+        Permission permission = new Permission()
+                .setType("anyone")
+                .setRole("writer");
         File fileMetadata = new File();
         fileMetadata.setName(fileName);
         FileContent fileContent = new FileContent("image/jpeg", filePath);
         File file = service.files().create(fileMetadata, fileContent)
                 .setFields("id")
                 .execute();
+        service.permissions().create(file.getId(), permission).execute();
         return file;
 
     }

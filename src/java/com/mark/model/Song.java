@@ -26,6 +26,18 @@ public class Song {
     public Song() {
     }
 
+    public Song(String name, String writerID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
+        this.name = name;
+        this.writerID = writerID;
+        this.genre = genre;
+        this.uploaderID = uploaderID;
+        this.uploadedDate = uploadedDate;
+        this.viewCount = viewCount;
+        this.downLink = downLink;
+        this.avatar = avatar;
+        this.lyrics = lyrics;
+    }
+
     public Song(int ID, String name, String writerID, String albumID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.ID = ID;
         this.name = name;
