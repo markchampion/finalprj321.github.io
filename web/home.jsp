@@ -30,7 +30,7 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/14/5/f/3/f/1571017006921_org.jpg" class="d-block w-100" alt="...">
+                            <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/14/5/f/3/f/1571017006921_org.jpg" class="d-block w-100"  alt="...">
                         </div>
                         <div class="carousel-item">
                             <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/06/3/3/e/3/1570338800356_org.jpg" class="d-block w-100" alt="...">
@@ -67,29 +67,37 @@
             <div class="inside-2-1 bg-light-blue" >
                 <h3 class="text-white">What's new today</h3>
                 <div class="inside-2-1-1">
-                    <a>
-                        <img class="p-1"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg"/>  
-                        <span class="pb-1 pl-1">Click to view</span>
-                    </a>
-                    <a> 
-                        <img class="p-1"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg"/>  
-                        <span class="pb-1 pl-1">Click to view</span>
-                    </a>
-                    <a>
-                        <img class="p-1"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg"/>  
-                        <span class="pb-1 pl-1">Click to view</span>
-                    </a>
-                    <a>
-                        <img class="p-1"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg"/>  
-                        <span class="pb-1 pl-1">Click to view</span>
-                    </a>
+                    <div class="d-flex flex-column align-items-center">
+                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
+                        <a href="">
+                            <span class="pb-1 pl-1">Click to view</span>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
+                        <a href="">
+                            <span class="pb-1 pl-1">Click to view</span>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
+                        <a href="">
+                            <span class="pb-1 pl-1">Click to view</span>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
+                        <a href="">
+                            <span class="pb-1 pl-1">Click to view</span>
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
             <div class="inside-2-2 bg-primary">
 
             </div>
             <div class="inside-3-1 bg-light">
-
             </div>         
         </div>
         <%--<%@include file="footer.jsp" %>--%>

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>AuthenFilter</filter-name>
+        <filter-class>com.mark.filter.AuthenFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenFilter</filter-name>
+        <url-pattern>/personal/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>AuthorizeServlet</servlet-name>
         <servlet-class>com.mark.controller.AuthorizeServlet</servlet-class>
@@ -15,6 +23,10 @@
     <servlet>
         <servlet-name>HandlePlaySongServlet</servlet-name>
         <servlet-class>com.mark.controller.HandlePlaySongServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommentServlet</servlet-name>
+        <servlet-class>com.mark.controller.CommentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
@@ -35,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>HandlePlaySongServlet</servlet-name>
         <url-pattern>/play</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

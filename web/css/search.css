@@ -11,3 +11,16 @@ html, body {
     height: 100%;
     width: 100%;
 }
+ul.list-search-mode {
+    list-style: none;
+}
+ul.list-search-mode li {
+    padding: 5px;
+    
+}
+div.vertical-song-card{
+    height: 45px;
+}
+div.singer-title {
+    font-size: 14px;
+}

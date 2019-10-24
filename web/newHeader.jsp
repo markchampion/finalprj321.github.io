@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/newHeader.css" />
+        <link rel="stylesheet" href="/PRJ321_FINAL_PROJECT/css/newHeader.css" />
         <title>JSP Page</title>
     </head>
     <body>
@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse text-light" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link text-light" href="/PRJ321_FINAL_PROJECT/list">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">Link</a>
@@ -34,8 +34,8 @@
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline my-2 my-lg-0" action="search">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" value="${param.search}" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     <div class="nav-item dropdown pl-3">
@@ -44,14 +44,14 @@
                                 ${sessionScope.logStatus.username}
                             </a>
                             <div class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-dark" href="infosetting.jsp">Setting</a>
+                                <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/personal/infosetting.jsp">Setting</a>
                                 <a class="dropdown-item text-dark" href="signin.do?action=logout">Logout</a>
                                 <!--<div class="dropdown-divider "></div>-->
                                 <!--<a class="dropdown-item text-dark" href="#">Something else here</a>-->
                             </div>
                         </c:if>
                         <c:if test="${empty sessionScope.logStatus}">
-                            <a href="login.jsp"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>
+                            <a href="/PRJ321_FINAL_PROJECT/login.jsp"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>
                         </c:if>
                     </div>
                 </div>

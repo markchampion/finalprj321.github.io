@@ -13,7 +13,7 @@ public class Song {
 
     private int ID;
     private String name;
-    private String writerID;
+    private String writer;
     private String albumID;
     private String genre;
     private int uploaderID;
@@ -26,9 +26,9 @@ public class Song {
     public Song() {
     }
 
-    public Song(String name, String writerID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
+    public Song(String name, String writer, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.name = name;
-        this.writerID = writerID;
+        this.writer = writer;
         this.genre = genre;
         this.uploaderID = uploaderID;
         this.uploadedDate = uploadedDate;
@@ -38,10 +38,10 @@ public class Song {
         this.lyrics = lyrics;
     }
 
-    public Song(int ID, String name, String writerID, String albumID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
+    public Song(int ID, String name, String writer, String albumID, String genre, int uploaderID, String uploadedDate, int viewCount, String downLink, String avatar, String lyrics) {
         this.ID = ID;
         this.name = name;
-        this.writerID = writerID;
+        this.writer = writer;
         this.albumID = albumID;
         this.genre = genre;
         this.uploaderID = uploaderID;
@@ -68,12 +68,12 @@ public class Song {
         this.name = name;
     }
 
-    public String getWriterID() {
-        return writerID;
+    public String getWriter() {
+        return writer;
     }
 
-    public void setWriterID(String writerID) {
-        this.writerID = writerID;
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     public String getAlbumID() {

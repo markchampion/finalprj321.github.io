@@ -33,7 +33,7 @@ public class UserDAO {
                 String role = rs.getString("role");
                 String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("createddate"));
                 boolean isActivated = rs.getInt("isactivated") == 1;
-                String avatar = rs.getString("avatar");
+                String avatar = "https://docs.google.com/uc?export=download&id="+rs.getString("avatar");
                 return new User(ID, username, pass, firstName, lastName, address, phone, email, role, createdDate, isActivated, avatar);
             }
             return null;

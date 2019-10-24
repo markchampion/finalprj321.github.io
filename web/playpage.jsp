@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +18,7 @@
         <%@include file="newHeader.jsp" %>
         <div class="container p-3">
             <div class="inside-1-1 bg-light">
-                <audio controls>
+                <audio id="my-audio" controls>
                     <source src="${playsong.downLink}" type="audio/mpeg"/>
                 </audio>
             </div>
@@ -44,7 +43,10 @@
                     </div>
                 </div>
                 <div class="lyrics-area p-1 border">
-                    <h5>Lyrics for: ${playsong.name}</h5>
+                    <div class="d-flex">
+                        <h5>Lyrics for: ${playsong.name}</h5>
+                        <p class="ml-auto">View: ${playsong.viewCount}</p>
+                    </div>
                     <p>Writer: </p>
                     <p>Artist: <t:ArtistTag songID="${playsong.ID}" /></p>
                     <hr/>
@@ -57,67 +59,23 @@
                         Giờ này ai khóc ai cười
                         Thề hẹn làm chi
                         Để rồi bỏ đi
-                        Tôi cố đem tình vun đắp mây hoá ngang trời che lấp
-                        Tôi vẫn nơi này đợi chờ cô về với tôi
-                        Là vì tôi quá ngốc nghếch
-                        Hay là do gia cảnh tôi nghèo
-                        Gốc đa chỉ còn mình tôi ngồi nhìn trăng lên
-                        Bao nhiêu kí ức một thời
-                        Giờ thành cay đắng một đời
-                        Nhà cao xe sang váy cưới lộng lẫy
-                        Sớm tối có người đón đưa
-                        Hình dung theo gió mây ngàn
-                        Ngồi ôm thương nhớ bẽ bàng
-                        Phận đời ngang trái
-                        Giờ biết nói cùng với ai
-                        Dẫu biết phận mình cay đắng
-                        Nhưng cớ sao lòng vẫn buồn
-                        Làm phu, làm thuê
-                        Làm sao mơ cho được ngọc ngà
-                        Cô Thắm ngày nào bên tôi
-                        Nay khuất xa dần mất rồi
-                        Đành thôi
-                        Tôi phải quên . ..
-
-                        Rap:
-                        Tôi còn nhớ ngày cô đi
-                        Mưa lâm râm nặng hạt
-                        Cô vội trao chiếc nhẫn cỏ
-                        Gương mặt cô lạnh nhạt
-                        Thề hẹn xưa nay còn đâu
-                        Khi tôi đã không còn cạnh cô
-                        Áo gấm lụa đào
-                        Cô cất bước đi giữa chốn phù phiếm nơi thành đô
-                        Cô Thắm ơi! Mỗi 1 ngày thiếu điều
-                        Tôi nhớ cô lắm
-                        Ánh đèn vàng
-                        Thành phố xa hoa đã cướp mất đi cô Thắm
-                        Túp lều tranh
-                        Nay chỉ lẻ bóng đơn điệu trong đó 1 trái tim
-                        Chỉ biết đợi chờ cô về
-                        Trong nổi tuyệt vọng bóng ai dưới mái hiên
-                        Tui lau! Giọt nước mắt
-                        Sau còn động 2 hàng mi
-                        Đã bao lần
-                        Tui nắm lấy thứ tình cảm phai tàn đi
-                        Con sông xưa
-                        Mà vẫn khúc Bồi, giờ đây lòng người chỉ Lỡ
-                        Sao nỡ quên đi
-                        Thứ ân tình xưa là cả 1 đời tui ghi nhớ
-                        Chờ cô về, chờ chiếc hôn
-                        Chờ 1 vòng tay ấm áp
-                        Chờ cô nói: “Cô nhớ tui“ chỉ là câu nói thấm thoát
-                        Câu hỏi đó, nợ tình duyên, liệu cô có trả lời?
-                        Cô bắt tui chờ
-                        Và chờ bao giờ hay tui phải chờ đến chờ đến cả đời</pre>
+                    </pre>
                 </div>
             </div>
             <div class="inside-2-2 bg-primary">
 
             </div>
+            <div class="inside-3-1 bg-primary">
+                <h3>Comment: </h3>
+                <form action="comment">
+                    <div class="pl-3 d-flex">
+                        <img src="${sessionScope.logStatus.avatar}" class="mr-3" width="48" height="48"/>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Your comment..." rows="2"></textarea>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-
         <!--        <div class="audio-player" >
                     <button id="pButton" class="play" onclick="playAudio()"></button>
                     
@@ -126,7 +84,11 @@
                         <input type="range" onchange="setVolume(this.value)" value="1" id="rngVolume" min="0" max="1" step="0.01" />
                     </div>
                 </div>-->
-
         <%@include file="footer.jsp" %>
+        <script>
+            window.onload = function () {
+                document.getElementById("my-audio").play();
+            }
+        </script>
     </body>
 </html>

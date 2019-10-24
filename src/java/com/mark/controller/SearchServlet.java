@@ -9,7 +9,9 @@ import com.mark.dao.SongDAO;
 import com.mark.model.Song;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author PC
  */
-public class HandlePlaySongServlet extends HttpServlet {
+@WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
+public class SearchServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +35,15 @@ public class HandlePlaySongServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String ID = request.getParameter("id");
-            if (ID != null) {
-                int id = Integer.parseInt(ID);
-                Song s = new SongDAO().getSongs(id);
-                SongDAO.increaseView(s.getID(), s.getViewCount());
-                request.setAttribute("playsong", s);
-                request.getRequestDispatcher("playpage.jsp").forward(request, response);
-            }
-            response.sendRedirect("error.jsp");
+            String searchString = request.getParameter("search");
+            List<Song> search = SongDAO.search(searchString);
+            System.out.println(search.size());
+            request.setAttribute("searchedList", search);
+            request.getRequestDispatcher("search.jsp").forward(request, response);
         }
     }
 
