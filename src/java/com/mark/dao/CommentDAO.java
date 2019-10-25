@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,18 +20,29 @@ import java.util.List;
  * @author PC
  */
 public class CommentDAO {
+    private int songID;
 
+    public CommentDAO() {
+    }
+
+    public void setSongID(int songID) {
+        this.songID = songID;
+    }
+
+    public int getSongID() {
+        return songID;
+    }
+    
     //INSERT
-    public boolean insert(Comment c) {
+    public static boolean insert(Comment c) {
         String sql = "insert into commentlist (songid, userid, content, createddate, likes) values (?,?,?,?,?)";
         try (Connection conn = new DBContext().getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, c.getSongID());
-            ps.setInt(2, c.getUserID());
-            ps.setString(3, c.getCreatedDate());
-            ps.setString(4, c.getContent());
+            ps.setInt(2, Integer.parseInt(c.getUser()));
+            ps.setString(3, c.getContent());
+            ps.setDate(4, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(c.getCreatedDate()).getTime()));
             ps.setInt(5, c.getLikes());
-
             return ps.executeUpdate() == 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,8 +51,8 @@ public class CommentDAO {
     }
 
     //SELECT
-    public List<Comment> select() {
-        String sql = "select * from commentlist";
+    public List<Comment> getComments() {
+        String sql = "select * from commentlist,users where commentlist.userid = users.id and commentlist.songID = "+songID+" order by commentlist.id desc";
         try (Connection conn = new DBContext().getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();) {
@@ -48,11 +60,12 @@ public class CommentDAO {
             while (rs.next()) {
                 int ID = rs.getInt("id");
                 int songID = rs.getInt("songid");
-                int userID = rs.getInt("userid");
+                String user = rs.getString("username");
+                String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
                 String content = rs.getString("content");
                 String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("createddate"));
                 int likes = rs.getInt("likes");
-                list.add(new Comment(ID, songID, userID, content, createdDate, likes));
+                list.add(new Comment(ID, songID, user, avatar, content, createdDate, likes));
             }
             return list;
 

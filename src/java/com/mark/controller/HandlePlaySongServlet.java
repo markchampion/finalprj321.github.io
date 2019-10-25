@@ -42,7 +42,7 @@ public class HandlePlaySongServlet extends HttpServlet {
                 request.setAttribute("playsong", s);
                 request.getRequestDispatcher("playpage.jsp").forward(request, response);
             }
-            response.sendRedirect("error.jsp");
+//            response.sendRedirect("error.jsp");
         }
     }
 

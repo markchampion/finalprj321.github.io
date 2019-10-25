@@ -5,12 +5,22 @@
  */
 package com.mark.controller;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mark.dao.CommentDAO;
+import com.mark.model.Comment;
+import com.mark.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,12 +37,24 @@ public class CommentServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        System.out.println("hahaha");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("logStatus");
+            String content = request.getParameter("content");
+            int songID = Integer.parseInt(request.getParameter("songID"));
+            Comment c = new Comment(0, songID, user.getID()+"",user.getAvatar(), content, 
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+                    , 0);
+              System.out.println(CommentDAO.insert(c));
+//              response.sendRedirect("playpage.jsp");
+              Gson gson = new Gson();
+              out.write(gson.toJson(c));
         }
     }
 

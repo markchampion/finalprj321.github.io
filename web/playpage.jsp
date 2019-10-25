@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
+<jsp:useBean id="comments" class="com.mark.dao.CommentDAO" />
+<jsp:setProperty name="comments" property="songID" value="${param.id}" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,15 +68,29 @@
             <div class="inside-2-2 bg-primary">
 
             </div>
-            <div class="inside-3-1 bg-primary">
+            <div id="cmt-list" class="inside-3-1 bg-primary">
                 <h3>Comment: </h3>
-                <form action="comment">
+                <form id="comment-form" >
                     <div class="pl-3 d-flex">
                         <img src="${sessionScope.logStatus.avatar}" class="mr-3" width="48" height="48"/>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Your comment..." rows="2"></textarea>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="content" placeholder="Your comment..." rows="2"></textarea>
+                        <button type="button" onclick="mySubmit()" class="btn btn-success">Submit</button>
                     </div>
+                    <input type="hidden" name="songID" value="${playsong.ID}" />
                 </form>
+                <c:forEach var="com" items="${comments.comments}" >
+                    <div class='pl-3 d-flex'>
+                        <img src='${com.avatar}' class='mr-3' width='48' height='48'/>
+                        <div class='w-100'>
+                            <div class='d-flex'>
+                                <p class='m-0'><strong>${com.user}</strong></p>
+                                <span class='ml-auto pr-3'>${com.createdDate}</span>
+                            </div>
+
+                            <p>${com.content}</p>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
         <!--        <div class="audio-player" >
@@ -85,10 +102,32 @@
                     </div>
                 </div>-->
         <%@include file="footer.jsp" %>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script>
             window.onload = function () {
                 document.getElementById("my-audio").play();
-            }
+            };
+            function mySubmit(){
+                $.post('comment',
+                        {
+                            content: $('#exampleFormControlTextarea1').val(),
+                            songID: ${playsong.ID}
+                        },
+                        (responseText) => {
+                    let cmtObj = JSON.parse(responseText);
+                    console.log(cmtObj);
+                    $('#cmt-list').prepend("<div class='pl-3 d-flex'>"+
+                        "<img src='"+cmtObj.avatar+"' class='mr-3' width='48' height='48'/>"+
+                        "<div class='w-100'>"+
+                           " <div class='d-flex'>"+
+                                "<p class='m-0'><strong>"+cmtObj.user+"</strong></p>"+
+                               " <span class='ml-auto pr-3'>"+cmtObj.createdDate+"</span>"+
+                            "</div><p>"+cmtObj.content+"</p></div></div>");
+                });
+            };
+
         </script>
     </body>
 </html>

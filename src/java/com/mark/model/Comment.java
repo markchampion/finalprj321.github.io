@@ -12,7 +12,8 @@ package com.mark.model;
 public class Comment {
     private int ID;
     private int songID;
-    private int userID;
+    private String user;
+    private String avatar;
     private String content;
     private String createdDate;
     private int likes;
@@ -20,13 +21,22 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int ID, int songID, int userID, String content, String createdDate, int likes) {
+    public Comment(int ID, int songID, String user, String avatar, String content, String createdDate, int likes) {
         this.ID = ID;
         this.songID = songID;
-        this.userID = userID;
+        this.user = user;
+        this.avatar = avatar;
         this.content = content;
         this.createdDate = createdDate;
         this.likes = likes;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getID() {
@@ -45,12 +55,12 @@ public class Comment {
         this.songID = songID;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(String userID) {
+        this.user = userID;
     }
 
     public String getContent() {
