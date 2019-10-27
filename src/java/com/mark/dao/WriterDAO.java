@@ -8,6 +8,7 @@ package com.mark.dao;
 import com.mark.context.DBContext;
 import com.mark.model.Writer;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -30,6 +31,21 @@ public class WriterDAO {
 
     public String getID() {
         return ID;
+    }
+    
+    public static void insert(Writer w) {
+        String sql = "insert into writer (id, name, birthdate, address, description) values (?,?,?,?,?)";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, w.getID());
+            ps.setString(2, w.getName());
+            ps.setString(3, w.getBirthDate());
+            ps.setString(4, w.getAddress());
+            ps.setString(5, w.getDescription());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Writer> getWriters() {

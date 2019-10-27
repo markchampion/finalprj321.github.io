@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="inside-1-2 bg-light-blue">
-                <h4>Hot Music</h4>
+                <h4 class="text-center mt-1">Hot Music</h4>
                 <c:forEach var="s" items="${songs}">
                     <div class="vertical-song-card bg-light d-flex border-dark border-bottom">
                         <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>
@@ -91,11 +91,25 @@
                             <span class="pb-1 pl-1">Click to view</span>
                         </a>
                     </div>
-                    
                 </div>
             </div>
             <div class="inside-2-2 bg-primary">
-
+                <h4 class="text-center mt-2">Hot Genre</h4>
+                <div class="d-flex justify-content-center mb-3 grow">
+                    <a href="" class="genre-tag" title="Pop">
+                        <img src="img/popmusic.jpg" width="300" height="150"/>
+                    </a>
+                </div>
+                <div class="d-flex justify-content-center mb-3 grow">
+                    <a href="" class="genre-tag" title="RnB">
+                        <img src="img/rnbmusic.jpg" width="300" height="150"/>
+                    </a>
+                </div>
+                <div class="d-flex justify-content-center mb-3 grow">
+                    <a href="" class="genre-tag" title="EDM">
+                        <img src="img/edmmusic.jpg" width="300" height="150"/>
+                    </a>
+                </div>
             </div>
             <div class="inside-3-1 bg-light">
             </div>         

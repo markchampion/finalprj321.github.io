@@ -20,7 +20,7 @@ public class Writer {
     public Writer() {
     }
 
-    public Writer(String ID, String name, String address, String birthDate, String description) {
+    public Writer(String ID, String name, String birthDate, String address, String description) {
         this.ID = ID;
         this.name = name;
         this.address = address;

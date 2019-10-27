@@ -13,7 +13,7 @@ html,body{
     height: 100%;
 }
 div.container {
-    height: 100%;
+    height: fit-content;
     display: grid;
     grid-template-columns: 770px 340px;
     grid-template-rows: 310px 250px 300px;

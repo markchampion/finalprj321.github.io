@@ -15,7 +15,7 @@ div.container {
     height: 100%;
     display: grid;
     grid-template-columns: 70% 30%;
-    grid-template-rows: repeat(auto-fill)
+    height: fit-content;
 }
 div.inside-1-2 {
     /*grid-column-start: 2;*/

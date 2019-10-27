@@ -23,4 +23,16 @@
                 Song uploaded
             </span></a>
     </div>
+    <div class="info-sub-tab d-flex border p-2">
+        <a href="info-artist.jsp"><span>
+                <img src="/PRJ321_FINAL_PROJECT/img/artist-icon.jpg" width="48" height="48" />
+                Add new artist
+            </span></a>
+    </div>
+    <div class="info-sub-tab d-flex border p-2">
+        <a href="info-writer.jsp"><span>
+                <img src="/PRJ321_FINAL_PROJECT/img/writer-icon.png" width="48" height="48" />
+                Add new writer
+            </span></a>
+    </div>
 </div>
