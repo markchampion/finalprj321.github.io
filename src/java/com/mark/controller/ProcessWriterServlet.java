@@ -6,7 +6,9 @@
 package com.mark.controller;
 
 import com.google.gson.Gson;
+import com.mark.dao.ArtistDAO;
 import com.mark.dao.WriterDAO;
+import com.mark.model.Artist;
 import com.mark.model.Writer;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,8 +43,6 @@ public class ProcessWriterServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String action = request.getParameter("action");
-//            if (action != null && action.equals("add")) {
             StringBuilder buffer = new StringBuilder();
             BufferedReader reader = request.getReader();
             String line;
@@ -59,10 +59,7 @@ public class ProcessWriterServlet extends HttpServlet {
             Gson gson = new Gson();
             Writer w = gson.fromJson(decodeURL, Writer.class);
             WriterDAO.insert(w);
-            response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-writer.jsp");
-//            } else {
-//                
-//            }
+            out.write("success");
         }
     }
 

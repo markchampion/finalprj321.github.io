@@ -22,10 +22,11 @@ import java.util.List;
 public class SongDAO {
 
     //SELECT SONGS
-    public List<Song> getSongs() {
+    
+    public List<Song> getSongsByViews() {
         List<Song> list = new LinkedList<>();
         String sql = "select * from song, Writer\n"
-                + "where song.WriterID = writer.ID";
+                + "where song.WriterID = writer.ID order by viewcount desc";
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
             while (rs.next()) {
@@ -40,6 +41,34 @@ public class SongDAO {
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
                 String lyrics = rs.getString("lyrics");
+                lyrics = lyrics != null ? lyrics.replaceAll("\n", "<br/>") : "";
+                list.add(new Song(ID, name, writer, album, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Song> getSongsByDate() {
+        List<Song> list = new LinkedList<>();
+        String sql = "select * from song, Writer\n"
+                + "where song.WriterID = writer.ID order by uploadeddate desc";
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
+            while (rs.next()) {
+                int ID = rs.getInt("id");
+                String name = rs.getString(2);
+                String writer = rs.getString(13);
+                String album = rs.getString("albumid");
+                String genre = rs.getString("genre");
+                int userID = rs.getInt("uploaderid");
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("uploadeddate"));
+                int viewCount = rs.getInt("viewcount");
+                String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
+                String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
+                String lyrics = rs.getString("lyrics");
+                lyrics = lyrics != null ? lyrics.replaceAll("\n", "<br/>") : "";
                 list.add(new Song(ID, name, writer, album, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
             }
             return list;
@@ -127,6 +156,22 @@ public class SongDAO {
             ps.setString(8, s.getDownLink());
             ps.setString(9, s.getAvatar());
             ps.setString(10, s.getLyrics());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void updateSong(Song s) {
+        String sql = "update song set name = ?, writerid = ?, genre = ?, downlink = ?, avatar = ?, lyrics = ? where id = " + s.getID();
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, s.getName());
+            ps.setString(2, s.getWriter());
+            ps.setString(3, s.getGenre());
+            ps.setString(4, s.getDownLink());
+            ps.setString(5, s.getAvatar());
+            ps.setString(6, s.getLyrics());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

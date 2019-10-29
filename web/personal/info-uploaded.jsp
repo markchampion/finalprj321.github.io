@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
-<jsp:useBean id="songs" class="com.mark.dao.SongDAO" scope="application" />
+<jsp:useBean id="songs" class="com.mark.bean.PagingSongs" scope="session" />
+<jsp:setProperty name="songs" property="*" />
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,26 @@
                     </div>
                 </c:forEach>
                 <a href="info-addsong.jsp"><button class="btn btn-info">Add Song</button></a>
+                <ul class="pagination">
+                        <li class="page-item ${(param.page-1)>1 ? '':'disabled'}">
+                            <a class="page-link" href="info-uploaded.jsp?page=${param.page-1}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${(param.page+1) < songs.pages ? (param.page+1):songs.pages}" step="1" >
+                            <c:url value="info-uploaded.jsp" var="next" >
+                                <c:param name="page" value="${i}" />
+                            </c:url>
+                            <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>
+                            </c:forEach>
+                        <li class="page-item ${param.page+2 < songs.pages ? '':'disabled'}">
+                            <a class="page-link" href="info-uploaded.jsp?page=${param.page+1}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
             </div>
+            
         </div>
         <%@include file="../footer.jsp" %>
     </body>

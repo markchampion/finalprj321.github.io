@@ -8,19 +8,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
 <jsp:useBean id="comments" class="com.mark.dao.CommentDAO" />
+<jsp:useBean id="up_user" class="com.mark.dao.UserDAO" scope="page" />
+<jsp:useBean id="fav" class="com.mark.dao.FavoriteDAO" scope="page" />
 <jsp:setProperty name="comments" property="songID" value="${param.id}" />
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/playpage.css" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>JSP Page</title>
     </head>
     <body>
         <%@include file="newHeader.jsp" %>
         <div class="container p-3">
             <div class="inside-1-1 bg-light">
+                <!--<embed type="application/x-shockwave-flash" src="http://www.google.com/reader/ui/3247397568-audio-player.swf?audioUrl=${playsong.downLink}" width="400" height="27" allowscriptaccess="never" quality="best" bgcolor="#ffffff" wmode="window" flashvars="playerMode=embedded" /></embed>-->
                 <audio id="my-audio" controls>
                     <source src="${playsong.downLink}" type="audio/mpeg"/>
                 </audio>
@@ -33,16 +35,21 @@
             <!-- UPLOADER AND OTHER OPTIONS BAR-->
             <div class="inside-2-1 text-white bg-info pt-1"> 
                 <div class="uploader d-flex align-items-center bg-dark p-1">
-                    <a href=""><img class="border rounded-circle" src="img/passicon.png" width="48" height="48"/></a>
+                    <a href=""><img class="border rounded-circle" src="${up_user.select(playsong.uploaderID).avatar}" width="48" height="48"/></a>
                     <div class="uploader-info pl-1">
-                        <p class="m-0">Upload by:</p>
-                        <p class="m-0">Username</p>
+                        <p class="m-0">Upload by: </p>
+                        <p class="m-0">${up_user.select(playsong.uploaderID).username}</p>
                     </div>
                     <div class="download-btn">
-                        <a href=""><img src="img/download.png" width="24" height="24"/><span class="pl-2">Download</span></a>
+                        <a href="${playsong.downLink}"><img src="img/download.png" width="24" height="24"/><span class="pl-2">Download</span></a>
                     </div>
                     <div class="ml-5 add-fvt-button">
-                        <a href=""><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Add to favorite</span></a>
+                        <c:if test="${!fav.isFavorite(playsong.ID, sessionScope.logStatus.ID)}">
+                            <a href=""><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Add to favorite</span></a>
+                        </c:if>
+                        <c:if test="${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID)}">
+                            <a href=""><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Remove from favorite</span></a>
+                        </c:if>
                     </div>
                 </div>
                 <div class="lyrics-area p-1 border">
@@ -54,14 +61,7 @@
                     <p>Artist: <t:ArtistTag songID="${playsong.ID}" /></p>
                     <hr/>
                     <pre>
-                        Từng là hơi ấm bên đời
-                        giờ là cơn gió ngang trời
-                        Mọi người xung quanh thay nhau cho tôi biết
-                        Cô Thắm không về nữa đâu
-                        Đặt trọn niềm tin sai người
-                        Giờ này ai khóc ai cười
-                        Thề hẹn làm chi
-                        Để rồi bỏ đi
+                        ${playsong.lyrics}
                     </pre>
                 </div>
             </div>
@@ -92,14 +92,6 @@
                 </c:forEach>
             </div>
         </div>
-        <!--        <div class="audio-player" >
-                    <button id="pButton" class="play" onclick="playAudio()"></button>
-                    
-                    <div class="volume-control">
-                        <label id="rngVolume-label" for="rngVolume">Volume: </label>
-                        <input type="range" onchange="setVolume(this.value)" value="1" id="rngVolume" min="0" max="1" step="0.01" />
-                    </div>
-                </div>-->
         <%@include file="footer.jsp" %>
              <script>
             window.onload = function () {

@@ -25,9 +25,10 @@ public class ArtistListDAO {
         int songID = 0;
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sqlSong).executeQuery();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ) {
-                if (rs.next()) songID = rs.getInt("ID");
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+            if (rs.next()) {
+                songID = rs.getInt("ID");
+            }
             for (String artist : artists) {
                 ps.setString(1, artist);
                 ps.setInt(2, songID);
@@ -37,6 +38,24 @@ public class ArtistListDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public static void update(String[] artists, int songID) {
+        String delSql = "delete from artistlist where songid = " + songID;
+        String upSql = "insert into artistlist (artistid, songid) values(?,?)";
+        try {
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(delSql);
+            ps.executeUpdate();
+            ps = conn.prepareStatement(upSql);
+            for (String artist : artists) {
+                ps.setString(1, artist);
+                ps.setInt(2, songID);
+                ps.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

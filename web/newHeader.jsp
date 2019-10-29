@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="/PRJ321_FINAL_PROJECT/css/newHeader.css" />
         <link rel="stylesheet" type="text/css" href="/PRJ321_FINAL_PROJECT/css/footer.css" />
-
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -42,6 +42,7 @@
                     </form>
                     <div class="nav-item dropdown pl-3">
                         <c:if test="${not empty sessionScope.logStatus}" >
+                            <img class="rounded-circle float-left mr-2" src="${sessionScope.logStatus.avatar}" width="48" height="48" />
                             <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ${sessionScope.logStatus.username}
                             </a>

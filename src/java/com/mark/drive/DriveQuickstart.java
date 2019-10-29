@@ -24,6 +24,8 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DriveQuickstart {
 
@@ -111,7 +113,7 @@ public class DriveQuickstart {
 
     }
 
-    private static void deleteFile(String fileId) throws Exception{
+    private static void deleteFile(String fileId) throws Exception {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
@@ -123,6 +125,42 @@ public class DriveQuickstart {
         }
     }
 
+    public static void updateImage(String linkFile, String fileName, java.io.File filePath) {
+        try {
+            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+            FileContent mediaContent = new FileContent("image/jpeg", filePath);
+            File fileMetaData = new File();
+            fileMetaData.setName(fileName);
+//        System.out.println(service.permissions().create("1kQspptGgrpxB0_AA4p1mlimB2SGnRvgK", permission).execute() == null);
+            File updateFile = service.files().update(linkFile.split("id=")[1], fileMetaData, mediaContent).execute();
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(DriveQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DriveQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void updateMp3(String linkFile, String fileName, java.io.File filePath) {
+        try {
+            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+            FileContent mediaContent = new FileContent("audio/MP3", filePath);
+            File fileMetaData = new File();
+            fileMetaData.setName(fileName);
+//        System.out.println(service.permissions().create("1kQspptGgrpxB0_AA4p1mlimB2SGnRvgK", permission).execute() == null);
+            File updateFile = service.files().update(linkFile.split("id=")[1], fileMetaData, mediaContent).execute();
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(DriveQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DriveQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void main(String... args) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -130,26 +168,37 @@ public class DriveQuickstart {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         // Print the names and IDs for up to 10 files.
-        //UPLOAD
-//        hihihi();
-        //GET FILE
-        FileList result = service.files().list()
-                .setPageSize(10)
-                .setFields("nextPageToken, files(id, name, webContentLink, webViewLink)")
-                .execute();
+        //UPDATE
         Permission permission = new Permission()
                 .setType("anyone")
                 .setRole("writer");
-        List<File> files = result.getFiles();
-        if (files == null || files.isEmpty()) {
-            System.out.println("No files found.");
-        } else {
-            System.out.println("Files:");
-            for (File file : files) {
-                System.out.println(service.permissions().create(file.getId(), permission).execute() == null);
-                System.out.printf("%s (%s)\n", file.getName(), file.getWebContentLink());
-            }
-        }
+//        File oldFile = service.files().get("1kQspptGgrpxB0_AA4p1mlimB2SGnRvgK").execute();
+//        System.out.println(oldFile);
+        java.io.File fileContent = new java.io.File("D:\\ProjectWeb_Source\\noinaycoanh.jpg");
+        FileContent mediaContent = new FileContent("image/jpeg", fileContent);
+        File fileMetaData = new File();
+        fileMetaData.setName("noinaycoanh");
+//        System.out.println(service.permissions().create("1kQspptGgrpxB0_AA4p1mlimB2SGnRvgK", permission).execute() == null);
+        File updateFile = service.files().update("1kQspptGgrpxB0_AA4p1mlimB2SGnRvgK", fileMetaData, mediaContent).execute();
+
+        //GET FILE
+//        FileList result = service.files().list()
+//                .setPageSize(10)
+//                .setFields("nextPageToken, files(id, name, webContentLink, webViewLink)")
+//                .execute();
+//        Permission permission = new Permission()
+//                .setType("anyone")
+//                .setRole("writer");
+//        List<File> files = result.getFiles();
+//        if (files == null || files.isEmpty()) {
+//            System.out.println("No files found.");
+//        } else {
+//            System.out.println("Files:");
+//            for (File file : files) {
+//                System.out.println(service.permissions().create(file.getId(), permission).execute() == null);
+//                System.out.printf("%s (%s)\n", file.getName(), file.getWebContentLink());
+//            }
+//        }
         //WORKED
         //---------
 //        File fileMetadata = new File();

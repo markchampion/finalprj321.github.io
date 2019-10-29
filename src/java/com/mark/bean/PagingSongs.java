@@ -4,6 +4,7 @@ import com.mark.context.DBContext;
 import com.mark.model.Song;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -34,12 +35,29 @@ public class PagingSongs {
         this.size = size;
     }
 
+
+
     public void setPage(int page) {
         this.page = page;
     }
 
     public void setSize(int size) {
         this.size = size;
+    }
+    
+      public int getPages() {
+        String sql = "select count(*) from song";
+        int row = 0;
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                row = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return row < 5 ? 1 : (int)Math.ceil((double)row/5);
     }
     
     public List<Song> getSongs(){

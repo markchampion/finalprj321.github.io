@@ -12,7 +12,7 @@
 <jsp:useBean id="writer" class="com.mark.dao.WriterDAO" />
 <jsp:useBean id="songs" class="com.mark.dao.SongDAO" scope="application" />
 <%
-    for (Song s : songs.getSongs()) {
+    for (Song s : songs.getSongsByDate()) {
         if (request.getParameter("id").equals(s.getID() + "")) {
             request.setAttribute("song_update", s);
             break;
@@ -65,7 +65,7 @@
                     <tr><td>Avatar: </td><td><img src="${song_update.avatar}" width="48" height="48"/></td></tr>
                 </table>
                 <div id="inner-form">
-                <form  action="upload" method="post" enctype="multipart/form-data">
+                <form  action="/PRJ321_FINAL_PROJECT/upload" method="post" enctype="multipart/form-data">
                     <table>
                         <tr><td>Song name: </td><td><input type="text" name="name" value="${song_update.name}" required/></td></tr>
                         <tr><td>Author name: </td>
@@ -105,11 +105,12 @@
                         <tr><td>Lyrics: </td><td>
                                 <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3" value="${song_update.lyrics}"></textarea>
                             </td></tr>
-                        <tr><td>Mp3 file: </td><td><input type="file" name="fileattach" value="${song_update.downLink}" required/></td></tr>
-                        <tr><td>Avatar: </td><td><input type="file" name="fileavatar" value="${song_update.avatar}"required/></td></tr>
+                        <tr><td>Mp3 file: </td><td><input type="file" name="fileattach" value="${song_update.downLink}"/></td></tr>
+                        <tr><td>Avatar: </td><td><input type="file" name="fileavatar" value="${song_update.avatar}"/></td></tr>
                     </table>
                     <input type="submit" class="btn btn-success" name="action" value="Save"/>
                     <input type="hidden" name="userid" value="${sessionScope.logStatus.ID}"/>
+                    <input type="hidden" name="songid" value="${song_update.ID}"/>
                 </form>
                     <button class="btn btn-danger" id="update-cancel">Cancel</button>
                 </div>

@@ -32,6 +32,10 @@
         <servlet-name>AddWriterServlet</servlet-name>
         <servlet-class>com.mark.controller.ProcessWriterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessArtistServlet</servlet-name>
+        <servlet-class>com.mark.controller.ProcessArtistServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
         <url-pattern>/signin.do</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>AddWriterServlet</servlet-name>
         <url-pattern>/writer.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessArtistServlet</servlet-name>
+        <url-pattern>/artist.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -34,7 +34,7 @@
                 <div class="info-writer">
                     <table class="table table-dark">
                         <tr><th>ID</th><th>Writer Name</th><th>Birth Date</th><th>Address</th></tr>
-                                <c:forEach var="w" items="${writer.writers}" >
+                        <c:forEach var="w" items="${writer.writers}" >
                             <tr><td>${w.ID}</td><td>${w.name}</td><td>${w.birthDate}</td><td>${w.address}</td><td><a href="PRJ321_FINAL_PROJECT/writer.do?id=${w.ID}" class="btn btn-outline-warning">Update</a></td></tr>
                         </c:forEach>
                     </table>
@@ -68,7 +68,7 @@
                         <div class="form-group row">
                             <label for="inputName3" class="col-sm-3 col-form-label">Name: </label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="name" id="inputName3" placeholder="Name...">
+                                <input type="text" class="form-control" name="name" id="inputName3" placeholder="Name..." >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -93,7 +93,7 @@
                             <input id="submit" type="button" value="Save" class="btn btn-success"/>
                             <button class="btn btn-danger" type="button">Cancel</button>
                         </div>
-                        <input type="hidden" name="action" value="add" />
+                        <input type="hidden" name="action" value="add-writer" />
                     </form>
                 </div>
             </div>
@@ -114,8 +114,8 @@
                    contentType: 'application/json;charset=UTF-8',
                    mimeType: 'application/json',
                    data: JSON.stringify($('#add-form').serializeJSON()),
-                   success: function() {
-                       location.reload();
+                   success: function(responseText) {
+                       window.location.reload();
                    }
                });
             });

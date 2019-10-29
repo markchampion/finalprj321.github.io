@@ -7,14 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
-<jsp:useBean id="songs" class="com.mark.dao.SongDAO" scope="application" />
+<jsp:useBean id="songDAO" class="com.mark.dao.SongDAO" scope="application" />
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
         <link rel="stylesheet" href="css/home.css" />
         <title>JSP Page</title>
     </head>
@@ -64,33 +61,17 @@
                     </div>
                 </c:forEach>
             </div>
-            <div class="inside-2-1 bg-light-blue" >
-                <h3 class="text-white">What's new today</h3>
+            <div class="inside-2-1 bg-light" >
+                <h3 class="text-dark ml-4 mt-1">What's new today</h3>
                 <div class="inside-2-1-1">
-                    <div class="d-flex flex-column align-items-center">
-                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
-                        <a href="">
-                            <span class="pb-1 pl-1">Click to view</span>
-                        </a>
-                    </div>
-                    <div class="d-flex flex-column align-items-center">
-                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
-                        <a href="">
-                            <span class="pb-1 pl-1">Click to view</span>
-                        </a>
-                    </div>
-                    <div class="d-flex flex-column align-items-center">
-                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
-                        <a href="">
-                            <span class="pb-1 pl-1">Click to view</span>
-                        </a>
-                    </div>
-                    <div class="d-flex flex-column align-items-center">
-                        <img class="p-1 grow"src="https://avatar-nct.nixcdn.com/playlist/2019/10/14/6/2/5/3/1571048239090_300.jpg" width="156" height="156"/>  
-                        <a href="">
-                            <span class="pb-1 pl-1">Click to view</span>
-                        </a>
-                    </div>
+                    <c:forEach var="s" items="${songDAO.songsByDate}" begin="1" end="4" >
+                        <div class="d-flex flex-column align-items-center">
+                            <img class="p-1 grow"src="${s.avatar}" width="156" height="156"/>  
+                            <a href="">
+                                <span class="pb-1 pl-1">${s.name}</span>
+                            </a>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="inside-2-2 bg-primary">
@@ -114,8 +95,6 @@
             <div class="inside-3-1 bg-light">
             </div>         
         </div>
-        <%--<%@include file="footer.jsp" %>--%>
         <jsp:include page="footer.jsp" />
-
     </body>
 </html>

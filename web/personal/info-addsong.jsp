@@ -22,7 +22,7 @@
             <jsp:include page="info-submenu.jsp" />
             <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
                 <h4>Upload Songs</h4>
-                <form action="upload" method="post" enctype="multipart/form-data">
+                <form action="/PRJ321_FINAL_PROJECT/upload" method="post" enctype="multipart/form-data">
                     <table>
                         <tr><td>Song name: </td><td><input type="text" name="name" required/></td></tr>
                         <tr><td>Author name: </td>
@@ -62,10 +62,10 @@
                         <tr><td>Lyrics: </td><td>
                                 <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </td></tr>
-                        <tr><td>Mp3 file: </td><td><input type="file" name="fileattach" required/></td></tr>
-                        <tr><td>Avatar: </td><td><input type="file" name="fileavatar" required/></td></tr>
+                        <tr><td>Mp3 file: </td><td><input accept=".mp3,.mp4" type="file" name="fileattach" required/></td></tr>
+                        <tr><td>Avatar: </td><td><input accept=".jpg,.png" type="file" name="fileavatar" required/></td></tr>
                     </table>
-                    <input type="submit" name="action" value="Add Song"/>
+                    <input type="submit" name="action" value="Add song"/>
                     <input type="hidden" name="userid" value="${sessionScope.logStatus.ID}"/>
                 </form>
             </div>

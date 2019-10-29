@@ -8,6 +8,7 @@ package com.mark.dao;
 import com.mark.context.DBContext;
 import com.mark.model.Artist;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -56,6 +57,22 @@ public class ArtistDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    //INSERT
+    public static void insert(Artist a) {
+          String sql = "insert into artist (id, fullname, birthdate, address, description) values (?,?,?,?,?)";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, a.getID());
+            ps.setString(2, a.getName());
+            ps.setString(3, a.getBirthDate());
+            ps.setString(4, a.getAddress());
+            ps.setString(5, a.getDescription());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
