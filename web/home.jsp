@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="inside-1-2 bg-light-blue">
-                <h4 class="text-center mt-1">Hot Music</h4>
+                <h4 class="text-center mt-1">Hot Music</h4>         
                 <c:forEach var="s" items="${songs}">
                     <div class="vertical-song-card bg-light d-flex border-dark border-bottom">
                         <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>

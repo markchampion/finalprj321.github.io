@@ -3,30 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-uploaded.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/ArtistListDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/js/playpage.js</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-artist.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/index.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/SongDAO.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessWriterServlet.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-addsong.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/home.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/playpage.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/bean/PagingSongs.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessArtistServlet.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Song.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/footer.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/bean/PagingArtists.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Artist.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/User.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/HandlePlaySongServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-update-artist.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/LoadingSongServlet.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/UploadSongServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-update-writer.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-updatesong.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-writer.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/ArtistDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/search.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-uploaded.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/ArtistListDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/HandleFavoriteServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-addsong.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/home.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/bean/PagingSongs.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Favorite.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessArtistServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Song.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Artist.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/LoadingSongServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/UploadSongServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/playpage.css</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/WriterDAO.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/infosetting.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/FavoriteDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,18 +5,9 @@
  */
 package com.mark.controller;
 
-import com.google.gson.Gson;
-import com.mark.dao.ArtistDAO;
-import com.mark.dao.WriterDAO;
-import com.mark.model.Artist;
-import com.mark.model.Writer;
-import java.io.BufferedReader;
+import com.mark.dao.FavoriteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author PC
  */
-public class ProcessWriterServlet extends HttpServlet {
+public class HandleFavoriteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,30 +31,21 @@ public class ProcessWriterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            StringBuilder buffer = new StringBuilder();
-            BufferedReader reader = request.getReader();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
+            String action = request.getParameter("action");
+            int songID = Integer.parseInt(request.getParameter("songID"));
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            if (action != null && action.equals("add")) {
+                FavoriteDAO.insert(userID, songID);
+            } else if (action != null && action.equals("delete")) {
+                FavoriteDAO.delete(userID, songID);
             }
-            String data = buffer.toString();
-            String prevURL = "";
-            String decodeURL = data;
-            while (!prevURL.equals(decodeURL)) {
-                prevURL = decodeURL;
-                decodeURL = URLDecoder.decode(decodeURL, StandardCharsets.UTF_8.name());
-            }
-            Gson gson = new Gson();
-            Writer w = gson.fromJson(decodeURL, Writer.class);
-            WriterDAO.insert(w);
-            out.write(gson.toJson(w));
+            out.write("success");
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

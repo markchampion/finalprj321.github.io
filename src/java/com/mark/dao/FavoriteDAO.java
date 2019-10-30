@@ -7,6 +7,7 @@ package com.mark.dao;
 
 import com.mark.context.DBContext;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
@@ -23,5 +24,24 @@ public class FavoriteDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public static void insert(int userID, int songID) {
+        String sql = "insert into favorite (userid, songid) values ("+userID+","+songID+")";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);){
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void delete(int userID, int songID) {
+        String sql = "delete from favorite where userid = " + userID+" and songid = " + songID;
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);){
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

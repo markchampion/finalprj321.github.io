@@ -34,8 +34,8 @@
                 <div class="info-writer">
                     <table class="table table-dark">
                         <tr><th>ID</th><th>Writer Name</th><th>Birth Date</th><th>Address</th></tr>
-                        <c:forEach var="w" items="${writer.writers}" >
-                            <tr><td>${w.ID}</td><td>${w.name}</td><td>${w.birthDate}</td><td>${w.address}</td><td><a href="PRJ321_FINAL_PROJECT/writer.do?id=${w.ID}" class="btn btn-outline-warning">Update</a></td></tr>
+                                <c:forEach var="w" items="${writer.writers}" >
+                            <tr><td>${w.ID}</td><td>${w.name}</td><td>${w.birthDate}</td><td>${w.address}</td><td><a href="/PRJ321_FINAL_PROJECT/personal/info-update-writer.jsp?id=${w.ID}" class="btn btn-outline-warning">Update</a></td></tr>
                         </c:forEach>
                     </table>
                     <ul class="pagination">
@@ -57,45 +57,68 @@
                         </li>
                     </ul>
                 </div>
-                <div class="add-writer hidden">
-                    <form action="addwriter" id="add-form">
-                        <div class="form-group row">
-                            <label for="inputID3" class="col-sm-3 col-form-label">ID: </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="ID" id="inputID3" placeholder="ID...">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                    Launch demo modal
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Writer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="addwriter" id="add-form">
+                                    <div class="form-group row">
+                                        <label for="inputID3" class="col-sm-3 col-form-label">ID: </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="ID" id="inputID3" placeholder="ID...">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName3" class="col-sm-3 col-form-label">Name: </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="name" id="inputName3" placeholder="Name..." >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputBirth3" class="col-sm-3 col-form-label">Birth date:</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" name="birthDate"class="form-control" id="inputBirth3">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputAddress3" class="col-sm-3 col-form-label">Address:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"  name="address" id="inputAddress3">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputBirth3" class="col-sm-3 col-form-label">Description:</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="description" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+<!--                                    <div class="modal-footer col">
+                                        <input id="submit" type="button" value="Save" class="btn btn-primary"/>
+                                        <button class="btn btn-secondary" type="button">Cancel</button>
+                                    </div>-->
+                                    <input type="hidden" name="action" value="add-writer" />
+                                    <div class="modal-footer">
+                                        <button id="submit" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" value="Save" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="inputName3" class="col-sm-3 col-form-label">Name: </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="name" id="inputName3" placeholder="Name..." >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputBirth3" class="col-sm-3 col-form-label">Birth date:</label>
-                            <div class="col-sm-9">
-                                <input type="date" name="birthDate"class="form-control" id="inputBirth3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputAddress3" class="col-sm-3 col-form-label">Address:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control"  name="address" id="inputAddress3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputBirth3" class="col-sm-3 col-form-label">Description:</label>
-                            <div class="col-sm-9">
-                                <textarea name="description" class="form-control" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <input id="submit" type="button" value="Save" class="btn btn-success"/>
-                            <button class="btn btn-danger" type="button">Cancel</button>
-                        </div>
-                        <input type="hidden" name="action" value="add-writer" />
-                    </form>
+                    </div>
                 </div>
+                
             </div>
         </div>
         <jsp:include page="../footer.jsp" />
@@ -104,20 +127,24 @@
                 $('div.info-writer').toggleClass('hidden');
                 $('div.add-writer').toggleClass('hidden');
             }
+
+
+
             $('#add-btn').click(popUp);
-            $('#submit').on('click',function() {
-               //send ajax
-               $.ajax({
-                   url: '/PRJ321_FINAL_PROJECT/writer.do',
-                   type: 'POST',
-                   dataType: 'json',
-                   contentType: 'application/json;charset=UTF-8',
-                   mimeType: 'application/json',
-                   data: JSON.stringify($('#add-form').serializeJSON()),
-                   success: function(responseText) {
-                       window.location.reload();
-                   }
-               });
+            $('#submit').on('click', function () {
+                //send ajax
+                $.ajax({
+                    url: '/PRJ321_FINAL_PROJECT/writer.do',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
+                    mimeType: 'application/json',
+                    data: JSON.stringify($('#add-form').serializeJSON()),
+                    success: function () {
+                        console.log('123');
+                        window.location.reload();
+                    }
+                });
             });
         </script>
     </body>

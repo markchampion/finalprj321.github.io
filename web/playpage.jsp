@@ -17,6 +17,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/playpage.css" />
         <title>JSP Page</title>
+        <style>
+            #add-fav:hover, #del-fav {
+                cursor: pointer;
+                color: violet;
+            }
+            .hidden {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <%@include file="newHeader.jsp" %>
@@ -44,12 +53,8 @@
                         <a href="${playsong.downLink}"><img src="img/download.png" width="24" height="24"/><span class="pl-2">Download</span></a>
                     </div>
                     <div class="ml-5 add-fvt-button">
-                        <c:if test="${!fav.isFavorite(playsong.ID, sessionScope.logStatus.ID)}">
-                            <a href=""><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Add to favorite</span></a>
-                        </c:if>
-                        <c:if test="${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID)}">
-                            <a href=""><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Remove from favorite</span></a>
-                        </c:if>
+                        <p id="add-fav" class="${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID) ? 'hidden':''}" onclick="execFavorite()"><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Add to favorite</span></p>
+                        <p id="del-fav" class="${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID) ? '':'hidden'}" onclick="execFavorite()"><img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Remove favorite</span></p>
                     </div>
                 </div>
                 <div class="lyrics-area p-1 border">
@@ -93,11 +98,11 @@
             </div>
         </div>
         <%@include file="footer.jsp" %>
-             <script>
+        <script>
             window.onload = function () {
                 document.getElementById("my-audio").play();
             };
-            function mySubmit(){
+            function mySubmit() {
                 $.post('comment',
                         {
                             content: $('#exampleFormControlTextarea1').val(),
@@ -106,15 +111,28 @@
                         (responseText) => {
                     let cmtObj = JSON.parse(responseText);
                     console.log(cmtObj);
-                    $('#cmt-list').prepend("<div class='pl-3 d-flex'>"+
-                        "<img src='"+cmtObj.avatar+"' class='mr-3' width='48' height='48'/>"+
-                        "<div class='w-100'>"+
-                           " <div class='d-flex'>"+
-                                "<p class='m-0'><strong>"+cmtObj.user+"</strong></p>"+
-                               " <span class='ml-auto pr-3'>"+cmtObj.createdDate+"</span>"+
-                            "</div><p>"+cmtObj.content+"</p></div></div>");
+                    $('#cmt-list').prepend("<div class='pl-3 d-flex'>" +
+                            "<img src='" + cmtObj.avatar + "' class='mr-3' width='48' height='48'/>" +
+                            "<div class='w-100'>" +
+                            " <div class='d-flex'>" +
+                            "<p class='m-0'><strong>" + cmtObj.user + "</strong></p>" +
+                            " <span class='ml-auto pr-3'>" + cmtObj.createdDate + "</span>" +
+                            "</div><p>" + cmtObj.content + "</p></div></div>");
                 });
-            };
+            }
+            
+            function execFavorite(clicked_id) {
+                $.post('HandleFavorite',
+                        {
+                            action: ${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID) ? "'delete'":"'add'"},
+                            userID: ${sessionScope.logStatus.ID},
+                            songID: ${playsong.ID}
+                        },
+                        (responseText) => {
+                            $('#add-fav').toggleClass("hidden");
+                            $('#del-fav').toggleClass('hidden');
+                        });
+            }
 
         </script>
     </body>
