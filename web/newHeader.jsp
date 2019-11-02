@@ -19,7 +19,7 @@
     <body>
         <div class="container-fluid"> 
             <nav class="container navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand text-light" href="#">Tripple MP3</a>
+                <a class="navbar-brand text-light" href="/PRJ321_FINAL_PROJECT/list">Tripple MP3</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,7 +29,7 @@
                             <a class="nav-link text-light" href="/PRJ321_FINAL_PROJECT/list">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Link</a>
+                            <a class="nav-link text-light" href="#">Explore Music</a>
                         </li>
 
                         <li class="nav-item">
@@ -47,6 +47,7 @@
                                 ${sessionScope.logStatus.username}
                             </a>
                             <div class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/info-personal.jsp">Your Songs</a>
                                 <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/personal/infosetting.jsp">Setting</a>
                                 <a class="dropdown-item text-dark" href="signin.do?action=logout">Logout</a>
                                 <!--<div class="dropdown-divider "></div>-->

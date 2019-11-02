@@ -31,7 +31,6 @@
         <%@include file="newHeader.jsp" %>
         <div class="container p-3">
             <div class="inside-1-1 bg-light">
-                <!--<embed type="application/x-shockwave-flash" src="http://www.google.com/reader/ui/3247397568-audio-player.swf?audioUrl=${playsong.downLink}" width="400" height="27" allowscriptaccess="never" quality="best" bgcolor="#ffffff" wmode="window" flashvars="playerMode=embedded" /></embed>-->
                 <audio id="my-audio" controls>
                     <source src="${playsong.downLink}" type="audio/mpeg"/>
                 </audio>
@@ -110,7 +109,6 @@
                         },
                         (responseText) => {
                     let cmtObj = JSON.parse(responseText);
-                    console.log(cmtObj);
                     $('#cmt-list').prepend("<div class='pl-3 d-flex'>" +
                             "<img src='" + cmtObj.avatar + "' class='mr-3' width='48' height='48'/>" +
                             "<div class='w-100'>" +
@@ -120,7 +118,6 @@
                             "</div><p>" + cmtObj.content + "</p></div></div>");
                 });
             }
-            
             function execFavorite(clicked_id) {
                 $.post('HandleFavorite',
                         {
@@ -133,7 +130,6 @@
                             $('#del-fav').toggleClass('hidden');
                         });
             }
-
         </script>
     </body>
 </html>

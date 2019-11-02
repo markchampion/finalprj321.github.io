@@ -86,4 +86,39 @@ public class WriterDAO {
         }
         return null;
     }
+    
+    public static void delete(String id) {
+        String sql = "delete from writer where id = '" + id + "'";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void update(Writer w) {
+        String sql = "update writer set name = ?, address = ?, birthdate = ?, description = ? where id = ?";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, w.getName());
+            ps.setString(2, w.getAddress());
+            ps.setString(3, w.getBirthDate());
+            ps.setString(4, w.getDescription());
+            ps.setString(5, w.getID());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static boolean isExist(String id) {
+        String sql = "select * from writer where id = '" + id + "'";
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

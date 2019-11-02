@@ -41,7 +41,7 @@ public class ArtistTag extends SimpleTagSupport {
             list = new ArtistDAO().getArtistList(songID);
             System.out.println(list.size());
             for (com.mark.model.Artist artist : list) {
-                out.println(artist.getName()+" ");
+                out.println(artist.getNickName()+" ");
                 JspFragment f = getJspBody();
                 if (f != null) {
                     f.invoke(out);

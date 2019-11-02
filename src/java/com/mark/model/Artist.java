@@ -12,17 +12,23 @@ package com.mark.model;
 public class Artist {
     private String ID;
     private String name;
+    private String nickName;
     private String birthDate;
     private String address;
     private String description;
+    private String avatar;
 
-    public Artist(String ID, String name, String birthDate, String address, String description) {
+    public Artist(String ID, String name, String nickName, String birthDate, String address, String description, String avatar) {
         this.ID = ID;
         this.name = name;
+        this.nickName = nickName;
         this.birthDate = birthDate;
         this.address = address;
         this.description = description;
+        this.avatar = avatar;
     }
+
+    
 
     public Artist() {
     }
@@ -48,6 +54,23 @@ public class Artist {
         return birthDate;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+    
+    
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }

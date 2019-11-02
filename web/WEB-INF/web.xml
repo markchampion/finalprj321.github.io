@@ -7,6 +7,8 @@
     <filter-mapping>
         <filter-name>AuthenFilter</filter-name>
         <url-pattern>/personal/*</url-pattern>
+        <url-pattern>/comment</url-pattern>
+        <url-pattern>/HandleFavorite</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>AuthorizeServlet</servlet-name>
@@ -39,6 +41,14 @@
     <servlet>
         <servlet-name>HandleFavoriteServlet</servlet-name>
         <servlet-class>com.mark.controller.HandleFavoriteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyFormServlet</servlet-name>
+        <servlet-class>com.mark.controller.VerifyFormServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HandlePlayListServlet</servlet-name>
+        <servlet-class>com.mark.controller.HandlePlayListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
@@ -75,6 +85,14 @@
     <servlet-mapping>
         <servlet-name>HandleFavoriteServlet</servlet-name>
         <url-pattern>/HandleFavorite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyFormServlet</servlet-name>
+        <url-pattern>/verify.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandlePlayListServlet</servlet-name>
+        <url-pattern>/addplaylist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

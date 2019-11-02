@@ -5,15 +5,24 @@
  */
 package com.mark.controller;
 
+import com.google.api.client.util.IOUtils;
 import com.google.gson.Gson;
 import com.mark.dao.ArtistDAO;
+import com.mark.drive.DriveQuickstart;
 import com.mark.model.Artist;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author PC
  */
+@MultipartConfig
 public class ProcessArtistServlet extends HttpServlet {
 
     /**
@@ -39,24 +49,83 @@ public class ProcessArtistServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            StringBuilder buffer = new StringBuilder();
-            BufferedReader reader = request.getReader();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
+            String action = request.getParameter("action");
+            if (action != null && action.equals("delete")) {
+                ArtistDAO.delete(request.getParameter("id"));
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
+            } else if (action != null && action.equals("update")) {
+                String id = request.getParameter("ID");
+                String name = request.getParameter("name");
+                String nickName = request.getParameter("nickName");
+                String birthDate = request.getParameter("birthDate");
+                String address = request.getParameter("address");
+                String description = request.getParameter("description");
+                String avatar = "";
+                javax.servlet.http.Part fileAvatar = request.getPart("avatar");
+                if (!fileAvatar.getName().isEmpty() && fileAvatar.getSize() > 0) {
+                    avatar = getLink(new ArtistDAO().getArtist(id).getAvatar().split("id=")[1], fileAvatar, false);
+                } else {
+                    avatar = new ArtistDAO().getArtist(id).getAvatar().split("id=")[1];
+                }
+                ArtistDAO.update(new Artist(id, name, nickName, birthDate, address, description, avatar));
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
+            } else {
+//                StringBuilder buffer = new StringBuilder();
+//                BufferedReader reader = request.getReader();
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    buffer.append(line);
+//                }
+//                String data = buffer.toString();
+//                String prevURL = "";
+//                String decodeURL = data;
+//                while (!prevURL.equals(decodeURL)) {
+//                    prevURL = decodeURL;
+//                    decodeURL = URLDecoder.decode(decodeURL, StandardCharsets.UTF_8.name());
+//                }
+//                Gson gson = new Gson();
+//                Artist w = gson.fromJson(decodeURL, Artist.class);
+//                ArtistDAO.insert(w);
+                String id = request.getParameter("ID");
+                String name = request.getParameter("name");
+                String nickName = request.getParameter("nickName");
+                String birthDate = request.getParameter("birthDate");
+                String address = request.getParameter("address");
+                String description = request.getParameter("description");
+                String avatar = "";
+                javax.servlet.http.Part fileAvatar = request.getPart("avatar");
+                if (!fileAvatar.getName().isEmpty() && fileAvatar.getSize() > 0) {
+                    avatar = getLink("", fileAvatar, false);
+                }
+                ArtistDAO.insert(new Artist(id, name, nickName, birthDate, address, description, avatar));
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
             }
-            String data = buffer.toString();
-            String prevURL = "";
-            String decodeURL = data;
-            while (!prevURL.equals(decodeURL)) {
-                prevURL = decodeURL;
-                decodeURL = URLDecoder.decode(decodeURL, StandardCharsets.UTF_8.name());
-            }
-            Gson gson = new Gson();
-            Artist w = gson.fromJson(decodeURL, Artist.class);
-            ArtistDAO.insert(w);
-            out.write("success");
         }
+    }
+
+    private String getLink(String oldID, javax.servlet.http.Part fileMp, boolean isUpdate) {
+        InputStream fileContentMp3 = null;
+        try {
+            String fileNameMp3 = Paths.get(fileMp.getSubmittedFileName()).getFileName().toString();
+            fileContentMp3 = fileMp.getInputStream();
+            java.io.File filePath = new File("fileName");
+            FileOutputStream fosMp3 = new FileOutputStream(filePath);
+            IOUtils.copy(fileContentMp3, fosMp3);
+            if (isUpdate) {
+                return DriveQuickstart.updateImage(oldID, fileNameMp3, filePath).getId();
+            } else {
+                return DriveQuickstart.uploadImage(fileNameMp3, filePath).getId();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fileContentMp3.close();
+            } catch (IOException ex) {
+                Logger.getLogger(UploadSongServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

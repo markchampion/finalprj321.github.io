@@ -45,7 +45,7 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${(param.page+1) < songs.pages ? (param.page+1):songs.pages}" step="1" >
+                        <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${empty param.page ? 3:((param.page+1) < songs.pages ? (param.page+1):songs.pages)}" step="1" >
                             <c:url value="info-uploaded.jsp" var="next" >
                                 <c:param name="page" value="${i}" />
                             </c:url>

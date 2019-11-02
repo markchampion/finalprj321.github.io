@@ -78,7 +78,7 @@ public class UploadSongServlet extends HttpServlet {
                 s.setLyrics(lyrics);
                 if (!fileMp3.getName().isEmpty() && fileMp3.getSize() > 0) s.setDownLink(getLink(fileMp3, true));
                 else s.setDownLink(s.getDownLink().split("id=")[1]);
-                if (!fileAvatar.getName().isEmpty() && fileMp3.getSize() > 0) s.setAvatar(getLink(fileAvatar, false));
+                if (!fileAvatar.getName().isEmpty() && fileAvatar.getSize() > 0) s.setAvatar(getLink(fileAvatar, false));
                 else s.setAvatar(s.getAvatar().split("id=")[1]);
                 SongDAO.updateSong(s);
                 ArtistListDAO.update(artists, ID);

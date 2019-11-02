@@ -5,30 +5,19 @@
  */
 package com.mark.controller;
 
-import com.google.api.client.util.IOUtils;
-import com.mark.dao.SongDAO;
-import com.mark.drive.DriveQuickstart;
-import com.mark.model.Song;
-import java.io.File;
-import java.io.FileOutputStream;
+import com.mark.dao.PlaylistDAO;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author PC
  */
-@MultipartConfig
-public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
+public class HandlePlayListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,18 +28,16 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
-            System.out.println(request.getHeader("referer"));
-            List<Song> songs = new SongDAO().getSongsByViews();
-            request.setAttribute("songs", songs);
-            System.out.println(songs.size());
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            String name = request.getParameter("name"); 
+            String previousURL = request.getHeader("referer");
+            int uid = Integer.parseInt(request.getParameter("uid"));
+            PlaylistDAO.insert(uid, name);
+            response.sendRedirect(previousURL);
         }
     }
 
@@ -64,7 +51,7 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -78,7 +65,7 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

@@ -39,27 +39,35 @@ public class ProcessWriterServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            StringBuilder buffer = new StringBuilder();
-            BufferedReader reader = request.getReader();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
+            String action = request.getParameter("action");
+            if (action != null && action.equals("delete")) {
+                WriterDAO.delete(request.getParameter("id"));
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-writer.jsp");
+            } else if (action != null && action.equals("update")) {
+
+            } else {
+                StringBuilder buffer = new StringBuilder();
+                BufferedReader reader = request.getReader();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                String data = buffer.toString();
+                String prevURL = "";
+                String decodeURL = data;
+                while (!prevURL.equals(decodeURL)) {
+                    prevURL = decodeURL;
+                    decodeURL = URLDecoder.decode(decodeURL, StandardCharsets.UTF_8.name());
+                }
+                Gson gson = new Gson();
+                Writer w = gson.fromJson(decodeURL, Writer.class);
+                WriterDAO.insert(w);
+                out.write(gson.toJson(w));
             }
-            String data = buffer.toString();
-            String prevURL = "";
-            String decodeURL = data;
-            while (!prevURL.equals(decodeURL)) {
-                prevURL = decodeURL;
-                decodeURL = URLDecoder.decode(decodeURL, StandardCharsets.UTF_8.name());
-            }
-            Gson gson = new Gson();
-            Writer w = gson.fromJson(decodeURL, Writer.class);
-            WriterDAO.insert(w);
-            out.write(gson.toJson(w));
         }
     }
 

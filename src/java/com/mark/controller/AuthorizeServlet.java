@@ -10,6 +10,7 @@ import com.mark.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,14 +45,30 @@ public class AuthorizeServlet extends HttpServlet {
                 if (username != null && password != null) {
                     user = new UserDAO().verifyLogin(username, password);
                     if (user != null) {
+                        if (request.getParameter("remember") != null) {
+                            Cookie c1 = new Cookie("username", username);
+                            c1.setMaxAge(60 * 60 * 24 * 365);
+                            Cookie c2 = new Cookie("password", password);
+                            c2.setMaxAge(60 * 60 * 24 * 365);
+                            response.addCookie(c1);
+                            response.addCookie(c2);
+                        } else {
+                            for (Cookie c : request.getCookies()) {
+                                if (c.getValue().equals(username) || c.getValue().equals(password)) {
+                                    System.out.println("unchecked: "+c.getValue());
+                                    c.setMaxAge(0);
+                                    response.addCookie(c);
+                                }
+                            }
+                        }
                         session.setAttribute("logStatus", user);
-                        response.sendRedirect("login.jsp");
+                        response.sendRedirect(request.getHeader("referer"));
                         return;
-                    } 
+                    }
                 }
                 session.setAttribute("error", "Username or Password incorrect!!!");
                 response.sendRedirect("login.jsp");
-            } else if(action != null && action.equals("logout")) {
+            } else if (action != null && action.equals("logout")) {
                 session.removeAttribute("logStatus");
                 session.removeAttribute("error");
                 response.sendRedirect("index.jsp");

@@ -25,12 +25,12 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" style="background-image: url('')">
                         <div class="carousel-item active">
-                            <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/14/5/f/3/f/1571017006921_org.jpg" class="d-block w-100"  alt="...">
+                            <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/14/5/f/3/f/1571017006921_org.jpg" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/06/3/3/e/3/1570338800356_org.jpg" class="d-block w-100" alt="...">
+                            <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/06/3/3/e/3/1570338800356_org.jpg" class="d-block w-100 " alt="...">
                         </div>
                         <div class="carousel-item">
                             <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/16/f/d/7/1/1571188050529_org.jpg" class="d-block w-100" alt="...">

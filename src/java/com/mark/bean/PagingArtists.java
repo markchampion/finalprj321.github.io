@@ -21,7 +21,9 @@ import java.util.List;
  * @author PC
  */
 public class PagingArtists {
-     private int page;
+
+    private int page;
+
     {
         page = 1;
     }
@@ -36,9 +38,9 @@ public class PagingArtists {
     public void setPage(int page) {
         this.page = page;
     }
-    
-     public List<Artist> getArtists() {
-         int size = 5;
+
+    public List<Artist> getArtists() {
+        int size = 5;
         int from = (page - 1) * size + 1;
         int to = page * size;
         List<Artist> list = new LinkedList<>();
@@ -51,17 +53,19 @@ public class PagingArtists {
             while (rs.next()) {
                 String id = rs.getString("id");
                 String name = rs.getString("fullname");
-                String birth = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("birthdate"));
+                String nickname = rs.getString("nickname");
+                String birth = new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("birthdate"));
                 String address = rs.getString("address");
                 String des = rs.getString("description");
-                list.add(new Artist(id, name, birth, address, des));
+                String avatar =  "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
+                list.add(new Artist(id, name, nickname, birth, address, des, avatar));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public int getPages() {
         String sql = "select count(*) from writer";
         int row = 0;
@@ -74,6 +78,6 @@ public class PagingArtists {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return row < 5 ? 1 : (int)Math.ceil((double)row/5);
+        return row < 5 ? 1 : (int) Math.ceil((double) row / 5);
     }
 }

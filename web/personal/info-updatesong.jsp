@@ -82,7 +82,7 @@
                                 <!--<select name="artist">-->
                                 <c:forEach var="a" items="${artist.artists}" >
                                     <input type="checkbox" name="artists" value="${a.ID}" >
-                                    ${a.name}
+                                    ${a.nickName}
                                     </checkbox><br/>
                                 </c:forEach>
                                 <!--</select>-->

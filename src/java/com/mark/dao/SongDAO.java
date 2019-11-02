@@ -22,7 +22,34 @@ import java.util.List;
 public class SongDAO {
 
     //SELECT SONGS
-    
+    public List<Song> getFavoriteSongs(int userID) {
+        List<Song> list = new LinkedList<>();
+        String sql = "select * from song, Writer, Favorite, users\n"
+                + "where song.WriterID = writer.ID and song.id = Favorite.songID\n"
+                + "and Favorite.userID = users.ID and users.ID = "+userID;
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
+            while (rs.next()) {
+                int ID = rs.getInt("id");
+                String name = rs.getString(2);
+                String writer = rs.getString(13);
+                String album = rs.getString("albumid");
+                String genre = rs.getString("genre");
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("uploadeddate"));
+                int viewCount = rs.getInt("viewcount");
+                String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
+                String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
+                String lyrics = rs.getString("lyrics");
+                lyrics = lyrics != null ? lyrics.replaceAll("\n", "<br/>") : "";
+                list.add(new Song(ID, name, writer, album, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<Song> getSongsByViews() {
         List<Song> list = new LinkedList<>();
         String sql = "select * from song, Writer\n"
@@ -50,6 +77,7 @@ public class SongDAO {
             return null;
         }
     }
+
     public List<Song> getSongsByDate() {
         List<Song> list = new LinkedList<>();
         String sql = "select * from song, Writer\n"
@@ -161,7 +189,7 @@ public class SongDAO {
             e.printStackTrace();
         }
     }
-    
+
     public static void updateSong(Song s) {
         String sql = "update song set name = ?, writerid = ?, genre = ?, downlink = ?, avatar = ?, lyrics = ? where id = " + s.getID();
         try (Connection conn = new DBContext().getConnection();
