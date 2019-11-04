@@ -6,7 +6,9 @@
 package com.mark.controller;
 
 import com.mark.dao.ArtistDAO;
+import com.mark.dao.UserDAO;
 import com.mark.dao.WriterDAO;
+import com.mark.javamail.GmailSending;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,6 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class VerifyFormServlet extends HttpServlet {
 
+    private static String capcha = "";
+
+    public static String getCapcha() {
+        return capcha;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,6 +51,28 @@ public class VerifyFormServlet extends HttpServlet {
                 String id = request.getParameter("artistid");
                 if (ArtistDAO.isExist(id)) {
                     out.write("ID has been used!!!");
+                }
+            } else if (from != null && from.equals("forgot")) {
+                String email = request.getParameter("email");
+                if (UserDAO.checkEmail(email)){
+                    capcha = GmailSending.send(email);
+                    out.write("success");
+                } else {
+                    out.write("error");
+                }
+            } else if (from != null && from.equals("capcha")) {
+                if(capcha.equals(request.getParameter("capcha"))) {
+                    out.write("success");
+                } else {
+                    out.write("error");
+                }
+            } else if (from != null && from.equals("registerEmail")) {
+                if(UserDAO.checkEmail(request.getParameter("email"))) {
+                    out.write("Email has been used");
+                }
+            } else if (from != null && from.equals("registerUser")) {
+                if(UserDAO.checkUser(request.getParameter("user"))) {
+                    out.write("Username has been used");
                 }
             }
         }

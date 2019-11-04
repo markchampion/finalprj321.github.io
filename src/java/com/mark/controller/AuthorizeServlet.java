@@ -9,6 +9,8 @@ import com.mark.dao.UserDAO;
 import com.mark.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +36,7 @@ public class AuthorizeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String action = request.getParameter("action");
@@ -62,7 +65,7 @@ public class AuthorizeServlet extends HttpServlet {
                             }
                         }
                         session.setAttribute("logStatus", user);
-                        response.sendRedirect(request.getHeader("referer"));
+                        response.sendRedirect("index.jsp");
                         return;
                     }
                 }
@@ -72,6 +75,18 @@ public class AuthorizeServlet extends HttpServlet {
                 session.removeAttribute("logStatus");
                 session.removeAttribute("error");
                 response.sendRedirect("index.jsp");
+            } else if (action != null && action.equals("register")) {
+                String defaultAvatar = "1uuiw3Y-YnuE9bYrnx-7tzGsw5KRUIluS";
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String firstName = request.getParameter("firstname");
+                String lastName = request.getParameter("lastname");
+                String email = request.getParameter("email");
+                User user = new User(username, password, firstName, lastName, email, "user", new SimpleDateFormat("yyyy-MM-dd").format(new Date()), true);
+                user.setAvatar("https://docs.google.com/uc?export=download&id=" + defaultAvatar);
+                UserDAO.insert(user);
+                session.setAttribute("logStatus", user);
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/list");
             }
         }
     }

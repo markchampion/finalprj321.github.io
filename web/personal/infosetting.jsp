@@ -14,23 +14,23 @@
     </head>
     <body>
         <%@include file="../newHeader.jsp" %>
-        <div class="container-fluid bg-light-blue" style="height: 50px">          
-        </div>
-        <div class="container d-flex bg-light col-lg-6 p-0">
-            <jsp:include page="info-submenu.jsp" />
-            <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
-                <div class="d-flex align-items-center">
-                    <h4>Login Information</h4>
-                    <p class="mb-0 ml-auto"><button id="btn-update">Update</button></p>
-                </div>
-                <table>
-                    <tr><td>First Name:  </td><td>${sessionScope.logStatus.firstName}</td></tr>
-                    <tr><td>Last Name: </td><td>${sessionScope.logStatus.lastName}</td>  </tr>
-                    <tr><td>Phone: </td><td>${sessionScope.logStatus.phone}</td>  </tr>
-                    <tr><td>Address: </td><td>${sessionScope.logStatus.address}</td> </tr>
-                    <tr><td>Avatar </td><td><img src="${sessionScope.logStatus.avatar}" width="48" height="48"/></td></tr>
-                </table>
+        <div class="container bg-light p-0 shadow rounded col-9">
+            <div class="sub-container p-5 row">
+                <jsp:include page="info-submenu.jsp" />
+                <div class="info-tab-detail p-3 col-9">
+                    <div class="d-flex align-items-center">
+                        <h4>Login Information</h4>
+                        <p class="mb-0 ml-auto"><button id="btn-update" class="btn btn-success">Update</button></p>
+                    </div>
+                    <table>
+                        <tr><td>First Name:  </td><td>${sessionScope.logStatus.firstName}</td></tr>
+                        <tr><td>Last Name: </td><td>${sessionScope.logStatus.lastName}</td>  </tr>
+                        <tr><td>Phone: </td><td>${sessionScope.logStatus.phone}</td>  </tr>
+                        <tr><td>Address: </td><td>${sessionScope.logStatus.address}</td> </tr>
+                        <tr><td>Avatar </td><td><img src="${sessionScope.logStatus.avatar}" width="48" height="48"/></td></tr>
+                    </table>
 
+                </div>
             </div>
         </div>
         <%@include file="../footer.jsp" %>

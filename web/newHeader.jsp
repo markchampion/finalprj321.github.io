@@ -49,7 +49,7 @@
                             <div class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/info-personal.jsp">Your Songs</a>
                                 <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/personal/infosetting.jsp">Setting</a>
-                                <a class="dropdown-item text-dark" href="signin.do?action=logout">Logout</a>
+                                <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/signin.do?action=logout">Logout</a>
                                 <!--<div class="dropdown-divider "></div>-->
                                 <!--<a class="dropdown-item text-dark" href="#">Something else here</a>-->
                             </div>

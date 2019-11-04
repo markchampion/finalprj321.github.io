@@ -26,6 +26,17 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password, String firstName, String lastName, String email, String role, String createdDate, boolean isActivated) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+        this.createdDate = createdDate;
+        this.isActivated = isActivated;
+    } 
+    
     public User(int ID, String username, String password, String firstName, String lastName, String address, String phone, String email, String role, String createdDate, boolean isActivated, String avatar) {
         this.ID = ID;
         this.username = username;

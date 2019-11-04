@@ -27,10 +27,10 @@
                 <div class="d-flex col-12" style="margin-top: -17em">
                     <div class="shadow col-3 p-0">
                         <div class="option-list col p-0">
-                            <div id="favList" class="option-item p-3 border-bottom" onclick="loadContent(this)">
+                            <div id="favList" class="option-item p-3 border-bottom" onclick="loadContent(this.id)">
                                 <b>Favorite</b>
                             </div>
-                            <div id="playList" class="option-item p-3 border-bottom" onclick="loadContent(this)">
+                            <div id="playList" class="option-item p-3 border-bottom" onclick="loadContent(this.id)">
                                 <b>Playlist</b>
                             </div>
                             <div id="htr" class="option-item p-3 border-bottom">
@@ -50,14 +50,16 @@
         <jsp:include page="footer.jsp" />
         <script>
             $('#song-content').load('/PRJ321_FINAL_PROJECT/personal_content/favList.jsp', function () {}).hide().fadeIn();
-            function loadContent(item) {
-                var attr = item.getAttribute('id');
+            function loadContent(id) {
+                console.log(id);
+                var item = document.getElementById(id);
                 var itemlist = document.getElementsByClassName('option-item');
                 for (var i = 0; i < itemlist.length; i++) {
                     itemlist[i].classList.remove('bg-lightest-blue');
                 }
                 item.classList.add('bg-lightest-blue');
-                $('#song-content').load('/PRJ321_FINAL_PROJECT/personal_content/' + attr + '.jsp', function () {}).hide().fadeIn();
+                $('#song-content').load('/PRJ321_FINAL_PROJECT/personal_content/' + id + '.jsp', function () {}).hide().fadeIn();
+                window.history.pushState("object or string", "Title", '/PRJ321_FINAL_PROJECT/personal_content/' + id + '.jsp');
             }
         </script>
     </body>

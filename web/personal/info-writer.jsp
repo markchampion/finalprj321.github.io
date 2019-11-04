@@ -17,107 +17,109 @@
     </head>
     <body>
         <jsp:include page="../newHeader.jsp" />
-        <div class="container-fluid bg-light-blue" style="height: 50px">          
-        </div>
-        <div class="container d-flex col-lg-6 bg-light p-0">
-            <jsp:include page="info-submenu.jsp" />
-            <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
-                <div class="d-flex">
-                    <h4>Writers Information</h4>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                        Add
-                    </button>
-                </div>
-                <div class="info-writer">
-                    <table class="table table-dark">
-                        <tr><th>ID</th><th>Writer Name</th><th>Birth Date</th><th>Address</th></tr>
-                                <c:forEach var="w" items="${writer.writers}" >
-                            <tr><td>${w.ID}</td><td>${w.name}</td><td>${w.birthDate}</td><td>${w.address}</td>
-                                <td>
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/personal/info-update-writer.jsp?id=${w.ID}">Update</a>
-                                        <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/writer.do?id=${w.ID}&action=delete">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                    <ul class="pagination">
-                        <li class="page-item ${(param.page-1)>1 ? '':'disabled'}">
-                            <a class="page-link" href="info-writer.jsp?page=${param.page-1}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${empty param.page ? 3:((param.page+1) < writer.pages ? (param.page+1):writer.pages)}" step="1" >
-                            <c:url value="info-writer.jsp" var="next" >
-                                <c:param name="page" value="${i}" />
-                            </c:url>
-                            <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>
+
+        <div class="container bg-light p-0 shadow rounded col-9">
+            <div class="sub-container pt-5 pl-5 pr-5 pb-2 row">
+                <jsp:include page="info-submenu.jsp" />
+                <div class="info-tab-detail border-right border-bottom p-3 col-lg-9 pb-5">
+                    <div class="d-flex">
+                        <h4>Writers Information</h4>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                            Add
+                        </button>
+                    </div>
+                    <div class="info-writer">
+                        <table class="table table-dark">
+                            <tr><th>ID</th><th>Writer Name</th><th>Birth Date</th><th>Address</th></tr>
+                                    <c:forEach var="w" items="${writer.writers}" >
+                                <tr><td>${w.ID}</td><td>${w.name}</td><td>${w.birthDate}</td><td>${w.address}</td>
+                                    <td>
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/personal/info-update-writer.jsp?id=${w.ID}">Update</a>
+                                            <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/writer.do?id=${w.ID}&action=delete">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
                             </c:forEach>
-                        <li class="page-item ${param.page+2 < writer.pages ? '':'disabled'}">
-                            <a class="page-link" href="info-writer.jsp?page=${param.page+1}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Button trigger modal -->
+                        </table>
+
+                    </div>
+                    <!-- Button trigger modal -->
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Writer</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="add-form" method="post">
-                                    <div class="form-group row">
-                                        <label for="inputID3" class="col-sm-3 col-form-label">ID: </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" onchange="checkExist()" name="ID" id="inputID3" placeholder="ID..." required/> 
-                                            <span id="writer-exist"></span>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Writer</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="add-form" method="post">
+                                        <div class="form-group row">
+                                            <label for="inputID3" class="col-sm-3 col-form-label">ID: </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" onchange="checkExist()" name="ID" id="inputID3" placeholder="ID..." required/> 
+                                                <span id="writer-exist"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputName3" class="col-sm-3 col-form-label" >Name: </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" required="" name="name" id="inputName3" placeholder="Name..." />
+                                        <div class="form-group row">
+                                            <label for="inputName3" class="col-sm-3 col-form-label" >Name: </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" required="" name="name" id="inputName3" placeholder="Name..." />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputBirth3" class="col-sm-3 col-form-label" >Birth date:</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" name="birthDate"class="form-control" required="" id="inputBirth3"/>
+                                        <div class="form-group row">
+                                            <label for="inputBirth3" class="col-sm-3 col-form-label" >Birth date:</label>
+                                            <div class="col-sm-9">
+                                                <input type="date" name="birthDate"class="form-control" required="" id="inputBirth3"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputAddress3" class="col-sm-3 col-form-label" >Address:</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"  name="address" required id="inputAddress3"/>
+                                        <div class="form-group row">
+                                            <label for="inputAddress3" class="col-sm-3 col-form-label" >Address:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"  name="address" required id="inputAddress3"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputBirth3" class="col-sm-3 col-form-label">Description:</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="description" class="form-control" rows="3" required></textarea>
+                                        <div class="form-group row">
+                                            <label for="inputBirth3" class="col-sm-3 col-form-label">Description:</label>
+                                            <div class="col-sm-9">
+                                                <textarea name="description" class="form-control" rows="3" required></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="hidden" name="action" value="add-writer" />
-                                    <div class="modal-footer">
-                                        <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button id="submit" type="submit" value="Save" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
+                                        <input type="hidden" name="action" value="add-writer" />
+                                        <div class="modal-footer">
+                                            <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button id="submit" type="submit" value="Save" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <ul class="pagination" style="margin-top: -3em; padding-left: 18em">
+                    <li class="page-item ${(param.page-1)>1 ? '':'disabled'}">
+                        <a class="page-link" href="info-writer.jsp?page=${param.page-1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${empty param.page ? 3:((param.page+1) < writer.pages ? (param.page+1):writer.pages)}" step="1" >
+                        <c:url value="info-writer.jsp" var="next" >
+                            <c:param name="page" value="${i}" />
+                        </c:url>
+                        <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>
+                        </c:forEach>
+                    <li class="page-item ${param.page+2 < writer.pages ? '':'disabled'}">
+                        <a class="page-link" href="info-writer.jsp?page=${param.page+1}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <jsp:include page="../footer.jsp" />
@@ -130,7 +132,7 @@
                         (responseText) => {
                     $('#writer-exist').text(responseText);
                 });
-            }       
+            }
             $("#add-form").validate({
                 rules: {
                     ID: "required",

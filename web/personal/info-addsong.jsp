@@ -16,58 +16,69 @@
     </head>
     <body>
         <%@include file="../newHeader.jsp" %>
-        <div class="container-fluid bg-light-blue" style="height: 50px">          
-        </div>
-        <div class="container d-flex col-lg-6 bg-light p-0">
-            <jsp:include page="info-submenu.jsp" />
-            <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
-                <h4>Upload Songs</h4>
-                <form action="/PRJ321_FINAL_PROJECT/upload" method="post" enctype="multipart/form-data">
-                    <table>
-                        <tr><td>Song name: </td><td><input type="text" name="name" required/></td></tr>
-                        <tr><td>Author name: </td>
-                            <td><select name="writer">
-                                    <c:forEach var="a" items="${writer.writers}" >
-                                        <option value="${a.ID}">
-                                            ${a.name}
-                                        </option>
+        <div class="container bg-light p-0 shadow rounded col-9">
+            <div class="sub-container p-5 row">
+                <jsp:include page="info-submenu.jsp" />
+                <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
+                    <h4>Upload Songs</h4>
+                    <form action="/PRJ321_FINAL_PROJECT/upload" method="post" enctype="multipart/form-data">
+                        <table>
+                            <tr><td>Song name: </td><td><input type="text" name="name" required/></td></tr>
+                            <tr><td>Author name: </td>
+                                <td><select name="writer">
+                                        <c:forEach var="a" items="${writer.writers}" >
+                                            <option value="${a.ID}">
+                                                ${a.name}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </td></tr>
+                            <tr><td>Artist name: </td>
+                                <td style="overflow-y: scroll; height: 100px">
+                                    <!--<select name="artist">-->
+                                    <c:forEach var="a" items="${artist.artists}" >
+                                        <input type="checkbox" name="artists" value="${a.ID}">
+                                        ${a.name}
+                                        <br/>
                                     </c:forEach>
-                                </select>
-                            </td></tr>
-                        <tr><td>Artist name: </td>
-                            <td style="overflow-y: scroll; height: 100px">
-                                <!--<select name="artist">-->
-                                <c:forEach var="a" items="${artist.artists}" >
-                                    <input type="checkbox" name="artists" value="${a.ID}">
-                                    ${a.name}
-                                    <br/>
-                                </c:forEach>
-                                <!--</select>-->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Genre: </td>
-                            <td>
-                                <select name="genre">
-                                    <option value="Pop">Pop</option>
-                                    <option value="Rock">Rock</option>
-                                    <option value="Rap">Rap</option>
-                                    <option value="HipHop">Hip hop</option>
-                                    <option value="Country">Country</option>
-                                    <option value="R&B">R&B</option>
-                                    <option value="EDM">EDM</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr><td>Lyrics: </td><td>
-                                <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </td></tr>
-                        <tr><td>Mp3 file: </td><td><input accept=".mp3,.mp4" type="file" name="fileattach" required/></td></tr>
-                        <tr><td>Avatar: </td><td><input accept=".jpg,.png" type="file" name="fileavatar" required/></td></tr>
-                    </table>
-                    <input type="submit" name="action" value="Add song"/>
-                    <input type="hidden" name="userid" value="${sessionScope.logStatus.ID}"/>
-                </form>
+                                    <!--</select>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Genre: </td>
+                                <td>
+                                    <select name="genre">
+                                        <option value="Pop">Pop</option>
+                                        <option value="Rock">Rock</option>
+                                        <option value="Rap">Rap</option>
+                                        <option value="HipHop">Hip hop</option>
+                                        <option value="Country">Country</option>
+                                        <option value="R&B">R&B</option>
+                                        <option value="EDM">EDM</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr><td>Lyrics: </td><td>
+                                    <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </td></tr>
+                            <tr><td>Mp3 file: </td><td>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" accept=".mp3,.mp4" name="fileattach" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </td></tr>
+
+                            <tr><td>Avatar: </td><td>
+                                    <div class="custom-file">
+                                        <input type="file" name="fileavatar" class="custom-file-input" accept=".jpg,.png" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </td></tr>
+                        </table>
+                        <input type="submit" name="action" value="Add song"/>
+                        <input type="hidden" name="userid" value="${sessionScope.logStatus.ID}"/>
+                    </form>
+                </div>
             </div>
         </div>
         <%@include file="../footer.jsp" %>

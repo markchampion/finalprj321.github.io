@@ -20,7 +20,7 @@
     <body>
         <%@include file="newHeader.jsp" %>
         <div class="container col-4 pt-5">
-            <div id="form-1 row" style="background-color: whitesmoke;">
+            <div id="form-1 row rounded shadow" style="background-color: whitesmoke;">
                 <h3 class="pl-3 pt-3 m-0 text-center">Login</h3>
                 <form class="pt-5 pl-5 pr-5 pb-1" id="sign-in" action="signin.do" method="post">
                     <div class="input-group mb-3 d-flex">
@@ -46,13 +46,11 @@
                     <button type="submit" class="btn btn-success">Login</button>
                 </form>
                 <div class="pb-3">
-                    <a class="p-1 pl-5 light-silver" href="">Forgot your pasword?</a>
+                    <a class="p-1 pl-5 light-silver" href="forgot.jsp">Forgot your pasword?</a>
                     <div class="w-100"></div>
-                    <a class="text-center pl-5 p-1 light-silver mb-5"  href="">Don't have a account? Register Now!!!</a>
+                    <a class="text-center pl-5 p-1 light-silver mb-5"  href="register.jsp">Don't have a account? Register Now!!!</a>
                 </div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     </body>
 </html>
