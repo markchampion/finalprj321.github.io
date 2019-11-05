@@ -39,3 +39,12 @@ div.download-btn {
 .pause {
     background: url(https://visualpharm.com/assets/891/Stop-595b40b65ba036ed117d45cc.svg);
 }
+.image {
+    animation:spin 4s linear infinite;
+}
+.restore {
+    animation: reverse 3s linear 1;
+    
+}
+@-webkit-keyframes reverse { 100% { -webkit-transform: rotate(0deg); transition-duration: 2s;} }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }

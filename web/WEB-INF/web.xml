@@ -10,6 +10,7 @@
         <url-pattern>/comment</url-pattern>
         <url-pattern>/HandleFavorite</url-pattern>
     </filter-mapping>
+    
     <servlet>
         <servlet-name>AuthorizeServlet</servlet-name>
         <servlet-class>com.mark.controller.AuthorizeServlet</servlet-class>
@@ -49,6 +50,10 @@
     <servlet>
         <servlet-name>HandlePlayListServlet</servlet-name>
         <servlet-class>com.mark.controller.HandlePlayListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUserController</servlet-name>
+        <servlet-class>com.mark.controller.UpdateUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthorizeServlet</servlet-name>
@@ -93,6 +98,10 @@
     <servlet-mapping>
         <servlet-name>HandlePlayListServlet</servlet-name>
         <url-pattern>/addplaylist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserController</servlet-name>
+        <url-pattern>/update.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

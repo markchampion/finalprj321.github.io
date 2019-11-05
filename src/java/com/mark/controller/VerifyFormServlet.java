@@ -11,10 +11,13 @@ import com.mark.dao.WriterDAO;
 import com.mark.javamail.GmailSending;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,11 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class VerifyFormServlet extends HttpServlet {
 
-    private static String capcha = "";
-
-    public static String getCapcha() {
-        return capcha;
-    }
+    private static final ConcurrentHashMap<String, String> queueCapcha = new ConcurrentHashMap<>();
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,6 +40,7 @@ public class VerifyFormServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String capcha = "";
             /* TODO output your page here. You may use following sample code. */
             String from = request.getParameter("from");
             if (from != null && from.equals("writer")) {
@@ -56,15 +57,34 @@ public class VerifyFormServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 if (UserDAO.checkEmail(email)){
                     capcha = GmailSending.send(email);
+                    queueCapcha.put(email, capcha);
                     out.write("success");
                 } else {
                     out.write("error");
                 }
             } else if (from != null && from.equals("capcha")) {
-                if(capcha.equals(request.getParameter("capcha"))) {
+                Cookie []cookies = request.getCookies();
+                capcha = request.getParameter("capcha");
+                System.out.println(capcha);
+                for (Cookie cooky : cookies) {
+                    if (cooky.getName().equals("forgotEmail")) {
+                        if(queueCapcha.get(cooky.getValue()).equals(capcha)) {
+                            out.write("success");
+                        } else {
+                            out.write("error");
+                        }
+                    }
+                }
+            } else if(from != null && from.equals("renewPass")) {
+                String email = request.getParameter("email");
+                if (UserDAO.checkPass(email, request.getParameter("oldPass"))) {
+                    if (UserDAO.updatePassword(email, request.getParameter("newPass"))) {
+                        response.setStatus(200);
+                    } 
                     out.write("success");
                 } else {
-                    out.write("error");
+                    response.setStatus(401);
+                    out.write("success");
                 }
             } else if (from != null && from.equals("registerEmail")) {
                 if(UserDAO.checkEmail(request.getParameter("email"))) {
@@ -75,6 +95,8 @@ public class VerifyFormServlet extends HttpServlet {
                     out.write("Username has been used");
                 }
             }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:useBean id="writer" class="com.mark.bean.PagingWriters" />
+<jsp:useBean id="writer" class="com.mark.bean.PagingWriters" scope="page"/>
 <jsp:setProperty name="writer" property="*" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

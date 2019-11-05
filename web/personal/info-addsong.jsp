@@ -67,7 +67,6 @@
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                 </td></tr>
-
                             <tr><td>Avatar: </td><td>
                                     <div class="custom-file">
                                         <input type="file" name="fileavatar" class="custom-file-input" accept=".jpg,.png" id="customFile">

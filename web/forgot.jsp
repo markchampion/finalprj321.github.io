@@ -20,7 +20,7 @@
         <jsp:include page="newHeader.jsp" />
         <div class="container col-4 pt-5">
             <div id="form-1"  class="rounded shadow" style="background-color: whitesmoke;">
-                <h3 class="pl-3 pt-4 m-0 text-center">Forgot Account</h3>
+                <h3 class="pl-3 pt-4 m-0 text-center">Forgot Password</h3>
                 <form class="row pt-5 pl-5 pr-5 pb-1" id="sign-in" method="post">
                     <div class="input-group mb-3 d-flex" id="re-email">
                         <h5>Enter your registered Email:</h5>
@@ -33,7 +33,14 @@
                     </div>
                     <input type="hidden" name="action" value="" />
                     <p class="col-9"></p>
-                    <button type="button" class="btn btn-block btn-success mb-3" onclick="submitEmail()">Next</button>
+                    <button type="button" id="submit" class="btn btn-block btn-success mb-3" onclick="submitEmail()">
+                        <span id="loading" style="display: none">
+                            <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>Loading...       
+                        </span>
+                        <span id="idle">
+                            Next
+                        </span>
+                    </button>
                 </form>
                 <div class="pb-3">
                     <!--<a class="p-1 pl-5 light-silver" href="">Forgot your pasword?</a>-->
@@ -44,20 +51,30 @@
         </div>
         <jsp:include page="footer.jsp" />
         <script>
-             function submitEmail() {
+            function submitEmail() {
                 var post = $('#email').val();
-                $.post(
-                        '/PRJ321_FINAL_PROJECT/verify.do',
-                        {email: post, from: 'forgot'},
-                        (responseText) => {
-                            if(responseText == 'success'){
-                                $('#sign-in').load('/PRJ321_FINAL_PROJECT/forgot-capcha.jsp', function () {}).hide().fadeIn();
-                            } else {
-                                $('#wrong-email').text('Your email is not correct');
-                            }
-                        });
+                $('#loading').css('display', '');
+                $('#idle').css('display', 'none');
+                $('#submit').attr('disabled', true);
+                $.ajax({
+                    url: "/PRJ321_FINAL_PROJECT/verify.do",
+                    type: 'POST',
+                    dataType: false,
+                    data: {email: post, from: 'forgot'},
+                    success: function (responseText) {
+                        if (responseText === 'success') {
+                            document.cookie = 'forgotEmail = ' + post,
+                                    window.location.href = '/PRJ321_FINAL_PROJECT/forgot-capcha.jsp';
+                        } else {
+                            $('#wrong-email').text('Your email is not correct');
+                        }
+                    },
+                    complete: function () {
+                        $('#loading').css('display', 'none');
+                        $('#idle').css('display', '');
+                    }
+                });
             }
-            
         </script>
     </body>
 </html>

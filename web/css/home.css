@@ -15,7 +15,7 @@ html,body{
 div.container {
     height: fit-content;
     display: grid;
-    grid-template-columns: 770px 340px;
+    grid-template-columns: 770px 365px;
     grid-template-rows: 310px 250px 300px;
 }
 div.inside-1 {
@@ -28,10 +28,10 @@ div.inside-1-2 {
     grid-column-start: 2;
     grid-row-start: 1; 
     /*display: grid;*/
-    /*grid-template-rows: 10% 15% 15% 15% 15% 15% 15%;*/
+    /*grid-template-rows: 62px 62px 62px 62px 62px;*/
 }
 div.vertical-song-card{
-    height: 45px;
+    height: 55px;
 }
 div.singer-title {
     font-size: 14px;

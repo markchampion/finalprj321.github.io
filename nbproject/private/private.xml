@@ -11,6 +11,7 @@
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/playpage.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/filter/AuthorFilter.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/forgot.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Writer.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/footer.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/home.css</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal_content/playList.jsp</file>
@@ -23,6 +24,7 @@
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/login.css</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-uploaded.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/HandleFavoriteServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/tag/ListArtistTag.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/AuthorizeServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/CommentServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Song.java</file>
@@ -31,10 +33,12 @@
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/javamail/GmailSending.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/SearchServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/UploadSongServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/playpage.css</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/filter/AuthenFilter.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/infosetting.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/SongDAO.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/register.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessWriterServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/footer.css</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/info-personal.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/tag/ArtistTag.java</file>
@@ -44,16 +48,20 @@
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/UserDAO.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-writer.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/ArtistListDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/artist-page.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-addsong.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/home.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Favorite.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal/info-submenu.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/forgot-renew.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessArtistServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/UpdateUserController.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/model/Playlist.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/VerifyFormServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/LoadingSongServlet.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/personal_content/favList.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/CommentDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/forgot-success.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/WriterDAO.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/newHeader.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/FavoriteDAO.java</file>

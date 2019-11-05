@@ -20,6 +20,29 @@ public class UserDAO {
 
     //SELECT ALL USER
     //CHECK LOGIN
+    
+    public static boolean checkPass(String email, String password) {
+        String sql = "select * from users where email = '" + email + "' and password = '" +password+"'";
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean updatePassword(String email, String newPass) {
+         String sql = "update users set password = '" + newPass +"' where email = '" + email + "'";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql)) {
+            return rs.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public User verifyLogin(String username, String pass) {
         String sql = "select * from users where username = '" + username + "'";
         try (Connection conn = new DBContext().getConnection();
@@ -66,9 +89,31 @@ public class UserDAO {
         return false;
     }
 
-    public User select(int ID) {
-        System.out.println("user id = " + ID);
-        String sql = "select * from users where id = " + ID;
+    public User select(String username) {
+        String sql = "select * from users where username = '" + username+"'";
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
+            if (rs.next()) {
+                String pass = rs.getString("password");
+                String firstName = rs.getString("firstname");
+                String lastName = rs.getString("lastname");
+                String address = rs.getString("address");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String role = rs.getString("role");
+                String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("createddate"));
+                boolean isActivated = rs.getInt("isactivated") == 1;
+                String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
+                return new User(0, username, pass, firstName, lastName, address, phone, email, role, createdDate, isActivated, avatar);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public User selectByID(int userID) {
+        String sql = "select * from users where id = " + userID;
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
             if (rs.next()) {
@@ -83,13 +128,30 @@ public class UserDAO {
                 String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("createddate"));
                 boolean isActivated = rs.getInt("isactivated") == 1;
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
-
-                return new User(ID, username, pass, firstName, lastName, address, phone, email, role, createdDate, isActivated, avatar);
+                return new User(userID, username, pass, firstName, lastName, address, phone, email, role, createdDate, isActivated, avatar);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void update(User u) {
+        String sql = "update users\n"
+                + "set firstName = ?, lastName = ?, Phone = ?, Address = ?, Avatar = ?\n"
+                + "where username = ?";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, u.getFirstName());
+            ps.setString(2, u.getLastName());
+            ps.setString(3, u.getAddress());
+            ps.setString(4, u.getPhone());
+            ps.setString(5, u.getAvatar());
+            ps.setString(6, u.getUsername());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void insert(User u) {

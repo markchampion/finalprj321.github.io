@@ -58,7 +58,6 @@ public class AuthorizeServlet extends HttpServlet {
                         } else {
                             for (Cookie c : request.getCookies()) {
                                 if (c.getValue().equals(username) || c.getValue().equals(password)) {
-                                    System.out.println("unchecked: "+c.getValue());
                                     c.setMaxAge(0);
                                     response.addCookie(c);
                                 }

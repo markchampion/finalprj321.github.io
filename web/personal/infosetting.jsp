@@ -14,7 +14,7 @@
     </head>
     <body>
         <%@include file="../newHeader.jsp" %>
-        <div class="container bg-light p-0 shadow rounded col-9">
+        <div class="container bg-light p-0 shadow rounded col-9" style="height: 500px">
             <div class="sub-container p-5 row">
                 <jsp:include page="info-submenu.jsp" />
                 <div class="info-tab-detail p-3 col-9">
@@ -22,17 +22,41 @@
                         <h4>Login Information</h4>
                         <p class="mb-0 ml-auto"><button id="btn-update" class="btn btn-success">Update</button></p>
                     </div>
-                    <table>
+                    <table id="table-info" class="table">
                         <tr><td>First Name:  </td><td>${sessionScope.logStatus.firstName}</td></tr>
                         <tr><td>Last Name: </td><td>${sessionScope.logStatus.lastName}</td>  </tr>
                         <tr><td>Phone: </td><td>${sessionScope.logStatus.phone}</td>  </tr>
                         <tr><td>Address: </td><td>${sessionScope.logStatus.address}</td> </tr>
-                        <tr><td>Avatar </td><td><img src="${sessionScope.logStatus.avatar}" width="48" height="48"/></td></tr>
+                        <tr><td>Avatar </td><td><img class="rounded-circle" src="${sessionScope.logStatus.avatar}" width="48" height="48"/>
+                            </td></tr>
                     </table>
-
+                            <form id="table-update" method="post" style="display: none" enctype="multipart/form-data" action="/PRJ321_FINAL_PROJECT/update.do">
+                        <table class="table">
+                            <tr><td>First Name:  </td><td><input class="form-control col-5" type="text" value="${sessionScope.logStatus.firstName}" name="firstname"/></td></tr>
+                            <tr><td>Last Name: </td><td><input class="form-control col-5" type="text" value="${sessionScope.logStatus.lastName}" name="lastname"/></td></tr>
+                            <tr><td>Phone: </td><td><input class="form-control col-5"type="text" value="${sessionScope.logStatus.phone}" name="phone" /></td></tr>
+                            <tr><td>Address: </td><td><input class="form-control col-5" type="text" value="${sessionScope.logStatus.address}" name="address"/></td></tr>
+                            <tr><td>Avatar </td><td><img class="rounded-circle" src="${sessionScope.logStatus.avatar}" width="48" height="48"/>
+                                    <label for="avatar" class="btn btn-success">Change avatar</label>
+                                    <input id="avatar" style="opacity: 0;position: absolute; z-index: -1" type="file" accept=".jpg,.png" name="fileavatar" value="Update Avatar"/> 
+                                </td></tr>
+                        </table>
+                            <input class="btn btn-success" type="submit" value="Save" />
+                            <button type="button" id="cancel" class="btn btn-danger">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
         <%@include file="../footer.jsp" %>
+        <script>
+            $('#btn-update').click(function() {
+                $('#table-info').css('display','none');
+                $('#table-update').css('display','');
+            });
+            $('#cancel').click(function() {
+                $('#table-info').css('display','');
+                $('#table-update').css('display','none');
+            });
+        </script>
     </body>
 </html>

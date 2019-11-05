@@ -40,7 +40,7 @@ public class SongDAO {
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
                 String lyrics = rs.getString("lyrics");
-                lyrics = lyrics != null ? lyrics.replaceAll("\n", "<br/>") : "";
+                lyrics = lyrics != null ? lyrics.replaceAll("\\s{2}", "<br/>") : "";
                 list.add(new Song(ID, name, writer, album, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
             }
             return list;
@@ -68,7 +68,7 @@ public class SongDAO {
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
                 String lyrics = rs.getString("lyrics");
-                lyrics = lyrics != null ? lyrics.replaceAll("\n", "<br/>") : "";
+                lyrics = lyrics != null ? lyrics.replaceAll("\\n", "<br/>") : "";
                 list.add(new Song(ID, name, writer, album, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
             }
             return list;
@@ -107,12 +107,13 @@ public class SongDAO {
     }
 
     public Song getSongs(int ID) {
-        String sql = "select * from Song where id = " + ID;
+        String sql = "select * from song, Writer\n" +
+"where song.WriterID = writer.ID and song.id = " + ID;
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
             while (rs.next()) {
-                String name = rs.getString("name");
-                String writer = rs.getString("writerID");
+                String name = rs.getString(2);
+                String writer = rs.getString(13);
                 String album = rs.getString("albumid");
                 String genre = rs.getString("genre");
                 int userID = rs.getInt("uploaderid");

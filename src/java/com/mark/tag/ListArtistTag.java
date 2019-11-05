@@ -17,7 +17,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author PC
  */
-public class ArtistTag extends SimpleTagSupport {
+public class ListArtistTag extends SimpleTagSupport {
 
     private int songID;
 
@@ -37,27 +37,25 @@ public class ArtistTag extends SimpleTagSupport {
             // out.println("<strong>" + attribute_1 + "</strong>");
             // out.println("    <blockquote>");
 
+            JspFragment f = getJspBody();
             List<com.mark.model.Artist> list = new LinkedList<>();
             list = new ArtistDAO().getArtistList(songID);
-            for (com.mark.model.Artist artist : list) {
-                out.println(artist.getNickName()+" ");
-                JspFragment f = getJspBody();
-                if (f != null) {
-                    f.invoke(out);
-                }
-            }
             
+            if (f != null) {
+                f.invoke(out);
+            }
+
             // TODO: insert code to write html after writing the body content.
             // e.g.:
             //
             // out.println("    </blockquote>");
         } catch (java.io.IOException ex) {
-            throw new JspException("Error in ArtistTag tag", ex);
+            throw new JspException("Error in ListArtistTag tag", ex);
         }
     }
 
-    public void setSongID(int SongID) {
-        this.songID = SongID;
+    public void setSongID(int songID) {
+        this.songID = songID;
     }
     
 }

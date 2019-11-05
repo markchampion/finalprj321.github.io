@@ -76,14 +76,17 @@
                                             </c:forEach>
                                         </select>
                                     </td></tr>
-                                <tr><td>Artist name: </td>
-                                    <td style="overflow-y: scroll; height: 100px">
+                                <tr ><td>Artist name: </td>
+                                    <td>
                                         <!--<select name="artist">-->
-                                        <c:forEach var="a" items="${artist.artists}" >
-                                            <input type="checkbox" name="artists" value="${a.ID}" >
-                                            ${a.nickName}
-                                            </checkbox><br/>
-                                        </c:forEach>
+                                        
+                                        <div style="overflow-y: scroll; height: 100px">
+                                            <c:forEach var="a" items="${artist.artists}">
+                                                <input type="checkbox" name="artists" value="${a.ID}" >
+                                                ${a.nickName}
+                                                <br/>
+                                            </c:forEach>
+                                        </div>
                                         <!--</select>-->
                                     </td>
                                 </tr>
@@ -125,9 +128,9 @@
                         <button class="btn btn-danger" id="update-cancel">Cancel</button>
                     </div>
                 </div>
-            </div>
+            </div>          
         </div>
         <%@include file="../footer.jsp" %>
-
+        
     </body>
 </html>

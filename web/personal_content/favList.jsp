@@ -17,7 +17,6 @@
         <div class="pt-2">
             <c:forEach var="s" items="${favSong.getFavoriteSongs(sessionScope.logStatus.ID)}">
                 <div class="vertical-song-card bg-light d-flex border-bottom">
-                    <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>
                     <a class="img-title pr-3" href="/PRJ321_FINAL_PROJECT/play?id=${s.ID}">
                         <img src="${s.avatar}" width="42" height="42" />
                     </a>

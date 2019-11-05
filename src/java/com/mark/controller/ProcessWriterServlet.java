@@ -48,7 +48,10 @@ public class ProcessWriterServlet extends HttpServlet {
                 WriterDAO.delete(request.getParameter("id"));
                 response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-writer.jsp");
             } else if (action != null && action.equals("update")) {
-
+                Gson gson = new Gson();
+                Writer w = gson.fromJson(request.getParameter("obj"), Writer.class);
+                WriterDAO.update(w);
+                out.write(gson.toJson(w));
             } else {
                 StringBuilder buffer = new StringBuilder();
                 BufferedReader reader = request.getReader();

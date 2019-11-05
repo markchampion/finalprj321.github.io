@@ -17,7 +17,7 @@
     </head>
     <body>
         <%@include file="newHeader.jsp" %>
-        <div class="container">
+        <div class="container rounded shadow-lg p-0">
             <div class="inside-1">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -46,23 +46,23 @@
                     </a>
                 </div>
             </div>
-            <div class="inside-1-2 bg-light-blue">
-                <h4 class="text-center mt-1">Hot Music</h4>         
-                <c:forEach var="s" items="${songs}">
-                    <div class="vertical-song-card bg-light d-flex border-dark border-bottom">
-                        <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>
+            <div class="inside-1-2 bg-light">
+                <h4 class="text-center mt-1 georgia">Hot Music</h4>         
+                <c:forEach var="s" items="${songs}" begin="0" step="1" varStatus="i">
+                    <div class="vertical-song-card d-flex border-bottom ${i.count==1 ? 'bg-light-red':(i.count==2?'bg-gold':(i.count==3?'bg-purple':'bg-blue'))}">
+                        <div class="card-order pt-3 pl-3 pr-3"><span>${i.count}</span></div>
                         <a class="img-title pr-3" href="play?id=${s.ID}">
-                            <img src="${s.avatar}" width="42" height="42" />
+                            <img src="${s.avatar}" width="52" height="52" />
                         </a>
-                        <div class="singer-title">
+                        <div class="singer-title lightest-blue">
                             <p class="song-name m-0">${s.name}</p>
                             <span class="singer-name"><t:ArtistTag songID="${s.ID}" /></span>
                         </div>
                     </div>
                 </c:forEach>
             </div>
-            <div class="inside-2-1 bg-light" >
-                <h3 class="text-dark ml-4 mt-1">What's new today</h3>
+            <div class="inside-2-1 bg-light border-bottom" >
+                <h3 class="text-dark ml-4 mt-1 border-bottom">What's new today</h3>
                 <div class="inside-2-1-1">
                     <c:forEach var="s" items="${songDAO.songsByDate}" begin="1" end="4" >
                         <div class="d-flex flex-column align-items-center">
@@ -74,8 +74,8 @@
                     </c:forEach>
                 </div>
             </div>
-            <div class="inside-2-2 bg-primary">
-                <h4 class="text-center mt-2">Hot Genre</h4>
+            <div class="inside-2-2 bg-light ">
+                <h4 class="text-center mt-2 pb-1 border-bottom">Hot Genre</h4>
                 <div class="d-flex justify-content-center mb-3 grow">
                     <a href="" class="genre-tag" title="Pop">
                         <img src="img/popmusic.jpg" width="300" height="150"/>
@@ -93,6 +93,7 @@
                 </div>
             </div>
             <div class="inside-3-1 bg-light">
+                <h4 class="ml-4 border-bottom">Famous Singer</h4>
             </div>         
         </div>
         <jsp:include page="footer.jsp" />

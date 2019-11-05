@@ -31,4 +31,15 @@
       <type>int</type>
     </attribute>
   </tag>
+  <tag>
+    <name>ListArtistTag</name>
+    <tag-class>com.mark.tag.ListArtistTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>songID</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
 </taglib>
