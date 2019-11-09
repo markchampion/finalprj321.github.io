@@ -19,6 +19,15 @@
         <link rel="stylesheet" type="text/css" href="/PRJ321_FINAL_PROJECT/css/playpage.css" />
         <title>JSP Page</title>
         <style>
+            .view-more:hover {
+                cursor: pointer;                          
+            }
+            .hidden-lyrics {
+                height: auto;max-height: 300px; overflow: hidden;
+            }
+            .show-lyrics {
+                height: auto;max-height: none;
+            }
             #add-fav:hover, #del-fav {
                 cursor: pointer;
                 color: violet;
@@ -83,9 +92,39 @@
                 </div>
             </div>
             <div class="inside-1-2 text-white bg-info text-center"> 
-                <h3 class="pt-5">Suggestion Songs</h3>
-                <h4>Login to create your own playlist</h4>
-                <a href=""><button>Click Here</button></a>
+                <c:if test="${empty sessionScope.logStatus}">
+                    <h4 class="pt-4">Login to create your own playlist</h4>
+                    <a href="/PRJ321_FINAL_PROJECT/login.jsp" target="_blank"><button class="btn btn-success">Login</button></a>
+                </c:if>
+                <c:if test="${not empty sessionScope.logStatus}" >
+                    <button type="button" class="btn btn-light ml-auto bg-light-purple" data-toggle="modal" data-target="#exampleModalCenter">
+                        Create new playlist
+                    </button>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create a new playlist</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="play-form" action="/PRJ321_FINAL_PROJECT/addplaylist">
+                                        <label for="playlist-name">Playlist's Name:</label>
+                                        <input type="hidden" name="uid" value="${sessionScope.logStatus.ID}" />
+                                        <input type="text" id="playlist-name" class="form-control" name="name" required/>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary bg-light-purple" onclick="document.getElementById('play-form').submit()">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
             </div>
             <!-- UPLOADER AND OTHER OPTIONS BAR-->
             <div class="inside-2-1 black bg-light pt-1"> 
@@ -121,15 +160,16 @@
                     <p>Writer: </p>
                     <p>Artist: <t:ArtistTag songID="${playsong.ID}" /></p>
                     <hr/>
-                    <span style="white-space:pre">
+                    <p class="mb-0 pb-1 hidden-lyrics" id="lyrics" style="white-space:pre;">
                         ${playsong.lyrics}
-                    </span>
+                    </p>
+                    <span onclick="viewMore()" class="blue pl-2 pb-3 view-more" >View more</span>
                 </div>
             </div>
-            <div class="inside-2-2 bg-primary">
-
+            <div class="inside-2-2 bg-light">
+                <h5 class="text-center pt-3">Next Songs</h5>
             </div>
-            <div id="cmt-list" class="inside-3-1 bg-primary">
+            <div  class="inside-3-1 bg-primary">
                 <h3>Comment: </h3>
                 <form id="comment-form" >
                     <div class="pl-3 d-flex">
@@ -140,14 +180,16 @@
                     <input type="hidden" name="songID" value="${playsong.ID}" />
                 </form>
                 <c:forEach var="com" items="${comments.comments}" >
-                    <div class='pl-3 d-flex'>
-                        <img src='${com.avatar}' class='mr-3' width='48' height='48'/>
-                        <div class='w-100'>
-                            <div class='d-flex'>
-                                <p class='m-0'><strong>${com.user}</strong></p>
-                                <span class='ml-auto pr-3'>${com.createdDate}</span>
+                    <div id="cmt-list">
+                        <div class='pl-3 d-flex'>
+                            <img src='${com.avatar}' class='mr-3' width='48' height='48'/>
+                            <div class='w-100'>
+                                <div class='d-flex'>
+                                    <p class='m-0'><strong>${com.user}</strong></p>
+                                    <span class='ml-auto pr-3'>${com.createdDate}</span>
+                                </div>
+                                <p>${com.content}</p>
                             </div>
-                            <p>${com.content}</p>
                         </div>
                     </div>
                 </c:forEach>
@@ -158,18 +200,22 @@
 //            window.onload = function () {
 //                document.getElementById("my-audio").play();
 //            };
+            function viewMore() {
+                $('#lyrics').toggleClass('hidden-lyrics');
+                //height: auto;max-height: 300px; overflow: hidden
+            }
             function playSong() {
                 var audio = document.getElementById("my-audio");
                 if (audio.paused == false) {
                     audio.pause();
-                    $('#audio-state').css('background-image',"url('/PRJ321_FINAL_PROJECT/img/play-btn.png')");
+                    $('#audio-state').css('background-image', "url('/PRJ321_FINAL_PROJECT/img/play-btn.png')");
                     $('#audio-image').addClass('restore');
                     $('#audio-image').removeClass('image');
 //                    $('#audio-image').css('animation-play-state','paused');
                 } else {
                     audio.play();
-                    $('#audio-image').css('animation-play-state','');
-                    $('#audio-state').css('background-image',"url('/PRJ321_FINAL_PROJECT/img/pause-btn.png')");
+                    $('#audio-image').css('animation-play-state', '');
+                    $('#audio-state').css('background-image', "url('/PRJ321_FINAL_PROJECT/img/pause-btn.png')");
                     $('#audio-image').removeClass('restore');
                     $('#audio-image').addClass('image');
                 }

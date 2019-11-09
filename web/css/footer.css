@@ -1,37 +1,159 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Oct 7, 2019, 6:12:15 PM
-    Author     : PC
-*/
-.footer{
+*
+{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+.triple-mp3-footer
+{
+    color: rgb(79, 92, 119);
+    background: #090c15;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.triple-mp3-footer--wrapper
+{
     width: 100%;
-  background-color: rgba(146, 127, 219,0.4);
-  color:white;
-  .links{
-    ul {list-style-type: none;}
-    li a{
-      color: white;
-      transition: color .2s;
-      &:hover{
-        text-decoration:none;
-        color:#4180CB;
-        }
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.triple-mp3-footer--block
+{
+    flex: 0 0 24%;
+    max-width: 24%;
+}
+
+.triple-mp3-footer--block.-about
+{
+    flex: 0 0 28%;
+    max-width: 28%;
+}
+
+.triple-mp3-footer--block---container
+{
+    padding: 0 10px;
+}
+
+.triple-mp3-footer--block---container h3
+{
+    background: #10131c;
+    border-radius: 3px 3px 0 0;
+    border-bottom: 1px solid #090c15;
+    color: #68738c;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.triple-mp3-footer--block---container_boxLink
+{
+    background: #0d1019;
+    border-radius: 0 0 3px 3px;
+    padding: 0 10px;
+}
+
+.triple-mp3-footer--block---container_boxLink li
+{
+    padding: 5px 0;
+    border-top: 1px solid #10131c;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.triple-mp3-footer--block---container_boxLink li:first-child
+{
+    border-top: none;
+}
+
+.triple-mp3-footer a
+{
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    color: rgb(79, 92, 119);;
+}
+
+.triple-mp3-footer--block---container_socialBox
+{
+    margin: 10px;
+    padding: 0 10px;
+}
+
+.triple-mp3-footer--social
+{
+    padding: 0;
+}
+
+.triple-mp3-footer--social li
+{
+    display: inline-block;
+    list-style: none;
+}
+
+.triple-mp3-footer--social li a
+{
+    display: block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    background: #3f51b5;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+
+.triple-mp3-footer--social li a.-facebook 
+{
+    background: #3b5998
+}
+
+.triple-mp3-footer--social li a.-twitter 
+{
+    background: #55acee
+}
+
+.triple-mp3-footer--social li a.-googleplus 
+{
+    background: #ea4335
+}
+
+.triple-mp3-footer--social li a.-youtube 
+{
+    background: #ff0000
+}
+
+.triple-mp3-copyright-footer
+{
+    background: #080a13;
+    color: rgb(79, 92, 119);
+    text-align: center;
+    padding: 5px;
+}
+
+@media (max-width: 800px)
+{
+    .triple-mp3-footer--block
+    {
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-bottom: 10px;
     }
-  }  
-  .about-company{
-    i{font-size: 25px;}
-    a{
-      color:white;
-      transition: color .2s;
-      &:hover{color:#4180CB}
+}
+
+@media (max-width: 480px)
+{
+    .triple-mp3-footer--block
+    {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
     }
-  } 
-  .location{
-    i{font-size: 18px;}
-  }
-  .copyright p{border-top:1px solid rgba(255,255,255,.1);} 
 }

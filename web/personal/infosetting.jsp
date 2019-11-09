@@ -30,7 +30,7 @@
                         <tr><td>Avatar </td><td><img class="rounded-circle" src="${sessionScope.logStatus.avatar}" width="48" height="48"/>
                             </td></tr>
                     </table>
-                            <form id="table-update" method="post" style="display: none" enctype="multipart/form-data" action="/PRJ321_FINAL_PROJECT/update.do">
+                    <form id="table-update" method="post" style="display: none" enctype="multipart/form-data" action="/PRJ321_FINAL_PROJECT/update.do">
                         <table class="table">
                             <tr><td>First Name:  </td><td><input class="form-control col-5" type="text" value="${sessionScope.logStatus.firstName}" name="firstname"/></td></tr>
                             <tr><td>Last Name: </td><td><input class="form-control col-5" type="text" value="${sessionScope.logStatus.lastName}" name="lastname"/></td></tr>
@@ -38,7 +38,7 @@
                             <tr><td>Address: </td><td><input class="form-control col-5" type="text" value="${sessionScope.logStatus.address}" name="address"/></td></tr>
                             <tr><td>Avatar </td><td><img class="rounded-circle" src="${sessionScope.logStatus.avatar}" width="48" height="48"/>
                                     <label for="avatar" class="btn btn-success">Change avatar</label>
-                                    <input id="avatar" style="opacity: 0;position: absolute; z-index: -1" type="file" accept=".jpg,.png" name="fileavatar" value="Update Avatar"/> 
+                                    <input id="avatar" style="opacity: 0;position: absolute; z-index: -1" type="file" accept=".jpg,.png" name="fileavatar"/> 
                                 </td></tr>
                         </table>
                             <input class="btn btn-success" type="submit" value="Save" />

@@ -48,16 +48,19 @@ public class UpdateUserController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("logStatus");
-            
             String firstName = request.getParameter("firstname");
             String lastName = request.getParameter("lastname");
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
             String avatar = user.getAvatar().split("id=")[1]; //AVATAR ID
-            javax.servlet.http.Part fileAvatar = request.getPart("avatar");            
-            if (fileAvatar != null && avatar.equals("1uuiw3Y-YnuE9bYrnx-7tzGsw5KRUIluS")) {
+            javax.servlet.http.Part fileAvatar = request.getPart("fileavatar");      
+            System.out.println(fileAvatar.getSize());
+            System.out.println(fileAvatar.getSubmittedFileName());
+            if (fileAvatar != null && fileAvatar.getSize() > 0 && avatar.equals("1uuiw3Y-YnuE9bYrnx-7tzGsw5KRUIluS")) {
                 avatar = getLink("", fileAvatar, false);
-            } else if(fileAvatar != null){
+                System.out.println("!= null");
+            } else if(fileAvatar != null && fileAvatar.getSize() > 0) {
+                System.out.println("== null");
                 avatar = getLink(avatar, fileAvatar, true);
             }
             user.setFirstName(firstName);

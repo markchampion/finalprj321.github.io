@@ -9,7 +9,8 @@ and open the template in the editor.
 */
 
 div.container-fluid {
-    background-color: rgba(4, 6, 66,.3);
+    /*background-color: rgba(4, 6, 66,.3);*/
+    background-color: #090c15;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
     font-family: 'Indie Flower', cursive  !important;
 }

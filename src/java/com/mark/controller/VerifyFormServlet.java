@@ -9,6 +9,7 @@ import com.mark.dao.ArtistDAO;
 import com.mark.dao.UserDAO;
 import com.mark.dao.WriterDAO;
 import com.mark.javamail.GmailSending;
+import com.mark.system.ConfigurationObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
  */
 public class VerifyFormServlet extends HttpServlet {
 
-    private static final ConcurrentHashMap<String, String> queueCapcha = new ConcurrentHashMap<>();
+    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +58,7 @@ public class VerifyFormServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 if (UserDAO.checkEmail(email)){
                     capcha = GmailSending.send(email);
-                    queueCapcha.put(email, capcha);
+                    ConfigurationObject.queueCapcha.put(email, capcha);
                     out.write("success");
                 } else {
                     out.write("error");
@@ -68,7 +69,7 @@ public class VerifyFormServlet extends HttpServlet {
                 System.out.println(capcha);
                 for (Cookie cooky : cookies) {
                     if (cooky.getName().equals("forgotEmail")) {
-                        if(queueCapcha.get(cooky.getValue()).equals(capcha)) {
+                        if(ConfigurationObject.queueCapcha.get(cooky.getValue()).equals(capcha)) {
                             out.write("success");
                         } else {
                             out.write("error");
@@ -77,14 +78,15 @@ public class VerifyFormServlet extends HttpServlet {
                 }
             } else if(from != null && from.equals("renewPass")) {
                 String email = request.getParameter("email");
+                System.out.println("Pass: "+request.getParameter("oldPass"));
                 if (UserDAO.checkPass(email, request.getParameter("oldPass"))) {
                     if (UserDAO.updatePassword(email, request.getParameter("newPass"))) {
-                        response.setStatus(200);
+                        ConfigurationObject.queueCapcha.remove("forgotEmail");
+                        out.write("success");
                     } 
-                    out.write("success");
+                    out.write("error");
                 } else {
-                    response.setStatus(401);
-                    out.write("success");
+                    out.write("error");
                 }
             } else if (from != null && from.equals("registerEmail")) {
                 if(UserDAO.checkEmail(request.getParameter("email"))) {

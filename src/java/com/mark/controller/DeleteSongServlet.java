@@ -5,31 +5,23 @@
  */
 package com.mark.controller;
 
-import com.google.api.client.util.IOUtils;
 import com.mark.dao.SongDAO;
 import com.mark.drive.DriveQuickstart;
 import com.mark.model.Song;
-import com.mark.system.ConfigurationObject;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author PC
  */
-@MultipartConfig
-public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
+public class DeleteSongServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,16 +32,26 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
-            List<Song> songs = new SongDAO().getSongsByViews();
-            request.setAttribute("songs", songs);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            int songID = Integer.parseInt(request.getParameter("ID"));
+            Song s = new SongDAO().getSongs(songID);
+            String avatarID = s.getAvatar().split("id=")[1];
+            String linkID = s.getDownLink().split("id=")[1];
+            try {
+                if (DriveQuickstart.deleteFile(linkID) && DriveQuickstart.deleteFile(avatarID)) {
+                    if(SongDAO.deleteSong(songID))
+                        out.write("success");
+                    else out.write("error");
+                } else {
+                    out.write("error");
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DeleteSongServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -63,7 +65,7 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -77,7 +79,7 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

@@ -40,7 +40,7 @@ public class ArtistTag extends SimpleTagSupport {
             List<com.mark.model.Artist> list = new LinkedList<>();
             list = new ArtistDAO().getArtistList(songID);
             for (com.mark.model.Artist artist : list) {
-                out.println(artist.getNickName()+" ");
+                out.println("<a class='white' href='/PRJ321_FINAL_PROJECT/artist-page.jsp?artistID="+artist.getID()+"'>"+artist.getNickName()+"</a> ");
                 JspFragment f = getJspBody();
                 if (f != null) {
                     f.invoke(out);

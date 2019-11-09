@@ -23,7 +23,7 @@
                 <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
                     <h4>Uploaded Songs</h4>
                     <c:forEach var="s" items="${songs.songs}">
-                        <div class="vertical-song-card bg-light d-flex border-dark border-bottom">
+                        <div id="card-${s.ID}" class="vertical-song-card bg-light d-flex border-dark border-bottom">
                             <div class="card-order pt-2 pl-3 pr-3"><span>${s.ID}</span></div>
                             <a class="img-title pr-3" href="/PRJ321_FINAL_PROJECT/play?id=${s.ID}">
                                 <img src="${s.avatar}" width="42" height="42" />
@@ -33,7 +33,11 @@
                                 <span class="singer-name"><t:ArtistTag songID="${s.ID}"/></span>
                             </div>
                             <div class="ml-auto">
-                                <a href="info-updatesong.jsp?id=${s.ID}"><button class="btn btn-primary">Detail</button></a>
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/personal/info-updatesong.jsp?id=${s.ID}">Detail</a>
+                                    <button class="dropdown-item" onclick="deleteRecord( ${s.ID})"> Delete </button>
+                                </div>
                             </div>
                         </div>
                     </c:forEach>
@@ -44,7 +48,10 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${empty param.page ? 3:((param.page+1) < songs.pages ? (param.page+1):songs.pages)}" step="1" >
+                        <c:set var="begin" value="${empty param.page||param.page==1 ? 1:(param.page > 1 ? param.page-1:param.page)}" />
+                        <c:set var="end" value="${begin + 2 < songs.pages ? begin+2:songs.pages}" />
+
+                        <c:forEach var="i" begin="${begin}" end="${end}" step="1" >
                             <c:url value="info-uploaded.jsp" var="next" >
                                 <c:param name="page" value="${i}" />
                             </c:url>
@@ -60,5 +67,17 @@
             </div>
         </div>
         <%@include file="../footer.jsp" %>
+        <script>
+           
+            function deleteRecord(id) {
+                $.post(
+                        '/PRJ321_FINAL_PROJECT/delsong',
+                        {ID: id},
+                        (status) => {
+                            location.reload();
+                        }
+                );
+            }
+        </script>
     </body>
 </html>

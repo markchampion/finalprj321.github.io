@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:useBean id="artist" class="com.mark.dao.ArtistDAO" />
 <jsp:useBean id="writer" class="com.mark.dao.WriterDAO" />
 <jsp:useBean id="songs" class="com.mark.dao.SongDAO" scope="application" />
@@ -79,7 +80,7 @@
                                 <tr ><td>Artist name: </td>
                                     <td>
                                         <!--<select name="artist">-->
-                                        
+
                                         <div style="overflow-y: scroll; height: 100px">
                                             <c:forEach var="a" items="${artist.artists}">
                                                 <input type="checkbox" name="artists" value="${a.ID}" >
@@ -105,10 +106,11 @@
                                     </td>
                                 </tr>
                                 <tr><td>Lyrics: </td><td>
-                                        <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3" value="${song_update.lyrics}"></textarea>
+                                        <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3" >${fn:replace(song_update.lyrics, "<br/>", "\\n")}</textarea>
                                     </td></tr>
                                 <tr><td>Mp3 file: </td><td>
                                         <div class="custom-file">
+                                          
                                             <input type="file" class="custom-file-input" accept=".mp3,.mp4" name="fileattach" id="customFile">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
@@ -131,6 +133,6 @@
             </div>          
         </div>
         <%@include file="../footer.jsp" %>
-        
+
     </body>
 </html>

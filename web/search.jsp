@@ -14,18 +14,25 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/search.css" />
         <title>Search</title>
+        <style>
+            li.search-option:hover {
+                background-color: lightblue;
+                cursor: pointer;
+            }
+            .selected {
+                background-color: lightblue;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="newHeader.jsp" />
-        <div class="container bg-light mt-5 p-3">
+        <div class="container bg-light mt-5 p-3 mb-5">
             <h4>Searching for <<${param.keyword}>></h4>
             <div class="row">
-                <div class="col-3 bg-light">
+                <div class="search-option col-3 bg-light">
                     <ul class="list-search-mode p-0">
-                        <li>Search all</li>
-                        <li>Search by song</li>
-                        <li>Search by artist</li>
-                        <li>Search by album</li>
+                        <li><a href="/PRJ321_FINAL_PROJECT/search?type=song.[name]&search=${param.search}">Search by song</a></li>
+                        <li><a href="/PRJ321_FINAL_PROJECT/search?type=writer.[name]&search=${param.search}">Search by artist</a></li>
                     </ul>
                 </div>
                 <div class="col-9 bg-loght">

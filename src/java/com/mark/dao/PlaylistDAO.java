@@ -66,8 +66,8 @@ public class PlaylistDAO {
         }
     }
 
-    public List<Playlist> getPlaylists() {
-        String sql = "select * from playlist, users where playlist.userid = users.id";
+    public List<Playlist> getPlaylists(int uid) {
+        String sql = "select * from playlist, users where playlist.userid = users.id and users.id = " + uid;
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
             List<Playlist> list = new LinkedList<>();
@@ -75,7 +75,7 @@ public class PlaylistDAO {
                 String username = rs.getString("username");
                 String playlistName = rs.getString(3);
                 String created = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(4));
-                list.add(new Playlist(rs.getInt(1), username, username, created));
+                list.add(new Playlist(rs.getInt(1), username, playlistName, created));
             }
             return list;
         } catch (Exception e) {

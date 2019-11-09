@@ -40,8 +40,8 @@ public class SearchServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String searchString = request.getParameter("search");
-            List<Song> search = SongDAO.search(searchString);
-            System.out.println(search.size());
+            String type = request.getParameter("type");
+            List<Song> search = SongDAO.search(type==null ? "name":type, searchString);
             request.setAttribute("searchedList", search);
             request.getRequestDispatcher("search.jsp").forward(request, response);
         }

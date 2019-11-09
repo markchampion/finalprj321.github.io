@@ -63,7 +63,7 @@ public class ProcessArtistServlet extends HttpServlet {
                 String avatar = "";
                 javax.servlet.http.Part fileAvatar = request.getPart("avatar");
                 if (!fileAvatar.getName().isEmpty() && fileAvatar.getSize() > 0) {
-                    avatar = getLink(new ArtistDAO().getArtist(id).getAvatar().split("id=")[1], fileAvatar, false);
+                    avatar = getLink(new ArtistDAO().getArtist(id).getAvatar().split("id=")[1], fileAvatar, true);
                 } else {
                     avatar = new ArtistDAO().getArtist(id).getAvatar().split("id=")[1];
                 }

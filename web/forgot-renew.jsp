@@ -35,7 +35,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><img src="img/usericon.png" width="24" height="24"/></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Your Old Pass"  name="oldPass" required />
+                        <input type="password" class="form-control" placeholder="Your Old Pass"  name="oldPass" required />
                         <span id="errorLog"></span>
                     </div>
 
@@ -53,7 +53,7 @@
                         <input type="password" class="form-control" placeholder="Re - Password" name="cfnewPass" required />
                     </div>
                     <input type="hidden" name="email" value="${sessionScope.forgotEmail}" />
-                    <input type="hidden" name="action" value="renewPass" />
+                    <input type="hidden" name="from" value="renewPass" />
                     <p class="col-9"></p>
                     <button type="submit" id="submit" class="btn btn-block btn-success mb-3">
                         <span id="loading" style="display: none">
@@ -89,19 +89,19 @@
                     $.ajax({
                         url: "/PRJ321_FINAL_PROJECT/verify.do",
                         type: 'POST',
-                        dataType: 'json',
-                        contentType: 'application/json;charset=UTF-8',
-                        mimeType: 'application/json',
-                        data: {obj: $('#add-form').serialize(), from: 'renewPass'},
+                        dataType: false,
+                        data: $('#sign-in').serialize(),
                         success: function (status) {
-                            if (status === 200) {
+                            console.log(status);
+                            if (status === 'success') {
                                 document.cookie = "forgotEmail =;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
                                 window.location.href = '/PRJ321_FINAL_PROJECT/forgot-success.jsp';
-                            } else if (status === 401) {
+                            } else if (status === 'error') {
                                 $('#errorLog').text('Your password is not correct!!!');
+                                $('#loading').css('display', 'none');
+                                $('#idle').css('display', '');
+                                $('#submit').attr('disabled',false);
                             }
-                        },
-                        error: function (status) {
                         }
                     });
                 }

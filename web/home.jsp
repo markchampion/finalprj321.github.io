@@ -25,7 +25,7 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner" style="background-image: url('')">
+                    <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="https://avatar-nct.nixcdn.com/slideshow/2019/10/14/5/f/3/f/1571017006921_org.jpg" class="d-block w-100" alt="...">
                         </div>
@@ -64,7 +64,7 @@
             <div class="inside-2-1 bg-light border-bottom" >
                 <h3 class="text-dark ml-4 mt-1 border-bottom">What's new today</h3>
                 <div class="inside-2-1-1">
-                    <c:forEach var="s" items="${songDAO.songsByDate}" begin="1" end="4" >
+                    <c:forEach var="s" items="${songDAO.songsByDate}" begin="0" end="3" >
                         <div class="d-flex flex-column align-items-center">
                             <img class="p-1 grow"src="${s.avatar}" width="156" height="156"/>  
                             <a href="">

@@ -108,7 +108,9 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <c:forEach var="i" begin="${(param.page <= 1 || empty param.page) ? 1:param.page-1}" end="${empty param.page ? 3:((param.page+1) < writer.pages ? (param.page+1):writer.pages)}" step="1" >
+                    <c:set var="begin" value="${empty param.page||param.page==1 ? 1:(param.page > 1 ? param.page-1:param.page)}" />
+                    <c:set var="end" value="${begin + 2 < writer.pages ? begin+2:writer.pages}" />
+                    <c:forEach var="i" begin="${begin}" end="${end}" step="1" >
                         <c:url value="info-writer.jsp" var="next" >
                             <c:param name="page" value="${i}" />
                         </c:url>
