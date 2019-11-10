@@ -67,6 +67,9 @@
                                     window.location.href = '/PRJ321_FINAL_PROJECT/forgot-capcha.jsp';
                         } else {
                             $('#wrong-email').text('Your email is not correct');
+                            $('#submit').attr('disabled', false);
+                            $('#loading').css('display', 'none');
+                            $('#idle').css('display', '');
                         }
                     },
                     complete: function () {

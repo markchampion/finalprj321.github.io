@@ -69,6 +69,7 @@
                         '/PRJ321_FINAL_PROJECT/verify.do',
                         {capcha: post, from: 'capcha'},
                         (responseText) => {
+                        console.log(responseText);
                     if (responseText === 'success') {
                         window.location.href = '/PRJ321_FINAL_PROJECT/forgot-renew.jsp';
                     } else {

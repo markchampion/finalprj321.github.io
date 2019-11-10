@@ -52,7 +52,7 @@
                         </div>
                         <input type="password" class="form-control" placeholder="Re - Password" name="cfnewPass" required />
                     </div>
-                    <input type="hidden" name="email" value="${sessionScope.forgotEmail}" />
+                    <input type="hidden" name="email" value="${capcha}" />
                     <input type="hidden" name="from" value="renewPass" />
                     <p class="col-9"></p>
                     <button type="submit" id="submit" class="btn btn-block btn-success mb-3">
@@ -94,7 +94,6 @@
                         success: function (status) {
                             console.log(status);
                             if (status === 'success') {
-                                document.cookie = "forgotEmail =;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
                                 window.location.href = '/PRJ321_FINAL_PROJECT/forgot-success.jsp';
                             } else if (status === 'error') {
                                 $('#errorLog').text('Your password is not correct!!!');

@@ -26,6 +26,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,8 +52,12 @@ public class ProcessArtistServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String action = request.getParameter("action");
             if (action != null && action.equals("delete")) {
-                ArtistDAO.delete(request.getParameter("id"));
-                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
+                if(ArtistDAO.delete(request.getParameter("id")))
+                    response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
+                else {
+                    request.setAttribute("delError", "You'll need to delete artist's song first!!!");
+                    request.getRequestDispatcher("info-artist.jsp").forward(request, response);
+                }
             } else if (action != null && action.equals("update")) {
                 String id = request.getParameter("ID");
                 String name = request.getParameter("name");
@@ -61,6 +66,7 @@ public class ProcessArtistServlet extends HttpServlet {
                 String address = request.getParameter("address");
                 String description = request.getParameter("description");
                 String avatar = "";
+                //GET AVATAR FILE
                 javax.servlet.http.Part fileAvatar = request.getPart("avatar");
                 if (!fileAvatar.getName().isEmpty() && fileAvatar.getSize() > 0) {
                     avatar = getLink(new ArtistDAO().getArtist(id).getAvatar().split("id=")[1], fileAvatar, true);
@@ -70,22 +76,6 @@ public class ProcessArtistServlet extends HttpServlet {
                 ArtistDAO.update(new Artist(id, name, nickName, birthDate, address, description, avatar));
                 response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
             } else {
-//                StringBuilder buffer = new StringBuilder();
-//                BufferedReader reader = request.getReader();
-//                String line;
-//                while ((line = reader.readLine()) != null) {
-//                    buffer.append(line);
-//                }
-//                String data = buffer.toString();
-//                String prevURL = "";
-//                String decodeURL = data;
-//                while (!prevURL.equals(decodeURL)) {
-//                    prevURL = decodeURL;
-//                    decodeURL = URLDecoder.decode(decodeURL, StandardCharsets.UTF_8.name());
-//                }
-//                Gson gson = new Gson();
-//                Artist w = gson.fromJson(decodeURL, Artist.class);
-//                ArtistDAO.insert(w);
                 String id = request.getParameter("ID");
                 String name = request.getParameter("name");
                 String nickName = request.getParameter("nickName");

@@ -56,10 +56,9 @@ public class UpdateUserController extends HttpServlet {
             javax.servlet.http.Part fileAvatar = request.getPart("fileavatar");      
             System.out.println(fileAvatar.getSize());
             System.out.println(fileAvatar.getSubmittedFileName());
-            if (fileAvatar != null && fileAvatar.getSize() > 0 && avatar.equals("1uuiw3Y-YnuE9bYrnx-7tzGsw5KRUIluS")) {
+            if (fileAvatar.getSize() > 0 && avatar.equals("1uuiw3Y-YnuE9bYrnx-7tzGsw5KRUIluS")) {
                 avatar = getLink("", fileAvatar, false);
-                System.out.println("!= null");
-            } else if(fileAvatar != null && fileAvatar.getSize() > 0) {
+            } else if(fileAvatar.getSize() > 0) {
                 System.out.println("== null");
                 avatar = getLink(avatar, fileAvatar, true);
             }

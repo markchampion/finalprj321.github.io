@@ -32,6 +32,7 @@
                             Add
                         </button>
                     </div>
+                    <span style="color: red">${delError}</span>
                     <div class="info-artist">
                         <table class="table table-dark">
                             <tr><th>Avatar</th><th>ID</th><th>Artist Name</th><th>Birth Date</th><th>Address</th></tr>

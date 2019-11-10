@@ -58,7 +58,9 @@ public class VerifyFormServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 if (UserDAO.checkEmail(email)){
                     capcha = GmailSending.send(email);
-                    ConfigurationObject.queueCapcha.put(email, capcha);
+                    Cookie cookie = new Cookie(capcha, email);
+                    cookie.setMaxAge(60*2);
+                    response.addCookie(cookie);
                     out.write("success");
                 } else {
                     out.write("error");
@@ -66,23 +68,23 @@ public class VerifyFormServlet extends HttpServlet {
             } else if (from != null && from.equals("capcha")) {
                 Cookie []cookies = request.getCookies();
                 capcha = request.getParameter("capcha");
-                System.out.println(capcha);
                 for (Cookie cooky : cookies) {
-                    if (cooky.getName().equals("forgotEmail")) {
-                        if(ConfigurationObject.queueCapcha.get(cooky.getValue()).equals(capcha)) {
-                            out.write("success");
-                        } else {
-                            out.write("error");
-                        }
+                    if (cooky.getName().equals(capcha)) {
+                        request.setAttribute("capcha", cooky.getValue());
+                        cooky.setMaxAge(0);
+                        response.addCookie(cooky);
+                        System.out.println("hahahah");
+                        out.write("success");
+                        return;
                     }
                 }
+                out.write("error");
             } else if(from != null && from.equals("renewPass")) {
                 String email = request.getParameter("email");
-                System.out.println("Pass: "+request.getParameter("oldPass"));
                 if (UserDAO.checkPass(email, request.getParameter("oldPass"))) {
                     if (UserDAO.updatePassword(email, request.getParameter("newPass"))) {
-                        ConfigurationObject.queueCapcha.remove("forgotEmail");
                         out.write("success");
+                        return;
                     } 
                     out.write("error");
                 } else {

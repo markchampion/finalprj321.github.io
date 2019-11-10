@@ -7,9 +7,11 @@ package com.mark.dao;
 
 import com.mark.context.DBContext;
 import com.mark.model.Artist;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,14 +104,20 @@ public class ArtistDAO {
         }
     }
 
-    public static void delete(String id) {
+    public static boolean delete(String id) {
         String sql = "delete from artist where id = '" + id + "'";
         try (Connection conn = new DBContext().getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.executeQuery();
-        } catch (Exception e) {
+            ps.executeUpdate();
+            return true;
+        } catch (SQLServerException e) {
             e.printStackTrace();
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        } catch(Exception es) {
+            es.printStackTrace();
         }
+        return false;
     }
 
     public static void update(Artist w) {
