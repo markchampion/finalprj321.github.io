@@ -103,9 +103,8 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="custom-file pl-5 pr-5">
-                                                <label  for="inputBirth3" class="custom-file-label">Avatar:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="file" name="avatar" id="avatar" class="custom-file-input" accept=".jpg,.png"/>
+                                                    <input type="file" name="avatar" id="avatar" class="btn btn-success" accept=".jpg,.png"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,12 +121,12 @@
 
                 </div>
                 <ul class="pagination" style="margin-top: -3em; padding-left: 18em">
-                    <li class="page-item ${(param.page-1)>1 ? '':'disabled'}">
+                    <li class="page-item ${(param.page-1)>0 ? '':'disabled'}">
                         <a class="page-link" href="info-artist.jsp?page=${param.page-1}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <c:set var="begin" value="${empty param.page||param.page==1 ? 1:(param.page > 1 ? param.page-1:param.page)}" />
+                    <c:set var="begin" value="${empty param.page ? 1:(param.page > 1 ? param.page-1:param.page)}" />
                     <c:set var="end" value="${begin + 2 < artist.pages ? begin+2:artist.pages}" />
                     <c:forEach var="i" begin="${begin}" end="${end}" step="1" >
                         <c:url value="info-artist.jsp" var="next" >
@@ -135,7 +134,7 @@
                         </c:url>
                         <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>
                         </c:forEach>
-                    <li class="page-item ${param.page+2 < artist.pages ? '':'disabled'}">
+                    <li class="page-item ${param.page < artist.pages ? '':'disabled'}">
                         <a class="page-link" href="info-artist.jsp?page=${param.page+1}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>

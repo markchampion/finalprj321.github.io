@@ -7,15 +7,42 @@ and open the template in the editor.
     Created on : Oct 13, 2019, 9:21:31 PM
     Author     : PC
 */
-
-div.container-fluid {
-    /*background-color: rgba(4, 6, 66,.3);*/
-    background-color: #090c15;
-    box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
-    font-family: 'Indie Flower', cursive  !important;
+*
+{
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+.border-radius-0 {border-radius: 0!important}
+.t-main-navigation
+{
+    background: #ffffff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 99999999;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px;
+}
+.nav-item a
+{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.nav-item a:hover,
+.active a
+{
+    color: #04b2f7!important;
+}
+
+.nav-item.active
+{
+    display: block;
+}
+
 body {
-    background-image: url("../img/main-bg2.jpg");
+    background-image: url("../img/main-bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

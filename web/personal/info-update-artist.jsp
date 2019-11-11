@@ -66,12 +66,12 @@
                             <label for="inputBirth3" class="col-sm-3 col-form-label">Avatar:</label>
                             <div class="col-sm-9">
                                 <img src="${artist.getArtist(param.id).avatar}" height="48" width="48" />
-                                <input type="file" accept=".jpg,.pnf" name="avatar" value="" class="form-control" rows="3"></textarea>
+                                <input type="file" accept=".jpg,.png" name="avatar" value="" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col">
                             <input id="submit" type="submit" value="Save" class="btn btn-success"/>
-                            <button class="btn btn-danger" type="button">Cancel</button>
+                            <button class="btn btn-danger" type="button" onclick="window.location.href='/PRJ321_FINAL_PROJECT/personal/info-artist.jsp'">Cancel</button>
                         </div>
                         <input type="hidden" name="action" value="update" />
                     </form>

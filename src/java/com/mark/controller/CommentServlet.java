@@ -52,7 +52,7 @@ public class CommentServlet extends HttpServlet {
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date())
                     , 0);
               System.out.println(CommentDAO.insert(c));
-//              response.sendRedirect("playpage.jsp");
+              c.setUser(user.getUsername());
               Gson gson = new Gson();
               out.write(gson.toJson(c));
         }

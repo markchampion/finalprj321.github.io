@@ -69,11 +69,14 @@
                         '/PRJ321_FINAL_PROJECT/verify.do',
                         {capcha: post, from: 'capcha'},
                         (responseText) => {
-                        console.log(responseText);
-                    if (responseText === 'success') {
+                    console.log(responseText);
+                    if (responseText == 'success') {
                         window.location.href = '/PRJ321_FINAL_PROJECT/forgot-renew.jsp';
                     } else {
-                        $('#wrong-email').text('Your capcha is not correct');
+                        $('#wrong-capcha').text('Your capcha is not correct');
+                        $('#loading').css('display', 'none');
+                        $('#idle').css('display', '');
+                        $('#submit').attr('disabled', false);
                     }
                 }
                 );

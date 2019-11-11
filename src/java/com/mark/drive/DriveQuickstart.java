@@ -145,7 +145,7 @@ public class DriveQuickstart {
         return null;
     }
 
-    public static void updateMp3(String linkFile, String fileName, java.io.File filePath) {
+    public static File updateMp3(String linkFile, String fileName, java.io.File filePath) {
         try {
             final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
             Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -155,12 +155,13 @@ public class DriveQuickstart {
             File fileMetaData = new File();
             fileMetaData.setName(fileName);
 //        System.out.println(service.permissions().create("1kQspptGgrpxB0_AA4p1mlimB2SGnRvgK", permission).execute() == null);
-            File updateFile = service.files().update(linkFile.split("id=")[1], fileMetaData, mediaContent).execute();
+            return service.files().update(linkFile.split("id=")[1], fileMetaData, mediaContent).execute();
         } catch (GeneralSecurityException ex) {
             Logger.getLogger(DriveQuickstart.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(DriveQuickstart.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {

@@ -31,14 +31,6 @@
             <div id="form-1"  class="rounded shadow" style="background-color: whitesmoke;">
                 <h3 class="pl-3 pt-4 m-0 text-center">Forgot Account</h3>
                 <form class="row pt-5 pl-5 pr-5 pb-1" id="sign-in" method="post">
-                    <div class="input-group mb-3 d-flex">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><img src="img/usericon.png" width="24" height="24"/></span>
-                        </div>
-                        <input type="password" class="form-control" placeholder="Your Old Pass"  name="oldPass" required />
-                        <span id="errorLog"></span>
-                    </div>
-
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                             <span class="input-group-text"><img src="img/passicon.png" width="24" height="24"/></span>
@@ -52,7 +44,7 @@
                         </div>
                         <input type="password" class="form-control" placeholder="Re - Password" name="cfnewPass" required />
                     </div>
-                    <input type="hidden" name="email" value="${capcha}" />
+                    <input type="hidden" name="email" value="${sessionScope.forgotEmail}" />
                     <input type="hidden" name="from" value="renewPass" />
                     <p class="col-9"></p>
                     <button type="submit" id="submit" class="btn btn-block btn-success mb-3">
@@ -96,10 +88,9 @@
                             if (status === 'success') {
                                 window.location.href = '/PRJ321_FINAL_PROJECT/forgot-success.jsp';
                             } else if (status === 'error') {
-                                $('#errorLog').text('Your password is not correct!!!');
                                 $('#loading').css('display', 'none');
                                 $('#idle').css('display', '');
-                                $('#submit').attr('disabled',false);
+                                $('#submit').attr('disabled', false);
                             }
                         }
                     });

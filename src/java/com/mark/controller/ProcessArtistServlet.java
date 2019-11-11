@@ -56,7 +56,7 @@ public class ProcessArtistServlet extends HttpServlet {
                     response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
                 else {
                     request.setAttribute("delError", "You'll need to delete artist's song first!!!");
-                    request.getRequestDispatcher("info-artist.jsp").forward(request, response);
+                    request.getRequestDispatcher("personal/info-artist.jsp").forward(request, response);
                 }
             } else if (action != null && action.equals("update")) {
                 String id = request.getParameter("ID");

@@ -7,14 +7,57 @@ and open the template in the editor.
     Created on : Aug 22, 2019, 9:51:08 PM
     Author     : PC
 */
-* {
+* 
+{
+    padding: 0;
+    outline: 0;
+    margin: 0;
     box-sizing: border-box;
+    
 }
+
+.t-login-form
+{
+    
+}
+
+.t-login-form-inner
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
+    background: white;
+}
+
 html, body {
     height: 100%;
 }
-div.container {
-    height: 75%;
+
+.avatar
+{
+    background: #60c7c1;
+    padding: 15px;
+    text-align: center;
 }
 
-
+.forgotPassword 
+{
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    border: 2px solid #f84e37;
+    border-radius: 100%;
+    color: #f84e37;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 17px;
+    padding-left: 1px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

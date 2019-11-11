@@ -76,15 +76,46 @@ public class UploadSongServlet extends HttpServlet {
                 s.setWriter(writerID);
                 s.setGenre(genre);
                 s.setLyrics(lyrics);
-                if (!fileMp3.getName().isEmpty() && fileMp3.getSize() > 0) s.setDownLink(getLink(fileMp3, true));
-                else s.setDownLink(s.getDownLink().split("id=")[1]);
-                if (!fileAvatar.getName().isEmpty() && fileAvatar.getSize() > 0) s.setAvatar(getLink(fileAvatar, false));
-                else s.setAvatar(s.getAvatar().split("id=")[1]);
+                if (fileMp3.getSize() > 0) {
+                    s.setDownLink(getUpdateLink(s.getDownLink().split("id=")[1], fileMp3, true));
+                } else {
+                    s.setDownLink(s.getDownLink().split("id=")[1]);
+                }
+                if (fileAvatar.getSize() > 0) {
+                    s.setAvatar(getUpdateLink(s.getAvatar().split("id=")[1], fileAvatar, false));
+                } else {
+                    s.setAvatar(s.getAvatar().split("id=")[1]);
+                }
                 SongDAO.updateSong(s);
                 ArtistListDAO.update(artists, ID);
                 response.sendRedirect("list");
             }
         }
+    }
+
+    private String getUpdateLink(String oldID, javax.servlet.http.Part fileMp, boolean isMp3) {
+        InputStream fileContentMp3 = null;
+        try {
+            String fileNameMp3 = Paths.get(fileMp.getSubmittedFileName()).getFileName().toString();
+            fileContentMp3 = fileMp.getInputStream();
+            java.io.File filePath = new File("fileName");
+            FileOutputStream fosMp3 = new FileOutputStream(filePath);
+            IOUtils.copy(fileContentMp3, fosMp3);
+            if (isMp3) {
+                return DriveQuickstart.updateMp3(oldID, fileNameMp3, filePath).getId();
+            } else {
+                return DriveQuickstart.updateImage(oldID, fileNameMp3, filePath).getId();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fileContentMp3.close();
+            } catch (IOException ex) {
+                Logger.getLogger(UploadSongServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     private String getLink(javax.servlet.http.Part fileMp, boolean isMp3) {

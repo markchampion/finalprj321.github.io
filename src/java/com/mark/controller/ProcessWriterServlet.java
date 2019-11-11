@@ -45,8 +45,12 @@ public class ProcessWriterServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String action = request.getParameter("action");
             if (action != null && action.equals("delete")) {
-                WriterDAO.delete(request.getParameter("id"));
-                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-writer.jsp");
+                if (WriterDAO.delete(request.getParameter("id"))) {
+                    response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-writer.jsp");
+                } else {
+                    request.setAttribute("delError", "You'll need to delete writer's song first!!!");
+                    request.getRequestDispatcher("personal/info-writer.jsp").forward(request, response);
+                }
             } else if (action != null && action.equals("update")) {
                 Gson gson = new Gson();
                 Writer w = gson.fromJson(request.getParameter("obj"), Writer.class);

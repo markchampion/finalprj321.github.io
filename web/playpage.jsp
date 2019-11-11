@@ -9,7 +9,9 @@
 <%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
 <jsp:useBean id="comments" class="com.mark.dao.CommentDAO" />
 <jsp:useBean id="up_user" class="com.mark.dao.UserDAO" scope="page" />
+
 <jsp:useBean id="fav" class="com.mark.dao.FavoriteDAO" scope="page" />
+<jsp:useBean id="songDAO" class="com.mark.dao.SongDAO" scope="page" />
 <jsp:setProperty name="comments" property="songID" value="${param.id}" />
 
 <!DOCTYPE html>
@@ -167,7 +169,21 @@
                 </div>
             </div>
             <div class="inside-2-2 bg-light">
-                <h5 class="text-center pt-3">Next Songs</h5>
+                <h5 class="text-center pt-3">Suggestion Songs</h5>
+                <c:forEach var="s" items="${songDAO.getSuggestionSongs(playsong.ID)}" begin="0" step="1" varStatus="i">
+                    <c:if test="${s.ID != playsong.ID}">
+                        <div class="vertical-song-card d-flex border-bottom ${i.count==1 ? 'bg-light-red':(i.count==2?'bg-gold':(i.count==3?'bg-purple':'bg-blue'))}">
+                            <div class="card-order pt-3 pl-3 pr-3"><span>${i.count}</span></div>
+                            <a class="img-title pr-3" href="play?id=${s.ID}">
+                                <img src="${s.avatar}" width="52" height="52" />
+                            </a>
+                            <div class="singer-title lightest-blue">
+                                <p class="song-name m-0">${s.name}</p>
+                                <span class="singer-name"><t:ArtistTag songID="${s.ID}" /></span>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:forEach>
             </div>
             <div  class="inside-3-1 bg-primary">
                 <h3>Comment: </h3>
@@ -200,6 +216,12 @@
 //            window.onload = function () {
 //                document.getElementById("my-audio").play();
 //            };
+            const audioObj = new AudioContext();
+            function loadMusic() {
+                const audioElement = document.querySelector('audio');
+                const track = audioObj.createMediaElementSource(audioElement);
+
+            }
             function viewMore() {
                 $('#lyrics').toggleClass('hidden-lyrics');
                 //height: auto;max-height: 300px; overflow: hidden
@@ -228,6 +250,7 @@
                         },
                         (responseText) => {
                     let cmtObj = JSON.parse(responseText);
+                    console.log(cmtObj);
                     $('#cmt-list').prepend("<div class='pl-3 d-flex'>" +
                             "<img src='" + cmtObj.avatar + "' class='mr-3' width='48' height='48'/>" +
                             "<div class='w-100'>" +

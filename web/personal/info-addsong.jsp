@@ -62,16 +62,10 @@
                                     <textarea class="form-control" name="lyrics" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </td></tr>
                             <tr><td>Mp3 file: </td><td>
-                                    <div class="custom-file">
-                                        <input id="mp3" type="file" class="custom-file-input" accept=".mp3,.mp4" name="fileattach" id="customFile" onchange="isSelected(this.id)">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                        <input id="mp3" type="file" class="btn btn-success" accept=".mp3,.mp4" name="fileattach">
                                 </td></tr>
                             <tr><td>Avatar: </td><td>
-                                    <div class="custom-file">
-                                        <input id="ava" type="file" name="fileavatar" class="custom-file-input" accept=".jpg,.png" id="customFile" onchange="isSelected(this.id)">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                        <input id="ava" type="file" name="fileavatar" class="btn btn-success" accept=".jpg,.png">
                                 </td></tr>
                         </table>
                         <input type="submit" name="action" value="Add song"/>

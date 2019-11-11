@@ -28,6 +28,7 @@
                             Add
                         </button>
                     </div>
+                    <span style="color: red">${delError}</span>
                     <div class="info-writer">
                         <table class="table table-dark">
                             <tr><th>ID</th><th>Writer Name</th><th>Birth Date</th><th>Address</th></tr>
@@ -43,7 +44,6 @@
                                 </tr>
                             </c:forEach>
                         </table>
-
                     </div>
                     <!-- Button trigger modal -->
 
@@ -103,12 +103,12 @@
                     </div>
                 </div>
                 <ul class="pagination" style="margin-top: -3em; padding-left: 18em">
-                    <li class="page-item ${(param.page-1)>1 ? '':'disabled'}">
+                    <li class="page-item ${(param.page-1)>0 ? '':'disabled'}">
                         <a class="page-link" href="info-writer.jsp?page=${param.page-1}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <c:set var="begin" value="${empty param.page||param.page==1 ? 1:(param.page > 1 ? param.page-1:param.page)}" />
+                    <c:set var="begin" value="${empty param.page ? 1:(param.page > 1 ? param.page-1:param.page)}" />
                     <c:set var="end" value="${begin + 2 < writer.pages ? begin+2:writer.pages}" />
                     <c:forEach var="i" begin="${begin}" end="${end}" step="1" >
                         <c:url value="info-writer.jsp" var="next" >
@@ -116,7 +116,7 @@
                         </c:url>
                         <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>
                         </c:forEach>
-                    <li class="page-item ${param.page+2 < writer.pages ? '':'disabled'}">
+                    <li class="page-item ${param.page < writer.pages ? '':'disabled'}">
                         <a class="page-link" href="info-writer.jsp?page=${param.page+1}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>

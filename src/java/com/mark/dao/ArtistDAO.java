@@ -22,6 +22,34 @@ import java.util.List;
  */
 public class ArtistDAO {
 
+    public List<Artist> getArtistByView() {
+        String sql = "select artist.* from artist, (select Artist.ID, sum(Viewcount) as total from song,ArtistList, Artist\n"
+                + "where song.id = ArtistList.songID\n"
+                + "and ArtistList.ArtistID = Artist.ID\n"
+                + "group by artist.id\n"
+                + ") as a\n"
+                + "where artist.id = a.ID\n"
+                + "order by a.total desc";
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
+            List<Artist> list = new LinkedList<>();
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String name = rs.getString("fullname");
+                String nickname = rs.getString("nickname");
+                String birth = new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("birthdate"));
+                String address = rs.getString("address");
+                String des = rs.getString("description");
+                String avatar = "https://docs.google.com/uc?export=download&id=" +rs.getString("avatar");
+                list.add(new Artist(id, name, nickname, birth, address, des, avatar));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<Artist> getArtists() {
         String sql = "select * from artist";
         try (Connection conn = new DBContext().getConnection();
@@ -34,7 +62,7 @@ public class ArtistDAO {
                 String birth = new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("birthdate"));
                 String address = rs.getString("address");
                 String des = rs.getString("description");
-                String avatar = rs.getString("avatar");
+                String avatar ="https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
                 list.add(new Artist(id, name, nickname, birth, address, des, avatar));
             }
             return list;
@@ -112,9 +140,9 @@ public class ArtistDAO {
             return true;
         } catch (SQLServerException e) {
             e.printStackTrace();
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        } catch(Exception es) {
+        } catch (Exception es) {
             es.printStackTrace();
         }
         return false;

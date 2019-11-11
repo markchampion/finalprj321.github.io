@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +23,38 @@ import java.util.List;
 public class SongDAO {
 
     //SELECT SONGS
+    public List<Song> getSuggestionSongs(int playingSong) {
+        List<Song> list = new LinkedList<>();
+        String sql = "select * from song, writer,(select distinct(song.id) from song, artistlist, (select ArtistList.ArtistID from song, ArtistList\n"
+                + "where song.ID = ArtistList.songID and song.id = "+playingSong+") as se\n"
+                + "where song.id = ArtistList.songID\n"
+                + "and artistlist.ArtistID = se.ArtistID) as se \n"
+                + "where writer.id = song.WriterID\n"
+                + "and song.id = se.id";
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
+            while (rs.next()) {
+                int ID = rs.getInt(1);
+                String name = rs.getString(2);
+                int userID = rs.getInt("uploaderid");
+                String writer = rs.getString(13);
+                String album = rs.getString("albumid");
+                String genre = rs.getString("genre");
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getTimestamp("uploadeddate"));
+                int viewCount = rs.getInt("viewcount");
+                String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
+                String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
+                String lyrics = rs.getString("lyrics");
+                lyrics = lyrics != null ? lyrics.replaceAll("\\s{2}", "<br/>") : "";
+                list.add(new Song(ID, name, writer, album, genre, userID, uploadedDate, viewCount, downlink, avatar, lyrics));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<Song> getFavoriteSongs(int userID) {
         List<Song> list = new LinkedList<>();
         String sql = "select * from song, Writer, Favorite, users\n"
@@ -35,7 +68,7 @@ public class SongDAO {
                 String writer = rs.getString(13);
                 String album = rs.getString("albumid");
                 String genre = rs.getString("genre");
-                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("uploadeddate"));
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getTimestamp("uploadeddate"));
                 int viewCount = rs.getInt("viewcount");
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
@@ -93,7 +126,7 @@ public class SongDAO {
                 String album = rs.getString("albumid");
                 String genre = rs.getString("genre");
                 int userID = rs.getInt("uploaderid");
-                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("uploadeddate"));
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getTimestamp("uploadeddate"));
                 int viewCount = rs.getInt("viewcount");
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
@@ -121,7 +154,7 @@ public class SongDAO {
                 String album = rs.getString("albumid");
                 String genre = rs.getString("genre");
                 int userID = rs.getInt("uploaderid");
-                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("uploadeddate"));
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getTimestamp("uploadeddate"));
                 int viewCount = rs.getInt("viewcount");
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
@@ -147,7 +180,7 @@ public class SongDAO {
                 String album = rs.getString("albumid");
                 String genre = rs.getString("genre");
                 int userID = rs.getInt("uploaderid");
-                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("uploadeddate"));
+                String uploadedDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getTimestamp("uploadeddate"));
                 int viewCount = rs.getInt("viewcount");
                 String downlink = "https://docs.google.com/uc?export=download&id=" + rs.getString("downlink");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
@@ -164,7 +197,7 @@ public class SongDAO {
     //SEACHING BY NAME
     public static List<Song> search(String type, String pattern) {
         List<Song> list = new LinkedList<>();
-        String sql = "select * from Song, writer where song.writerid = writer.id and lower("+type+") like N'%" + pattern.toLowerCase() + "%'";
+        String sql = "select * from Song, writer where song.writerid = writer.id and lower(" + type + ") like N'%" + pattern.toLowerCase() + "%'";
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
             while (rs.next()) {
@@ -211,7 +244,7 @@ public class SongDAO {
             ps.setString(3, s.getAlbumID());
             ps.setString(4, s.getGenre());
             ps.setInt(5, s.getUploaderID());
-            ps.setDate(6, new Date(new java.util.Date().getTime()));
+            ps.setTimestamp(6, new Timestamp(new java.util.Date().getTime()));
             ps.setInt(7, 0);//VIEWCOUNT
             ps.setString(8, s.getDownLink());
             ps.setString(9, s.getAvatar());
@@ -237,7 +270,7 @@ public class SongDAO {
             e.printStackTrace();
         }
     }
-    
+
     public static boolean deleteSong(int ID) {
         String sql = "delete from song where id = " + ID;
         try (Connection conn = new DBContext().getConnection();

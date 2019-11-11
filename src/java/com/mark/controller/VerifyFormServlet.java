@@ -26,8 +26,6 @@ import javax.servlet.http.HttpSession;
  */
 public class VerifyFormServlet extends HttpServlet {
 
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,50 +54,51 @@ public class VerifyFormServlet extends HttpServlet {
                 }
             } else if (from != null && from.equals("forgot")) {
                 String email = request.getParameter("email");
-                if (UserDAO.checkEmail(email)){
+                if (UserDAO.checkEmail(email)) {
                     capcha = GmailSending.send(email);
-                    Cookie cookie = new Cookie(capcha, email);
-                    cookie.setMaxAge(60*2);
+                    ConfigurationObject.queueCapcha.put(email, capcha);
+                    Cookie cookie = new Cookie("forgotEmail", email);
+                    cookie.setMaxAge(60 * 2);
                     response.addCookie(cookie);
                     out.write("success");
                 } else {
                     out.write("error");
                 }
             } else if (from != null && from.equals("capcha")) {
-                Cookie []cookies = request.getCookies();
-                capcha = request.getParameter("capcha");
+                Cookie[] cookies = request.getCookies();
+                capcha = request.getParameter("capcha").trim();
                 for (Cookie cooky : cookies) {
-                    if (cooky.getName().equals(capcha)) {
-                        request.setAttribute("capcha", cooky.getValue());
-                        cooky.setMaxAge(0);
-                        response.addCookie(cooky);
-                        System.out.println("hahahah");
+                    if (capcha.equals(ConfigurationObject.queueCapcha.get(cooky.getValue()))) {
+                        ConfigurationObject.queueCapcha.remove(cooky.getValue());
                         out.write("success");
                         return;
                     }
                 }
                 out.write("error");
-            } else if(from != null && from.equals("renewPass")) {
-                String email = request.getParameter("email");
-                if (UserDAO.checkPass(email, request.getParameter("oldPass"))) {
-                    if (UserDAO.updatePassword(email, request.getParameter("newPass"))) {
-                        out.write("success");
-                        return;
-                    } 
-                    out.write("error");
-                } else {
-                    out.write("error");
+            } else if (from != null && from.equals("renewPass")) {
+                Cookie[] cookies = request.getCookies();
+                for (Cookie cooky : cookies) {
+                    if(cooky.getName().equals("forgotEmail")) {
+                        if (UserDAO.updatePassword(cooky.getValue(), request.getParameter("newPass"))) {
+                            out.write("success");
+                            cooky.setMaxAge(0);
+                            response.addCookie(cooky);
+                            return;
+                        }
+                        out.write("error");
+                    }
                 }
+              
             } else if (from != null && from.equals("registerEmail")) {
-                if(UserDAO.checkEmail(request.getParameter("email"))) {
+                if (UserDAO.checkEmail(request.getParameter("email"))) {
                     out.write("Email has been used");
                 }
             } else if (from != null && from.equals("registerUser")) {
-                if(UserDAO.checkUser(request.getParameter("user"))) {
+                if (UserDAO.checkUser(request.getParameter("user"))) {
                     out.write("Username has been used");
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

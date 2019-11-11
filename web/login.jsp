@@ -13,44 +13,45 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/login.css" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
         <title>JSP Page</title>
     </head>
     <body>
         <%@include file="newHeader.jsp" %>
-        <div class="container col-4 pt-5">
-            <div id="form-1 row rounded shadow" style="background-color: whitesmoke;">
-                <h3 class="pl-3 pt-3 m-0 text-center">Login</h3>
-                <form class="pt-5 pl-5 pr-5 pb-1" id="sign-in" action="signin.do" method="post">
+        <div class="t-login-form mt-5 mb-5">
+            <div id="form-1 row rounded shadow" class="t-login-form-inner">
+                <h3 class="mt-3 mb-3 text-center">Login / Sign Up</h3>
+                <div class="avatar">
+                    <img src="img/avatar.png" alt="Avatar" width="150px">
+		</div>
+                <form class="m-3" id="sign-in" action="signin.do" method="post">
                     <div class="input-group mb-3 d-flex">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><img src="img/usericon.png" width="24" height="24"/></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Your username" value="${cookie['username'].getValue()}" name="username" required />
+                        <input type="text" class="form-control" placeholder="Your Username" value="${cookie['username'].getValue()}" name="username" required />
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                             <span class="input-group-text"><img src="img/passicon.png" width="24" height="24"/></span>
                         </div>
                         <input type="password" class="form-control" placeholder="Your Password"value="${cookie['password'].getValue()}" name="password" required />
-                    </div>
-                    <div class="input-group-text mb-1">
-                        <input type="checkbox" name="remember" ${not empty cookie.username ? 'checked':''} aria-label="Checkbox for following text input" />
-                        Remember me
+                        <a class="forgotPassword" href="forgot.jsp">?</a>
+                    </div> 
+                    <div class="input-group-text mb-3">
+                        <input type="checkbox" name="remember" ${not empty cookie.username ? 'checked':''} aria-label="Checkbox for following text input" /><span style="margin-left: 5px">Remember me</span>
                     </div>
                     <c:if test="${not empty sessionScope.error}">
                         <p>${sessionScope.error}</p>
-                    </c:if>
+                    </c:if>   
                     <input type="hidden" name="action" value="login" />
-                    <button type="submit" class="btn btn-success">Login</button>
+                    <button type="submit" class="btn btn-success btn-lg btn-block mb-3">Login</button>
+                    <a class="btn btn-warning btn-lg btn-block text-light" href="register.jsp">Register</a>
                 </form>
-                <div class="pb-3">
-                    <a class="p-1 pl-5 light-silver" href="forgot.jsp">Forgot your pasword?</a>
-                    <div class="w-100"></div>
-                    <a class="text-center pl-5 p-1 light-silver mb-5"  href="register.jsp">Don't have a account? Register Now!!!</a>
-                </div>
             </div>
         </div>
+        <%@include file="footer.jsp" %>
     </body>
 </html>

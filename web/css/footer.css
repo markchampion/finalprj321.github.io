@@ -1,17 +1,9 @@
-*
-{
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-}
-
 .triple-mp3-footer
 {
     color: rgb(79, 92, 119);
     background: #090c15;
-    margin: 0 auto;
     padding: 20px;
+    margin: 0;  
 }
 
 .triple-mp3-footer--wrapper
@@ -48,6 +40,7 @@
     color: #68738c;
     font-size: 14px;
     padding: 10px;
+    margin: 0;
 }
 
 .triple-mp3-footer--block---container_boxLink
@@ -89,6 +82,10 @@
 .triple-mp3-footer--social
 {
     padding: 0;
+    text-align: center;
+    padding: 5px;
+    background: #0d1019;
+    border-radius: 0 0 3px 3px;
 }
 
 .triple-mp3-footer--social li
@@ -138,7 +135,7 @@
     padding: 5px;
 }
 
-@media (max-width: 800px)
+@media all and (max-width: 800px)
 {
     .triple-mp3-footer--block
     {
@@ -148,7 +145,7 @@
     }
 }
 
-@media (max-width: 480px)
+@media all and (max-width: 480px)
 {
     .triple-mp3-footer--block
     {

@@ -10,6 +10,7 @@ import com.mark.model.Comment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -41,7 +42,7 @@ public class CommentDAO {
             ps.setInt(1, c.getSongID());
             ps.setInt(2, Integer.parseInt(c.getUser()));
             ps.setString(3, c.getContent());
-            ps.setDate(4, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(c.getCreatedDate()).getTime()));
+            ps.setTimestamp(4, new Timestamp(new java.util.Date().getTime()));
             ps.setInt(5, c.getLikes());
             return ps.executeUpdate() == 1;
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class CommentDAO {
                 String user = rs.getString("username");
                 String avatar = "https://docs.google.com/uc?export=download&id=" + rs.getString("avatar");
                 String content = rs.getString("content");
-                String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("createddate"));
+                String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(rs.getTimestamp("createddate"));
                 int likes = rs.getInt("likes");
                 list.add(new Comment(ID, songID, user, avatar, content, createdDate, likes));
             }

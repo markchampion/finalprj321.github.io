@@ -103,13 +103,15 @@ public class WriterDAO {
         }
     }
     
-    public static void delete(String id) {
+    public static boolean delete(String id) {
         String sql = "delete from writer where id = '" + id + "'";
         try (Connection conn = new DBContext().getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.executeQuery();
+            ps.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
     
