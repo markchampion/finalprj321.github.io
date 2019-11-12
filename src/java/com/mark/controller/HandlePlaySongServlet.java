@@ -40,6 +40,7 @@ public class HandlePlaySongServlet extends HttpServlet {
                 Song s = new SongDAO().getSongs(id);
                 SongDAO.increaseView(s.getID(), s.getViewCount());
                 request.setAttribute("playsong", s);
+                System.out.println("Lyrics: " +s.getLyrics());
                 request.getRequestDispatcher("playpage.jsp").forward(request, response);
             }
 //            response.sendRedirect("error.jsp");

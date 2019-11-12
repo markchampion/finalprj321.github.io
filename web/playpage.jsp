@@ -9,7 +9,7 @@
 <%@taglib uri="/WEB-INF/tlds/tag" prefix="t" %>
 <jsp:useBean id="comments" class="com.mark.dao.CommentDAO" />
 <jsp:useBean id="up_user" class="com.mark.dao.UserDAO" scope="page" />
-
+<jsp:useBean id="playlist" class="com.mark.dao.PlaylistDAO" />
 <jsp:useBean id="fav" class="com.mark.dao.FavoriteDAO" scope="page" />
 <jsp:useBean id="songDAO" class="com.mark.dao.SongDAO" scope="page" />
 <jsp:setProperty name="comments" property="songID" value="${param.id}" />
@@ -80,17 +80,62 @@
                     <source src="${playsong.downLink}" type="audio/mpeg"/>
                 </audio>
                 <div class="song-avatar pr-5 fl position-relative">
-                    <div onclick="playSong()" class="p-0 rounded-circle " style="overflow: hidden">
+                    <div onclick="loadSound()" class="p-0 rounded-circle " style="overflow: hidden">
                         <img class="image rounded-circle" id="audio-image" style="animation-play-state: paused" src="${playsong.avatar}" width="148" height="148"/>
                         <i id="audio-state" class="position-absolute play-button"></i>
                     </div>
                 </div>
-                <div class="song-info pl-2">
+                <div class="song-info pl-2 fl">
                     <h5>${playsong.name}</h5>
                     <span><b><t:ArtistTag songID="${playsong.ID}" /></b></span><br/>
                     <span>Writer: <a href="" style="text-decoration: none">${playsong.writer}</a></span><br/>
                     <span>Genre: ${playsong.genre}</span>
                     <p>View: ${playsong.viewCount}</p>
+                </div>
+                <style>
+                    .my-slider {
+                        -webkit-appearance: none;  /* Override default CSS styles */
+                        appearance: none;
+                        height: 8px; /* Specified height */
+                        background: #b1dfbb; /* Grey background */
+                        outline: none; /* Remove outline */
+                        opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+                        -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+                        transition: opacity .2s;  
+                        border-radius: 5px;
+                        box-shadow: inset 0px 1px 3px rgba(0,0,0,0.9);
+                    }
+                    .my-slider:hover {
+                        opacity: 1; /* Fully shown on mouse-over */
+                    }
+                    .my-slider::-webkit-slider-thumb {
+                        -webkit-appearance: none; /* Override default look */
+                        appearance: none;
+                        width: 15px; /* Set a specific slider handle width */
+                        height: 15px; /* Slider handle height */
+                        background: #4CAF50; /* Green background */
+                        cursor: pointer; /* Cursor on hover */
+                        border-radius: 50%
+                    }
+                    .audio-component {
+                        margin-left: 32em;
+                    }
+                    .repeat-btn {
+                        width: 24px;
+                        height: 24px;
+                    }
+                    .repeat-btn:hover{
+                        background-color: #b1dfbb;
+                        cursor: pointer;
+                    }
+                    .repeat-pressed {
+                        background-color: #b1dfbb;
+                    }
+                </style>
+                <div class="audio-component">   
+                    <i class="repeat-btn rounded-circle" id="repeat-btn" onclick="checkLoop()"><img src="img/repeat.png" height="24" width="24"/></i>
+                    <input type="range" min="0" max="100" value="50" id="volume-range" class="my-slider" onchange="changeVolume(this.value)"/>
+                    <input type="range" min="0" max="100" value="0" id="duration-range" class="my-slider" onchange="changeDuration(this.value)"/>
                 </div>
             </div>
             <div class="inside-1-2 text-white bg-info text-center"> 
@@ -114,8 +159,8 @@
                                 <div class="modal-body">
                                     <form id="play-form" action="/PRJ321_FINAL_PROJECT/addplaylist">
                                         <label for="playlist-name">Playlist's Name:</label>
-                                        <input type="hidden" name="uid" value="${sessionScope.logStatus.ID}" />
                                         <input type="text" id="playlist-name" class="form-control" name="name" required/>
+                                        <input type="hidden" name="uid" value="${sessionScope.logStatus.ID}" />
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -153,6 +198,38 @@
                             <img src="img/favorite.png" width="20" height="20"/><span class="pl-2">Remove favorite</span>
                         </p>
                     </div>
+                    <div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                More
+                            </button>
+                            <div class="dropdown-menu bg-info">
+                                <c:forEach var="p" items="${playlist.getPlaylists(sessionScope.logStatus.ID)}">
+                                    <a class="dropdown-item" href="#" onclick="addToPlaylist(${p.ID})">
+                                        <span id="p${p.ID}-status-add" class="${playlist.isInPlaylist(p.ID, playsong.ID) ? 'hidden':''}">+</span>
+                                        <span id="p${p.ID}-status-remove" class="${playlist.isInPlaylist(p.ID, playsong.ID) ? '':'hidden'}">-</span>
+                                        ${p.name}</a>
+                                    </c:forEach>
+                                <script>
+                                    function addToPlaylist(id) {
+                                        console.log($('#p'+id+'-status-add').hasClass('hidden'));
+                                        $.post('addplaylist',
+                                                {
+                                                    action: $('#p'+id+'-status-add').hasClass('hidden') ? 'delete':'add',
+                                                    userID: ${sessionScope.logStatus.ID},
+                                                    playlistID: id,
+                                                    from: 'playpage',
+                                                    songID: ${playsong.ID}
+                                                },
+                                                (responseText) => {
+                                                $('#p'+id+'-status-add').toggleClass("hidden");
+                                                $('#p'+id+'-status-remove').toggleClass('hidden');
+                                        });
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="lyrics-area p-1 border">
                     <div class="d-flex">
@@ -185,16 +262,21 @@
                     </c:if>
                 </c:forEach>
             </div>
-            <div  class="inside-3-1 bg-primary">
+            <div  class="inside-3-1 bg-light">
                 <h3>Comment: </h3>
-                <form id="comment-form" >
-                    <div class="pl-3 d-flex">
-                        <img src="${sessionScope.logStatus.avatar}" class="mr-3" width="48" height="48"/>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="content" placeholder="Your comment..." rows="2"></textarea>
-                        <button type="button" onclick="mySubmit()" class="btn btn-success">Submit</button>
-                    </div>
-                    <input type="hidden" name="songID" value="${playsong.ID}" />
-                </form>
+                <c:if test="${not empty sessionScope.logStatus}">
+                    <form id="comment-form" >
+                        <div class="pl-3 d-flex">
+                            <img src="${sessionScope.logStatus.avatar}" class="mr-3" width="48" height="48"/>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="content" placeholder="Your comment..." rows="2"></textarea>
+                            <button type="button" onclick="mySubmit()" class="btn btn-success">Submit</button>
+                        </div>
+                        <input type="hidden" name="songID" value="${playsong.ID}" />
+                    </form>
+                </c:if>
+                <c:if test="${empty sessionScope.logStatus}">
+                    <h4>Please <a href="/PRJ321_FINAL_PROJECT/login.jsp">Login</a> to leave your comment</h4>
+                </c:if>
                 <c:forEach var="com" items="${comments.comments}" >
                     <div id="cmt-list">
                         <div class='pl-3 d-flex'>
@@ -211,72 +293,67 @@
                 </c:forEach>
             </div>
         </div>
+        <script src="js/playpage.js" type="text/javascript" ></script>
         <%@include file="footer.jsp" %>
         <script>
 //            window.onload = function () {
 //                document.getElementById("my-audio").play();
 //            };
-            const audioObj = new AudioContext();
-            function loadMusic() {
-                const audioElement = document.querySelector('audio');
-                const track = audioObj.createMediaElementSource(audioElement);
-
-            }
-            function viewMore() {
-                $('#lyrics').toggleClass('hidden-lyrics');
-                //height: auto;max-height: 300px; overflow: hidden
-            }
-            function playSong() {
-                var audio = document.getElementById("my-audio");
-                if (audio.paused == false) {
-                    audio.pause();
-                    $('#audio-state').css('background-image', "url('/PRJ321_FINAL_PROJECT/img/play-btn.png')");
-                    $('#audio-image').addClass('restore');
-                    $('#audio-image').removeClass('image');
+                                function viewMore() {
+                                    $('#lyrics').toggleClass('hidden-lyrics');
+                                    //height: auto;max-height: 300px; overflow: hidden
+                                }
+                                function playSong() {
+                                    var audio = document.getElementById("my-audio");
+                                    if (audio.paused == false) {
+                                        audio.pause();
+                                        $('#audio-state').css('background-image', "url('/PRJ321_FINAL_PROJECT/img/play-btn.png')");
+                                        $('#audio-image').addClass('restore');
+                                        $('#audio-image').removeClass('image');
 //                    $('#audio-image').css('animation-play-state','paused');
-                } else {
-                    audio.play();
-                    $('#audio-image').css('animation-play-state', '');
-                    $('#audio-state').css('background-image', "url('/PRJ321_FINAL_PROJECT/img/pause-btn.png')");
-                    $('#audio-image').removeClass('restore');
-                    $('#audio-image').addClass('image');
-                }
-            }
-            function mySubmit() {
-                $.post('comment',
-                        {
-                            content: $('#exampleFormControlTextarea1').val(),
-                            songID: ${playsong.ID}
-                        },
-                        (responseText) => {
-                    let cmtObj = JSON.parse(responseText);
-                    console.log(cmtObj);
-                    $('#cmt-list').prepend("<div class='pl-3 d-flex'>" +
-                            "<img src='" + cmtObj.avatar + "' class='mr-3' width='48' height='48'/>" +
-                            "<div class='w-100'>" +
-                            " <div class='d-flex'>" +
-                            "<p class='m-0'><strong>" + cmtObj.user + "</strong></p>" +
-                            " <span class='ml-auto pr-3'>" + cmtObj.createdDate + "</span>" +
-                            "</div><p>" + cmtObj.content + "</p></div></div>");
-                });
-            }
-            function execFavorite(clicked_id) {
-                if (${empty sessionScope.logStatus}) {
-                    console.log('123');
-                    window.open('/PRJ321_FINAL_PROJECT/login.jsp');
-                } else {
-                    $.post('HandleFavorite',
-                            {
-                                action: ${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID) ? "'delete'":"'add'"},
-                                userID: ${empty sessionScope.logStatus.ID ? '1':sessionScope.logStatus.ID},
-                                songID: ${playsong.ID}
-                            },
-                            (responseText) => {
-                        $('#add-fav').toggleClass("hidden");
-                        $('#del-fav').toggleClass('hidden');
-                    });
-                }
-            }
+                                    } else {
+                                        audio.play();
+                                        $('#audio-image').css('animation-play-state', '');
+                                        $('#audio-state').css('background-image', "url('/PRJ321_FINAL_PROJECT/img/pause-btn.png')");
+                                        $('#audio-image').removeClass('restore');
+                                        $('#audio-image').addClass('image');
+                                    }
+                                }
+                                function mySubmit() {
+                                    $.post('comment',
+                                            {
+                                                content: $('#exampleFormControlTextarea1').val(),
+                                                songID: ${playsong.ID}
+                                            },
+                                            (responseText) => {
+                                        let cmtObj = JSON.parse(responseText);
+                                        console.log(cmtObj);
+                                        $('#cmt-list').prepend("<div class='pl-3 d-flex'>" +
+                                                "<img src='" + cmtObj.avatar + "' class='mr-3' width='48' height='48'/>" +
+                                                "<div class='w-100'>" +
+                                                " <div class='d-flex'>" +
+                                                "<p class='m-0'><strong>" + cmtObj.user + "</strong></p>" +
+                                                " <span class='ml-auto pr-3'>" + cmtObj.createdDate + "</span>" +
+                                                "</div><p>" + cmtObj.content + "</p></div></div>");
+                                    });
+                                }
+                                function execFavorite(clicked_id) {
+                                    if (${empty sessionScope.logStatus}) {
+                                        console.log('123');
+                                        window.open('/PRJ321_FINAL_PROJECT/login.jsp');
+                                    } else {
+                                        $.post('HandleFavorite',
+                                                {
+                                                    action: ${fav.isFavorite(playsong.ID, sessionScope.logStatus.ID) ? "'delete'":"'add'"},
+                                                    userID: ${empty sessionScope.logStatus.ID ? '1':sessionScope.logStatus.ID},
+                                                    songID: ${playsong.ID}
+                                                },
+                                                (responseText) => {
+                                            $('#add-fav').toggleClass("hidden");
+                                            $('#del-fav').toggleClass('hidden');
+                                        });
+                                    }
+                                }
         </script>
     </body>
 </html>

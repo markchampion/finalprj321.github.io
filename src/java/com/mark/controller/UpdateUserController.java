@@ -70,7 +70,7 @@ public class UpdateUserController extends HttpServlet {
             UserDAO.update(user);
             user.setAvatar("https://docs.google.com/uc?export=download&id=" + avatar);
             session.setAttribute("logStatus", user);
-            response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/infosetting.jsp");
+            response.sendRedirect("/PRJ321_FINAL_PROJECT/page-user/infosetting.jsp");
         }
     }
     

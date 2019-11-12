@@ -34,11 +34,26 @@ public class HandlePlayListServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String name = request.getParameter("name"); 
-            String previousURL = request.getHeader("referer");
-            int uid = Integer.parseInt(request.getParameter("uid"));
-            PlaylistDAO.insert(uid, name);
-            response.sendRedirect(previousURL);
+            String from = request.getParameter("from");
+            if (from.equals("personal_playlist")) {
+                String name = request.getParameter("name");
+                String previousURL = request.getHeader("referer");
+                int uid = Integer.parseInt(request.getParameter("uid"));
+                PlaylistDAO.insert(uid, name);
+                response.sendRedirect(previousURL);
+            } else if (from.equals("playpage")) {
+                String action = request.getParameter("action");
+                System.out.println(action);
+                String playlistID = request.getParameter("playlistID");
+                String songID = request.getParameter("songID");
+                if (action.equals("delete")) {
+                    PlaylistDAO.deleteInDetail(playlistID, songID);
+                    out.write("success");
+                } else {
+                    PlaylistDAO.insertInDetail(playlistID, songID);
+                    out.write("success");
+                }
+            }
         }
     }
 

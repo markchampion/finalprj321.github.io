@@ -4,11 +4,19 @@
         <filter-name>AuthenFilter</filter-name>
         <filter-class>com.mark.filter.AuthenFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AuthorFilter</filter-name>
+        <filter-class>com.mark.filter.AuthorFilter</filter-class>
+    </filter>
     <filter-mapping>
-        <filter-name>AuthenFilter</filter-name>
-        <url-pattern>/personal/*</url-pattern>
-        <url-pattern>/comment</url-pattern>
-        <url-pattern>/HandleFavorite</url-pattern>
+        <filter-name>AuthorFilter</filter-name>
+        <url-pattern>/page-admin/*</url-pattern>
+        <url-pattern>/page-user/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorFilter</filter-name>
+        <url-pattern>/page-admin/*</url-pattern>
+        <url-pattern>/page-user/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>AuthorizeServlet</servlet-name>
@@ -63,7 +71,6 @@
         <url-pattern>/signin.do</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
     <servlet-mapping>

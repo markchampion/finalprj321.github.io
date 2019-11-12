@@ -62,6 +62,7 @@ public class VerifyFormServlet extends HttpServlet {
                     response.addCookie(cookie);
                     out.write("success");
                 } else {
+                    System.out.println("error here");
                     out.write("error");
                 }
             } else if (from != null && from.equals("capcha")) {

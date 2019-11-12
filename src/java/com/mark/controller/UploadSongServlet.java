@@ -68,7 +68,7 @@ public class UploadSongServlet extends HttpServlet {
                         getLink(fileMp3, true), getLink(fileAvatar, false), lyrics);
                 new SongDAO().insert(s);
                 ArtistListDAO.insert(artists);
-                response.sendRedirect("list");
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/list");
             } else if (action.equals("Save")) {
                 int ID = Integer.parseInt(request.getParameter("songid"));
                 Song s = new SongDAO().getSongs(ID);
@@ -88,7 +88,7 @@ public class UploadSongServlet extends HttpServlet {
                 }
                 SongDAO.updateSong(s);
                 ArtistListDAO.update(artists, ID);
-                response.sendRedirect("list");
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/list");
             }
         }
     }

@@ -18,7 +18,7 @@
         <%@include file="../newHeader.jsp" %>
         <div class="container bg-light p-0 shadow rounded col-9">
             <div class="sub-container p-5 row">
-                <jsp:include page="info-submenu.jsp" />
+                <jsp:include page="../page-user/info-submenu.jsp" />
                 <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
                     <h4>Upload Songs</h4>
                     <form action="/PRJ321_FINAL_PROJECT/upload" method="post" enctype="multipart/form-data">

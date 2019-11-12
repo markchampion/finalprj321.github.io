@@ -20,7 +20,7 @@
 
         <div class="container bg-light p-0 shadow rounded col-9">
             <div class="sub-container pt-5 pl-5 pr-5 pb-2 row">
-                <jsp:include page="info-submenu.jsp" />
+                <jsp:include page="../page-user/info-submenu.jsp" />
                 <div class="info-tab-detail border-right border-bottom p-3 col-lg-9 pb-5">
                     <div class="d-flex">
                         <h4>Writers Information</h4>
@@ -37,7 +37,7 @@
                                     <td>
                                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/personal/info-update-writer.jsp?id=${w.ID}">Update</a>
+                                            <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/page-admin/info-update-writer.jsp?id=${w.ID}">Update</a>
                                             <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/writer.do?id=${w.ID}&action=delete">Delete</a>
                                         </div>
                                     </td>
@@ -49,7 +49,7 @@
 
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal fade p-5" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -111,7 +111,7 @@
                     <c:set var="begin" value="${empty param.page ? 1:(param.page > 1 ? param.page-1:param.page)}" />
                     <c:set var="end" value="${begin + 2 < writer.pages ? begin+2:writer.pages}" />
                     <c:forEach var="i" begin="${begin}" end="${end}" step="1" >
-                        <c:url value="info-writer.jsp" var="next" >
+                        <c:url value="/page-admin/info-writer.jsp" var="next" >
                             <c:param name="page" value="${i}" />
                         </c:url>
                         <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>

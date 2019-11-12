@@ -38,10 +38,11 @@ public class PlaylistDAO {
 
     public List<Song> getPlaylistDetail(int id) {
         List<Song> list = new LinkedList<>();
-        String sql = "select * from Playlist, PlaylistDetail, Song\n"
-                + "where Playlist.ID = PlaylistDetail.ID \n"
-                + "and PlaylistDetail.Songid = song.ID\n"
-                + "and Playlist.ID = " + id;
+        String sql = "select * from Playlist, PlaylistDetail, Song, writer\n"
+                + "                where Playlist.ID = PlaylistDetail.ID \n"
+                + "                and PlaylistDetail.Songid = song.ID\n"
+                + "				and song.WriterID = writer.ID"
+                + " and Playlist.ID = " + id;
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
             while (rs.next()) {
@@ -66,6 +67,39 @@ public class PlaylistDAO {
         }
     }
 
+    public static boolean deleteInDetail(String playID, String songID) {
+        String sql = "delete from playlistdetail where id = " + playID + " and songid =" + songID;
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql)) {
+            return rs.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean insertInDetail(String playID, String songID) {
+        String sql = "insert into playlistdetail values(" + playID + "," + songID + ")";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql)) {
+            return rs.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isInPlaylist(int playID, int songID) {
+        String sql = "select * from playlistdetail where id = " + playID + " and songid =" + songID;
+        try (Connection conn = new DBContext().getConnection();
+                ResultSet rs = conn.prepareStatement(sql).executeQuery()) {
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public List<Playlist> getPlaylists(int uid) {
         String sql = "select * from playlist, users where playlist.userid = users.id and users.id = " + uid;
         try (Connection conn = new DBContext().getConnection();
@@ -75,7 +109,7 @@ public class PlaylistDAO {
                 String username = rs.getString("username");
                 String playlistName = rs.getString(3);
                 String created = new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(4));
-                list.add(new Playlist(rs.getInt(1), username, playlistName, created));
+                list.add(new Playlist(rs.getInt(2), username, playlistName, created));
             }
             return list;
         } catch (Exception e) {

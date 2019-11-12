@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="artist" class="com.mark.bean.PagingArtists" />
-<jsp:setProperty name="artist" property="*" />
+<jsp:setProperty name="artist" property="*"  />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@
         <jsp:include page="../newHeader.jsp" />
         <div class="container bg-light p-0 shadow rounded col-9">
             <div class="sub-container p-5 row">
-                <jsp:include page="info-submenu.jsp" />
+                <jsp:include page="../page-user/info-submenu.jsp" />
                 <div class="info-tab-detail border-right border-bottom p-3 col-lg-9" style="height: 520px">
                     <div class="d-flex">
                         <h4>Artists Information</h4>
@@ -43,7 +43,7 @@
                                     <td>
                                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/personal/info-update-artist.jsp?id=${w.ID}">Update</a>
+                                            <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/page-admin/info-update-artist.jsp?id=${w.ID}">Update</a>
                                             <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/artist.do?id=${w.ID}&action=delete">Delete</a>
                                         </div>
                                     </td>
@@ -53,11 +53,11 @@
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div  class="modal fade p-5" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Add artist</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -129,7 +129,7 @@
                     <c:set var="begin" value="${empty param.page ? 1:(param.page > 1 ? param.page-1:param.page)}" />
                     <c:set var="end" value="${begin + 2 < artist.pages ? begin+2:artist.pages}" />
                     <c:forEach var="i" begin="${begin}" end="${end}" step="1" >
-                        <c:url value="info-artist.jsp" var="next" >
+                        <c:url value="/page-admin/info-artist.jsp" var="next" >
                             <c:param name="page" value="${i}" />
                         </c:url>
                         <li class="page-item ${param.page == i ? 'active':''}"><a class="page-link" href="${next}">${i}</a></li>

@@ -21,7 +21,7 @@ and open the template in the editor.
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 99999999;
+    z-index: 1;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px;
 }
 .nav-item a

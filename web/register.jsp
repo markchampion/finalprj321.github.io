@@ -9,14 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/footer.css" />
+        <link rel="stylesheet" href="css/login.css"/>
         <title>JSP Page</title>
     </head>
     <body>
         <%@include file="newHeader.jsp" %>
-        <div class="container col-4 pt-5">
-            <div id="form-1 row rounded shadow" style="background-color: whitesmoke;">
-                <h3 class="pl-3 pt-3 m-0 text-center">Register</h3>
-                <form class="pt-5 pl-5 pr-5 pb-1" id="sign-up" action="signin.do" method="post">
+        <div class="t-login-form mt-5 mb-5">
+            <div id="form-1 row rounded shadow" class="t-login-form-inner">
+                <h3 class="m-3 text-center">Register</h3>
+                <div class="avatar">
+                    <img src="img/register.png" width="150px"/>
+                </div>
+                <form class="m-3" id="sign-up" action="signin.do" method="post">
                     <div class="input-group mb-3 d-flex">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><img src="img/usericon.png" width="24" height="24"/></span>
@@ -56,11 +61,9 @@
                         <span id="email-exist"></span>
                     </div>
                     <input type="hidden" name="action" value="register" />
-                    <button type="submit" class="btn btn-success">Register</button>
+                    <button type="submit" class="btn btn-success btn-block mb-3">Register</button>
+                    <a class="btn btn-block btn-primary" href="/PRJ321_FINAL_PROJECT/login.jsp">Login</a>
                 </form>
-                <div class="pb-3">
-                    <a class="p-1 pl-5 light-silver" href="/PRJ321_FINAL_PROJECT/login.jsp">If you already have an account, click here to Login</a>
-                </div>
             </div>
         </div>
         <jsp:include page="footer.jsp" />

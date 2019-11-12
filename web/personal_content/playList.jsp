@@ -29,7 +29,6 @@
                                 <button type="button" class="btn btn-light ml-auto bg-light-purple" data-toggle="modal" data-target="#exampleModalCenter">
                                     Create new playlist
                                 </button>
-
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -41,9 +40,10 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="play-form" action="/PRJ321_FINAL_PROJECT/addplaylist">
+                                                <form id="play-form" action="/PRJ321_FINAL_PROJECT/addplaylist" method="post">
                                                     <label for="playlist-name">Playlist's Name:</label>
                                                     <input type="hidden" name="uid" value="${sessionScope.logStatus.ID}" />
+                                                    <input type="hidden" name="from" value="personal_playlist" />
                                                     <input type="text" id="playlist-name" class="form-control" name="name" required/>
                                                 </form>
                                             </div>
@@ -58,7 +58,7 @@
                             <div class="playlist row">
                                 <c:forEach var="s" items="${playlist.getPlaylists(sessionScope.logStatus.ID)}">
                                     <div class="playlist-card col-3 pr-0">
-                                        <div  class="" style="overflow: hidden" onclick="loadDetailPlaylist(this, ${s.ID})">
+                                        <div  class="" style="overflow: hidden" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/personal_content/playListDetail.jsp?id=${s.ID}'">
                                             <img class="grow" src="/PRJ321_FINAL_PROJECT/img/pButton.png" width="auto" height="130"/>
                                         </div>
                                         <p class="p-0 m-0">${s.name}</p>

@@ -50,8 +50,8 @@
         <%@include file="../footer.jsp" %>
         <script>
             $('input[type=file]').change(function () {
-    console.log(this.files[0].mozFullPath);
-});
+                console.log(this.files[0].mozFullPath);
+            });
             $('#btn-update').click(function() {
                 $('#table-info').css('display','none');
                 $('#table-update').css('display','');

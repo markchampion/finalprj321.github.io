@@ -29,31 +29,31 @@
     </head>
     <body>
         <div class="info-tab-column border-bottom col-3 p-0">
-            <div id="infosetting" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/personal/infosetting.jsp';">
+            <div id="infosetting" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/page-user/infosetting.jsp';">
                 <span>
                     <img src="/PRJ321_FINAL_PROJECT/img/usericon.png" width="48" height="48" />
                     Personal information
                 </span>
             </div>
-            <div id="info-security" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/personal/info-security.jsp';">
+            <div id="info-security" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/page-user/info-security.jsp';">
                 <span> <img src="/PRJ321_FINAL_PROJECT/img/passicon.png" width="48" height="48" />
                     Security
                 </span>
             </div>
             <c:if test="${sessionScope.logStatus.role == 'admin'}">
-                <div id="info-uploaded" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/personal/info-uploaded.jsp';">
+                <div id="info-uploaded" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/page-admin/info-uploaded.jsp';">
                     <span>
                         <img src="/PRJ321_FINAL_PROJECT/img/songicon.jpg" width="48" height="48" />
                         Song uploaded
                     </span>
                 </div>
-                <div id="info-artist" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/personal/info-artist.jsp';">
+                <div id="info-artist" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/page-admin/info-artist.jsp';">
                     <span>
                         <img src="/PRJ321_FINAL_PROJECT/img/artist-icon.jpg" width="48" height="48" />
                         Add new artist
                     </span>
                 </div>
-                <div id="info-writer" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/personal/info-writer.jsp';">
+                <div id="info-writer" class="info-sub-tab d-flex border-bottom p-2 rounded" onclick="window.location.href = '/PRJ321_FINAL_PROJECT/page-admin/info-writer.jsp';">
                     <span>
                         <img src="/PRJ321_FINAL_PROJECT/img/writer-icon.png" width="48" height="48" />
                         Add new writer

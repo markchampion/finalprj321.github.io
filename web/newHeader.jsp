@@ -10,7 +10,7 @@
 <html>
     <div class="t-main-navigation container-fluid">
         <nav class="container navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/PRJ321_FINAL_PROJECT/index.jsp">#Tripple MP3</a>
+            <a class="navbar-brand" href="/PRJ321_FINAL_PROJECT/list">#Tripple MP3</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
                         <div class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item text-dark" href="/PRJ321_FINAL_PROJECT/info-personal.jsp">Your Songs</a>
                             <a class="dropdown-item text-dark"
-                               href="/PRJ321_FINAL_PROJECT/personal/infosetting.jsp">Setting</a>
+                               href="/PRJ321_FINAL_PROJECT/page-user/infosetting.jsp">Setting</a>
                             <a class="dropdown-item text-dark"
                                href="/PRJ321_FINAL_PROJECT/signin.do?action=logout">Logout</a>
                             <!--<div class="dropdown-divider "></div>-->

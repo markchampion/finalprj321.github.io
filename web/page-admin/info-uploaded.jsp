@@ -19,7 +19,7 @@
         <%@include file="../newHeader.jsp" %>
         <div class="container bg-light p-0 shadow rounded col-9">
             <div class="sub-container p-5 row">
-                <jsp:include page="info-submenu.jsp" />
+                <jsp:include page="../page-user/info-submenu.jsp" />
                 <div class="info-tab-detail border-right border-bottom p-3 col-lg-9">
                     <h4>Uploaded Songs</h4>
                     <c:forEach var="s" items="${songs.songs}">
@@ -35,7 +35,7 @@
                             <div class="ml-auto">
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/personal/info-updatesong.jsp?id=${s.ID}">Detail</a>
+                                    <a class="dropdown-item" href="/PRJ321_FINAL_PROJECT/page-admin/info-updatesong.jsp?id=${s.ID}">Detail</a>
                                     <button class="dropdown-item" onclick="deleteRecord( ${s.ID})"> Delete </button>
                                 </div>
                             </div>

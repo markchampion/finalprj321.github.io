@@ -3,14 +3,43 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/newHeader.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/login.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/js/playpage.js</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/index.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/register.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/dao/SongDAO.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/home.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/swiper.min.css</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/footer.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/home.css</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-writer.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessWriterServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-addsong.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/playpage.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-updatesong.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/filter/AuthorFilter.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/forgot.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/info-personal.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-user/info-submenu.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-user/infosetting.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/footer.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/HandlePlaySongServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/home.css</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-uploaded.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/newHeader.css</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-update-writer.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/home.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-artist.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/css/swiper.min.css</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/ProcessArtistServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/login.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/UpdateUserController.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-user/info-security.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/VerifyFormServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/page-admin/info-update-artist.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/LoadingSongServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/system/ConfigurationObject.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/error.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/SearchServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/controller/UploadSongServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/web/newHeader.jsp</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/PRJ321_FINAL_PROJECT/src/java/com/mark/filter/AuthenFilter.java</file>
         </group>
     </open-files>
 </project-private>

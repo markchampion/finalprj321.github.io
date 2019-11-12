@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+    
         <jsp:include page="../newHeader.jsp" />
         <div class="container bg-light p-0 shadow rounded col-9" style="height: 500px">
             <div class="sub-container p-5 row">

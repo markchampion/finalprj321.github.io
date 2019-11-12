@@ -56,7 +56,7 @@ public class ProcessArtistServlet extends HttpServlet {
                     response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
                 else {
                     request.setAttribute("delError", "You'll need to delete artist's song first!!!");
-                    request.getRequestDispatcher("personal/info-artist.jsp").forward(request, response);
+                    request.getRequestDispatcher("page-admin/info-artist.jsp").forward(request, response);
                 }
             } else if (action != null && action.equals("update")) {
                 String id = request.getParameter("ID");
@@ -74,7 +74,7 @@ public class ProcessArtistServlet extends HttpServlet {
                     avatar = new ArtistDAO().getArtist(id).getAvatar().split("id=")[1];
                 }
                 ArtistDAO.update(new Artist(id, name, nickName, birthDate, address, description, avatar));
-                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/page-admin/info-artist.jsp");
             } else {
                 String id = request.getParameter("ID");
                 String name = request.getParameter("name");
@@ -88,7 +88,7 @@ public class ProcessArtistServlet extends HttpServlet {
                     avatar = getLink("", fileAvatar, false);
                 }
                 ArtistDAO.insert(new Artist(id, name, nickName, birthDate, address, description, avatar));
-                response.sendRedirect("/PRJ321_FINAL_PROJECT/personal/info-artist.jsp");
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/page-admin/info-artist.jsp");
             }
         }
     }

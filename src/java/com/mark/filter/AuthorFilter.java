@@ -5,6 +5,7 @@
  */
 package com.mark.filter;
 
+import com.mark.model.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -158,17 +159,22 @@ public class AuthorFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse res = (HttpServletResponse) response;
             HttpSession session = req.getSession();
-            String url = req.getRequestURI().toString();
+            if (session.getAttribute("logStatus") == null) {
+                session.setAttribute("error", "This function required login");
+                res.sendRedirect("/PRJ321_FINAL_PROJECT/login.jsp");
+            }
+            String url = req.getRequestURI();
             String context = req.getContextPath();
             url = url.substring(url.indexOf(context) + context.length() + 1);
-            if (session.getAttribute("login") == null) {
-                session.setAttribute("error", "This function required login");
-                res.sendRedirect("/PRJ321_FilterSample/login.jsp");
+            //admin/.... or user/.......
+            User c = (User) session.getAttribute("logStatus");
+            String role = c.getRole();
+            System.out.println(role);
+            System.out.println(url);
+            if (!url.startsWith("page-"+role) && role.equals("user")) {
+                session.setAttribute("error", "This function required " + url.split("/")[0] + " role");
+                res.sendRedirect("/PRJ321_FINAL_PROJECT/error.jsp");
             }
-            //authorization
-           
-            
-            
             chain.doFilter(wrappedRequest, wrappedResponse);
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,

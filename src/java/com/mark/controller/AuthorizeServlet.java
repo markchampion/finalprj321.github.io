@@ -64,7 +64,7 @@ public class AuthorizeServlet extends HttpServlet {
                             }
                         }
                         session.setAttribute("logStatus", user);
-                        response.sendRedirect("index.jsp");
+                        response.sendRedirect("/PRJ321_FINAL_PROJECT/list");
                         return;
                     }
                 }

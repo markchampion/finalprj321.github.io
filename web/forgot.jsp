@@ -37,9 +37,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><img src="img/email.png" width="24" height="24"/></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Your email" id="email" name="email" required />
-                        <span id="wrong-email mb-3"></span>
+                        <input type="email" class="form-control" placeholder="Your email" id="email" name="email" required />
                     </div>
+                    <span id="wrong-email" style="color: red"></span>
                     <input type="hidden" name="action" value="" />
                     <p class="col-9"></p>
                     <button type="button" id="submit" class="btn btn-block btn-success mb-1" onclick="submitEmail()">
