@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#">Explore Music</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" action="/PRJ321_FINAL_PROJECT/search?type=song.[name]">
+                <form class="form-inline my-2 my-lg-0" action="/PRJ321_FINAL_PROJECT/search?type='song.[name]'  ">
                     <input class="form-control border-radius-0" type="search" placeholder="Search" name="search"
                            value="${param.search}" aria-label="Search" style="border-color: #28a745">
                     <button class="btn btn-success my-2 my-sm-0 border-radius-0" type="submit"><i class="fas fa-search"></i></button>

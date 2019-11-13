@@ -9,6 +9,7 @@ import com.mark.dao.ArtistDAO;
 import com.mark.dao.UserDAO;
 import com.mark.dao.WriterDAO;
 import com.mark.javamail.GmailSending;
+import com.mark.model.User;
 import com.mark.system.ConfigurationObject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,6 +43,7 @@ public class VerifyFormServlet extends HttpServlet {
             String capcha = "";
             /* TODO output your page here. You may use following sample code. */
             String from = request.getParameter("from");
+            System.out.println("from: " + from);
             if (from != null && from.equals("writer")) {
                 String id = request.getParameter("writerid");
                 if (WriterDAO.isExist(id)) {
@@ -79,7 +81,7 @@ public class VerifyFormServlet extends HttpServlet {
             } else if (from != null && from.equals("renewPass")) {
                 Cookie[] cookies = request.getCookies();
                 for (Cookie cooky : cookies) {
-                    if(cooky.getName().equals("forgotEmail")) {
+                    if (cooky.getName().equals("forgotEmail")) {
                         if (UserDAO.updatePassword(cooky.getValue(), request.getParameter("newPass"))) {
                             out.write("success");
                             cooky.setMaxAge(0);
@@ -89,7 +91,7 @@ public class VerifyFormServlet extends HttpServlet {
                         out.write("error");
                     }
                 }
-              
+
             } else if (from != null && from.equals("registerEmail")) {
                 if (UserDAO.checkEmail(request.getParameter("email"))) {
                     out.write("Email has been used");
@@ -97,6 +99,44 @@ public class VerifyFormServlet extends HttpServlet {
             } else if (from != null && from.equals("registerUser")) {
                 if (UserDAO.checkUser(request.getParameter("user"))) {
                     out.write("Username has been used");
+                }
+            } else if (from != null && from.equals("changePass")) {
+                String oldPass = request.getParameter("oldPass");
+                String newPass = request.getParameter("newPass");
+                String username = request.getParameter("username");
+                User user;
+                if ((user = new UserDAO().verifyLogin(username, oldPass)) != null) {
+                    UserDAO.updatePasswordByUsername(username, newPass);
+                    System.out.println("changed");
+                    HttpSession session = request.getSession();
+                    user.setPassword(newPass);
+                    session.setAttribute("logStatus", user);
+                    out.write("true");
+                } else {
+                    out.write("false");
+                }
+            } else if (from != null && from.equals("security")) {
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("logStatus");
+
+                String fieldName = request.getParameter("fieldName");
+                String username = request.getParameter("username");
+                if (fieldName != null && fieldName.equals("email")) {
+                    String email = request.getParameter("data");
+                    if (!UserDAO.checkEmail(email)) {
+                        UserDAO.updateEmail(username, email);
+                        user.setEmail(email);
+                        session.setAttribute("logStatus", user);
+                        out.write("true");
+                    } else {
+                        out.write("false");
+                    }
+                } else if (fieldName != null && fieldName.equals("phone")) {
+                    String phone = request.getParameter("data");
+                    UserDAO.updateUserPhone(username, phone);
+                    user.setPhone(phone);
+                    session.setAttribute("logStatus", user);
+                    out.write("true");
                 }
             }
         } catch (Exception e) {

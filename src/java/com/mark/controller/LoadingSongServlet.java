@@ -46,7 +46,6 @@ public class LoadingSongServlet extends javax.servlet.http.HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
             List<Song> songs = new SongDAO().getSongsByViews();
             request.setAttribute("songs", songs);
             request.getRequestDispatcher("home.jsp").forward(request, response);

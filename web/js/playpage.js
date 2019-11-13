@@ -1,12 +1,12 @@
 var audioElement = document.getElementById('my-audio');
 
-
 audioElement.ontimeupdate = function(){
     changeDuration(audioElement.currentTime); 
 };
 function changeVolume(val) {
     audioElement.volume = val / 100;
 }
+
 function changeDuration(val){
     var rangeElement = document.getElementById('duration-range');
     var total = audioElement.duration;

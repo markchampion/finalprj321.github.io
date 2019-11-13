@@ -1,0 +1,69 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 13, 2019, 5:49:18 PM
+    Author     : PC
+*/
+
+#my-audio::-webkit-media-controls-panel{
+    width: 30px;
+}
+
+audio::-webkit-media-controls-mute-button
+
+#my-audio::-webkit-media-controls-play-button {
+    background-image: url('../img/pButton.png');
+    background-position: center;
+    background-size: contain;
+    
+}
+
+#my-audio::-webkit-media-controls-timeline-container{
+    background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-current-time-display{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-time-remaining-display{
+    background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-timeline{
+   background-color: #4CAF50;
+}
+#my-audio::-webkit-media-controls-volume-slider-container{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-volume-slider{
+    background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-seek-back-button{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-seek-forward-button{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-fullscreen-button{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-rewind-button{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-return-to-realtime-button{
+     background-color: #4CAF50;
+}
+
+#my-audio::-webkit-media-controls-toggle-closed-captions-button{
+     background-color: #4CAF50;
+}

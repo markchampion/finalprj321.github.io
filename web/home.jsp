@@ -129,7 +129,7 @@
                             <div class="t-music-chart">
                                 <h4 class="t-new-today-title">#T-Chart</h4>         
                                 <c:forEach var="s" items="${songs}" begin="0" step="1" varStatus="i" end="9">
-                                    <div class="vertical-song-card d-flex ${i.count==1 ? 'bg-light-red':(i.count==2?'bg-gold':(i.count==3?'bg-purple':(i.count==4?'bg-blue':'bg-green')))}">
+                                    <div class="vertical-song-card d-flex ${i.count==1 ? 'bg-light-red':(i.count==2?'bg-gold':(i.count==3?'bg-purple':'bg-green'))}">
                                         <div class="card-order pt-3 pl-3 mr-3"><span>${i.count}</span></div>
                                         <a class="img-title mr-3" href="play?id=${s.ID}">
                                             <img src="${s.avatar}" width="56px" height="56px" />

@@ -73,7 +73,7 @@ public class AuthorizeServlet extends HttpServlet {
             } else if (action != null && action.equals("logout")) {
                 session.removeAttribute("logStatus");
                 session.removeAttribute("error");
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/PRJ321_FINAL_PROJECT/login.jsp");
             } else if (action != null && action.equals("register")) {
                 String defaultAvatar = "1uuiw3Y-YnuE9bYrnx-7tzGsw5KRUIluS";
                 String username = request.getParameter("username");

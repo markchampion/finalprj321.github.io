@@ -19,6 +19,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/PRJ321_FINAL_PROJECT/css/playpage.css" />
+        <script src="js/mediaelement-and-player.min.js">
+            audioElement.mediaelementplayer();
+        </script>
+        <!-- Add any other renderers you need; see Use Renderers for more information -->
+        <link rel="stylesheet" href="css/mediaelementplayer.min.css" />
         <title>JSP Page</title>
         <style>
             .view-more:hover {
@@ -73,14 +78,13 @@
         </style>
     </head>
     <body>
+
         <%@include file="newHeader.jsp" %>
         <div class="container p-3">
             <div class="inside-1-1 bg-light p-3 pl-4">
-                <audio id="my-audio" controls style="display: none"> 
-                    <source src="${playsong.downLink}" type="audio/mpeg"/>
-                </audio>
+
                 <div class="song-avatar pr-5 fl position-relative">
-                    <div onclick="loadSound()" class="p-0 rounded-circle " style="overflow: hidden">
+                    <div onclick="playSong()" class="p-0 rounded-circle " style="overflow: hidden">
                         <img class="image rounded-circle" id="audio-image" style="animation-play-state: paused" src="${playsong.avatar}" width="148" height="148"/>
                         <i id="audio-state" class="position-absolute play-button"></i>
                     </div>
@@ -118,7 +122,8 @@
                         border-radius: 50%
                     }
                     .audio-component {
-                        margin-left: 32em;
+                        float: right;
+                        margin-top: -6em;
                     }
                     .repeat-btn {
                         width: 24px;
@@ -132,10 +137,13 @@
                         background-color: #b1dfbb;
                     }
                 </style>
-                <div class="audio-component">   
+                <div class="audio-component position-relative">  
+                    <audio id="my-audio" controls class="mt-5 pr-5"> 
+                        <source src="${playsong.downLink}" type="audio/mpeg"/>
+                    </audio>
                     <i class="repeat-btn rounded-circle" id="repeat-btn" onclick="checkLoop()"><img src="img/repeat.png" height="24" width="24"/></i>
-                    <input type="range" min="0" max="100" value="50" id="volume-range" class="my-slider" onchange="changeVolume(this.value)"/>
-                    <input type="range" min="0" max="100" value="0" id="duration-range" class="my-slider" onchange="changeDuration(this.value)"/>
+                    <!--<input type="range" min="0" max="100" value="50" id="volume-range" class="my-slider" onchange="changeVolume(this.value)"/>-->
+                    <!--<input type="range" min="0" max="100" value="0" id="duration-range" class="my-slider" onchange="changeDuration(this.value)"/>-->
                 </div>
             </div>
             <div class="inside-1-2 text-white bg-info text-center"> 
@@ -212,18 +220,18 @@
                                     </c:forEach>
                                 <script>
                                     function addToPlaylist(id) {
-                                        console.log($('#p'+id+'-status-add').hasClass('hidden'));
+                                        console.log($('#p' + id + '-status-add').hasClass('hidden'));
                                         $.post('addplaylist',
                                                 {
-                                                    action: $('#p'+id+'-status-add').hasClass('hidden') ? 'delete':'add',
+                                                    action: $('#p' + id + '-status-add').hasClass('hidden') ? 'delete' : 'add',
                                                     userID: ${sessionScope.logStatus.ID},
                                                     playlistID: id,
                                                     from: 'playpage',
                                                     songID: ${playsong.ID}
                                                 },
                                                 (responseText) => {
-                                                $('#p'+id+'-status-add').toggleClass("hidden");
-                                                $('#p'+id+'-status-remove').toggleClass('hidden');
+                                            $('#p' + id + '-status-add').toggleClass("hidden");
+                                            $('#p' + id + '-status-remove').toggleClass('hidden');
                                         });
                                     }
                                 </script>

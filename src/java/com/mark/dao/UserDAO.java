@@ -20,9 +20,8 @@ public class UserDAO {
 
     //SELECT ALL USER
     //CHECK LOGIN
-    
     public static boolean checkPass(String email, String password) {
-        String sql = "select * from users where email = '" + email + "' and password = '" +password+"'";
+        String sql = "select * from users where email = '" + email + "' and password = '" + password + "'";
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
             return rs.next();
@@ -31,9 +30,9 @@ public class UserDAO {
         }
         return false;
     }
-    
-    public static boolean updatePassword(String email, String newPass) {
-         String sql = "update users set password = '" + newPass +"' where email = '" + email + "'";
+
+    public static boolean updateEmail(String username, String newEmail) {
+        String sql = "update users set email = '" + newEmail + "' where username = '" + username + "'";
         try (Connection conn = new DBContext().getConnection();
                 PreparedStatement rs = conn.prepareStatement(sql)) {
             return rs.executeUpdate() == 1;
@@ -43,8 +42,43 @@ public class UserDAO {
         return false;
     }
     
+    //UPDATE BY EMAIL
+    public static boolean updatePassword(String email, String newPass) {
+        String sql = "update users set password = '" + newPass + "' where email = '" + email + "'";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql)) {
+            return rs.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    //UPDATE BY USERNAME
+    public static boolean updatePasswordByUsername(String users, String newPass) {
+        String sql = "update users set password = '" + newPass + "' where username = '" + users + "'";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql)) {
+            return rs.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean updateUserPhone(String users, String phone) {
+        String sql = "update users set phone = '" + phone + "' where username = '" + users + "'";
+        try (Connection conn = new DBContext().getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql)) {
+            return rs.executeUpdate() == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+
     public User verifyLogin(String username, String pass) {
-        String sql = "select * from users where username = '" + username + "'";
+        String sql = "select * from users where username = '" + username + "' and password = '" +pass+"'";
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
             if (rs.next() && rs.getString("password").equals(pass)) {
@@ -90,7 +124,7 @@ public class UserDAO {
     }
 
     public User select(String username) {
-        String sql = "select * from users where username = '" + username+"'";
+        String sql = "select * from users where username = '" + username + "'";
         try (Connection conn = new DBContext().getConnection();
                 ResultSet rs = conn.prepareStatement(sql).executeQuery();) {
             if (rs.next()) {
@@ -111,7 +145,7 @@ public class UserDAO {
         }
         return null;
     }
-    
+
     public User selectByID(int userID) {
         String sql = "select * from users where id = " + userID;
         try (Connection conn = new DBContext().getConnection();

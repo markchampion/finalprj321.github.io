@@ -71,7 +71,7 @@
         <url-pattern>/signin.do</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>home</welcome-file>
+        <welcome-file>list</welcome-file>
     </welcome-file-list>
     <servlet-mapping>
         <servlet-name>LoadingSongServlet</servlet-name>
