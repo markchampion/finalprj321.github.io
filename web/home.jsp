@@ -19,7 +19,7 @@ hahahahahaha
         <link rel="stylesheet" href="css/home.css" />
         <link rel="stylesheet" href="css/swiper.min.css">
         <script src="js/swiper.min.js"></script>
-        <title>JSP Page</title>
+        <title>JSP MP3</title>
     </head>
     <body>
         <div class="t-mp3-pageWrapper">
